@@ -1,6 +1,8 @@
 # Tailwind CSS Portfolio Checkpoint
 
-My portfolio site, built with Tailwind CSS through the Play CDN. It's a four-page site for Crous WebCo, my web development studio, and it doubles as the Tailwind checkpoint project.
+My portfolio site, built with Tailwind CSS through the Play CDN.
+
+**Live site:** https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/ It's a four-page site for Crous WebCo, my web development studio, and it doubles as the Tailwind checkpoint project.
 
 ## Pages
 
@@ -40,9 +42,9 @@ Then visit `http://localhost:8000`.
 
 ## Publishing checklist
 
-- [ ] Push the full folder to a public GitHub repository
-- [ ] Deploy the site with GitHub Pages
-- [ ] Add the live URL to this README
+- [x] Push the full folder to a public GitHub repository
+- [x] Deploy the site with GitHub Pages
+- [x] Add the live URL to this README
 - [ ] Write and publish the blog post with desktop/mobile screenshots
 - [ ] Record and publish the YouTube walkthrough
 - [ ] Share the project on LinkedIn and social media
