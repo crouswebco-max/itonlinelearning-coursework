@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Juan Crous, web developer at Crous WebCo: websites for small businesses and independent professionals.">
+    <title>Juan Crous | Web Developer</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-brand-red: #da373d;
+            --color-deep-charcoal: #1a1a1a;
+        }
+    </style>
+</head>
+<body class="bg-stone-100 font-sans text-deep-charcoal">
+    <header class="border-b-2 border-deep-charcoal bg-white">
+        <nav class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-4 px-6 py-5" aria-label="Main navigation">
+            <a href="home.html" class="text-sm font-black tracking-tight transition-colors hover:text-brand-red">JUAN_CROUS</a>
+            <div class="order-last flex w-full flex-wrap items-center gap-x-6 gap-y-2 text-xs font-bold uppercase tracking-widest sm:order-none sm:w-auto sm:gap-8">
+                <a href="home.html" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:text-brand-red">Home</a>
+                <a href="projects.html" class="transition-colors hover:text-brand-red">Work</a>
+                <a href="gallery.html" class="transition-colors hover:text-brand-red">Gallery</a>
+                <a href="contact.html" class="transition-colors hover:text-brand-red">Contact</a>
+            </div>
+            <a href="contact.html" class="border-2 border-deep-charcoal bg-deep-charcoal px-4 py-2 text-[10px] font-black tracking-widest text-white transition-colors hover:border-brand-red hover:bg-brand-red">GET_IN_TOUCH</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero: fills the screen below the header -->
+        <section class="flex min-h-[calc(100vh-150px)] items-center border-b-2 border-deep-charcoal px-6 py-16">
+            <div class="mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+                <div>
+                    <p class="mb-6 text-xs font-bold uppercase tracking-[0.35em] text-brand-red">Web developer // Crous WebCo</p>
+                    <h1 class="max-w-4xl text-4xl font-black uppercase leading-[0.9] tracking-[-0.06em] sm:text-6xl lg:text-7xl xl:text-8xl">Websites for small businesses.</h1>
+                    <p class="mt-8 max-w-xl text-base leading-7 text-stone-600">I'm Juan Crous. I run Crous WebCo, a small web development studio, and I build sites that are quick to load, easy to read on a phone, and easy for the owner to look after. I'm studying web development with ITonlinelearning to keep sharpening the fundamentals.</p>
+                    <div class="mt-10 flex flex-wrap gap-3">
+                        <a href="projects.html" class="border-2 border-deep-charcoal bg-deep-charcoal px-6 py-4 text-xs font-black uppercase tracking-widest text-white transition-colors hover:border-brand-red hover:bg-brand-red">See my work →</a>
+                        <a href="contact.html" class="border-2 border-deep-charcoal px-6 py-4 text-xs font-black uppercase tracking-widest transition-colors hover:bg-brand-red hover:text-white">Get in touch</a>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden border-2 border-deep-charcoal bg-deep-charcoal p-3">
+                    <img src="images/juan.jpg" alt="Photo of Juan Crous" class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0">
+                    <p class="absolute bottom-7 left-7 bg-deep-charcoal px-3 py-2 text-xs font-black uppercase tracking-widest text-white">Juan Crous</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- What I do -->
+        <section class="grid grid-cols-1 border-b-2 border-deep-charcoal bg-white sm:grid-cols-2 lg:grid-cols-4" aria-label="What I work with">
+            <div class="border-b border-stone-300 px-6 py-8 sm:border-r lg:border-b-0"><p class="text-[10px] font-bold uppercase tracking-widest text-stone-500">01</p><h2 class="mt-2 text-lg font-black uppercase">HTML5</h2><p class="mt-2 text-sm leading-6 text-stone-600">Semantic page structure, forms and embedded content.</p></div>
+            <div class="border-b border-stone-300 px-6 py-8 lg:border-b-0 lg:border-r"><p class="text-[10px] font-bold uppercase tracking-widest text-stone-500">02</p><h2 class="mt-2 text-lg font-black uppercase">CSS3</h2><p class="mt-2 text-sm leading-6 text-stone-600">Flexbox, Grid, custom fonts, and layouts that work on any screen.</p></div>
+            <div class="border-b border-stone-300 px-6 py-8 sm:border-r sm:border-b-0"><p class="text-[10px] font-bold uppercase tracking-widest text-stone-500">03</p><h2 class="mt-2 text-lg font-black uppercase">JavaScript</h2><p class="mt-2 text-sm leading-6 text-stone-600">Interactive pieces like form checks, menus and buttons.</p></div>
+            <div class="px-6 py-8"><p class="text-[10px] font-bold uppercase tracking-widest text-stone-500">04</p><h2 class="mt-2 text-lg font-black uppercase">React &amp; Next.js</h2><p class="mt-2 text-sm leading-6 text-stone-600">Component-based sites for client work at Crous WebCo.</p></div>
+        </section>
+
+        <!-- Featured work -->
+        <section class="mx-auto max-w-7xl px-6 py-16">
+            <div class="mb-10 flex flex-col justify-between gap-5 border-b-2 border-deep-charcoal pb-8 sm:flex-row sm:items-end">
+                <div>
+                    <p class="mb-4 text-xs font-bold uppercase tracking-[0.35em] text-brand-red">Selected work</p>
+                    <h2 class="text-4xl font-black uppercase leading-none tracking-[-0.05em] sm:text-6xl">Recent projects</h2>
+                </div>
+                <a href="projects.html" class="w-fit border-b-2 border-deep-charcoal pb-1 text-xs font-black uppercase tracking-widest transition-colors hover:border-brand-red hover:text-brand-red">See all work →</a>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-3">
+                <article class="group border-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
+                    <div class="aspect-[4/3] overflow-hidden border border-stone-300 bg-stone-200">
+                        <img src="images/projects/nova.jpg" alt="Home page of the Nova designer portfolio website" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+                    </div>
+                    <h3 class="mt-6 text-xl font-black uppercase leading-none">Nova Portfolio</h3>
+                    <p class="mt-4 text-sm leading-6 text-stone-600">A five-page portfolio built from a written design brief, in a dark, minimal style.</p>
+                    <div class="mt-6 flex flex-wrap gap-3 text-[9px] font-bold uppercase tracking-widest text-stone-500"><span>#HTML</span><span>#CSS Grid</span><span>#Responsive</span></div>
+                </article>
+
+                <article class="group border-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
+                    <div class="aspect-[4/3] overflow-hidden border border-stone-300 bg-stone-200">
+                        <img src="images/projects/yachting.jpg" alt="Home page of the Elegant Yachting Tours website" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+                    </div>
+                    <h3 class="mt-6 text-xl font-black uppercase leading-none">Yachting Tours</h3>
+                    <p class="mt-4 text-sm leading-6 text-stone-600">A multi-page site for a sailing tour company, with a fixed menu, photo gallery and contact page.</p>
+                    <div class="mt-6 flex flex-wrap gap-3 text-[9px] font-bold uppercase tracking-widest text-stone-500"><span>#HTML</span><span>#CSS</span><span>#Multi-page</span></div>
+                </article>
+
+                <article class="flex flex-col justify-between border-2 border-deep-charcoal bg-deep-charcoal p-6 text-white transition-colors hover:bg-brand-red">
+                    <div class="text-3xl">✦</div>
+                    <div>
+                        <h3 class="text-xl font-black uppercase leading-none">Need a website for your business?</h3>
+                        <p class="mt-4 text-sm leading-6 text-stone-300">Tell me what you do and what you need, and I'll tell you what it would take.</p>
+                        <a href="contact.html" class="mt-6 inline-block border border-white px-4 py-3 text-[10px] font-black uppercase tracking-widest transition-colors hover:bg-white hover:text-deep-charcoal">Start a project</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t-2 border-deep-charcoal bg-stone-200">
+        <div class="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-6 text-[10px] font-bold uppercase tracking-widest text-stone-500 sm:flex-row sm:items-center sm:justify-between">
+            <p>© 2026 Juan Crous · Crous WebCo</p>
+            <div class="flex flex-wrap gap-5">
+                <a href="https://github.com/CrousWebco-tech" class="transition-colors hover:text-brand-red">GitHub</a>
+                <a href="gallery.html" class="transition-colors hover:text-brand-red">Gallery</a>
+                <a href="contact.html" class="transition-colors hover:text-brand-red">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

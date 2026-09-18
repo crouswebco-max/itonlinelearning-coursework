@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tailwind CSS installed with npm and built with the Tailwind CLI.">
+    <title>NPM Tailwind</title>
+    <!-- Not the CDN this time: this stylesheet is built by the Tailwind CLI
+         from src/input.css, with "npm run build". -->
+    <link href="src/output.css" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-slate-950 font-display text-white">
+    <header class="border-b border-slate-800">
+        <nav class="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-4 px-6 py-5" aria-label="Main navigation">
+            <a href="home.html" class="text-lg font-bold text-tahiti">NPM Tailwind</a>
+            <div class="flex flex-wrap gap-5 text-sm text-slate-300">
+                <a href="#setup" class="transition-colors hover:text-tahiti">Setup</a>
+                <a href="#theme" class="transition-colors hover:text-tahiti">Theme</a>
+                <a href="#why" class="transition-colors hover:text-tahiti">Why npm</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="mx-auto max-w-4xl px-6 py-14">
+        <section class="rounded-lg border border-tahiti bg-slate-900 p-8">
+            <p class="text-xs font-bold uppercase tracking-[0.3em] text-tahiti">Module 4</p>
+            <h1 class="mt-4 text-3xl font-bold underline decoration-tahiti decoration-4 underline-offset-8 sm:text-5xl">Tailwind, installed with npm</h1>
+            <p class="mt-6 max-w-2xl text-slate-300">This page doesn't use the Play CDN. Tailwind is installed in this folder with npm, and the Tailwind CLI reads <code class="rounded bg-slate-800 px-1.5 py-0.5 text-tahiti">src/input.css</code>, finds the classes used in the HTML, and writes only those into <code class="rounded bg-slate-800 px-1.5 py-0.5 text-tahiti">src/output.css</code>.</p>
+        </section>
+
+        <section id="setup" class="mt-10">
+            <h2 class="text-xl font-bold text-tahiti">Setting it up</h2>
+            <ol class="mt-5 grid gap-4 sm:grid-cols-3">
+                <li class="rounded-lg border border-slate-800 bg-slate-900 p-5">
+                    <p class="text-xs font-bold uppercase tracking-widest text-slate-500">Step 1</p>
+                    <p class="mt-2 font-bold">Install</p>
+                    <code class="mt-3 block rounded bg-slate-800 px-3 py-2 text-xs text-tahiti">npm install</code>
+                </li>
+                <li class="rounded-lg border border-slate-800 bg-slate-900 p-5">
+                    <p class="text-xs font-bold uppercase tracking-widest text-slate-500">Step 2</p>
+                    <p class="mt-2 font-bold">Build the CSS</p>
+                    <code class="mt-3 block rounded bg-slate-800 px-3 py-2 text-xs text-tahiti">npm run build</code>
+                </li>
+                <li class="rounded-lg border border-slate-800 bg-slate-900 p-5">
+                    <p class="text-xs font-bold uppercase tracking-widest text-slate-500">Step 3</p>
+                    <p class="mt-2 font-bold">Keep it building</p>
+                    <code class="mt-3 block rounded bg-slate-800 px-3 py-2 text-xs text-tahiti">npm run watch</code>
+                </li>
+            </ol>
+        </section>
+
+        <section id="theme" class="mt-10 rounded-lg border border-slate-800 bg-slate-900 p-8">
+            <h2 class="text-xl font-bold text-tahiti">The custom theme</h2>
+            <p class="mt-4 text-slate-300">The <code class="rounded bg-slate-800 px-1.5 py-0.5 text-tahiti">@theme</code> block in <code class="rounded bg-slate-800 px-1.5 py-0.5 text-tahiti">src/input.css</code> adds names of my own, which then work like any built-in Tailwind class.</p>
+            <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                <div class="rounded-lg border border-slate-800 p-5">
+                    <div class="h-16 rounded bg-tahiti"></div>
+                    <p class="mt-4 font-bold">--color-tahiti</p>
+                    <p class="mt-1 text-sm text-slate-400">Used by <span class="text-tahiti">text-tahiti</span>, <span class="text-tahiti">bg-tahiti</span> and <span class="text-tahiti">border-tahiti</span>.</p>
+                </div>
+                <div class="rounded-lg border border-slate-800 p-5">
+                    <p class="text-2xl font-bold">Trebuchet MS</p>
+                    <p class="mt-4 font-bold">--font-display</p>
+                    <p class="mt-1 text-sm text-slate-400">Used by <span class="text-tahiti">font-display</span>, which is set on the whole page.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="why" class="mt-10">
+            <h2 class="text-xl font-bold text-tahiti">Why use npm instead of the CDN?</h2>
+            <ul class="mt-5 grid gap-3 text-slate-300 sm:grid-cols-3">
+                <li class="rounded-lg border border-slate-800 bg-slate-900 p-5"><span class="font-bold text-white">Smaller.</span> Only the classes I actually use end up in the file.</li>
+                <li class="rounded-lg border border-slate-800 bg-slate-900 p-5"><span class="font-bold text-white">Offline.</span> The page works with no internet, because the CSS is a local file.</li>
+                <li class="rounded-lg border border-slate-800 bg-slate-900 p-5"><span class="font-bold text-white">Fixed version.</span> Tailwind's version is pinned in <code class="text-tahiti">package.json</code>, so it can't change under me.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-800">
+        <div class="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 px-6 py-6 text-sm text-slate-500">
+            <p>Tailwind CSS course, Module 4</p>
+            <p>Built with the Tailwind CLI</p>
+        </div>
+    </footer>
+</body>
+</html>
