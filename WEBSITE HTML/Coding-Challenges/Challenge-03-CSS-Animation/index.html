@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Orbit Planetarium: star shows, telescope evenings and a café under an artificial sky.">
+  <title>Orbit Planetarium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!--
+    Coding Challenge 3: CSS Animation.
+    Everything that moves on this page is done with CSS only, no JavaScript.
+    The techniques are listed in the "How this page moves" section near the
+    bottom, and every animation is switched off for visitors who ask for
+    reduced motion in their system settings.
+  -->
+
+  <!-- The twinkling star layers sit behind everything -->
+  <div class="starfield" aria-hidden="true">
+    <div class="star-layer star-layer-1"></div>
+    <div class="star-layer star-layer-2"></div>
+    <div class="star-layer star-layer-3"></div>
+  </div>
+
+  <header class="site-header">
+    <a class="logo" href="index.html">
+      <span class="logo-orbit" aria-hidden="true"><span class="logo-planet"></span></span>
+      Orbit
+    </a>
+    <nav aria-label="Main menu">
+      <ul class="nav-links">
+        <li><a class="nav-link is-current" href="index.html">Home</a></li>
+        <li><a class="nav-link" href="shows.html">Show times</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero: each line fades up a moment after the one before it -->
+    <section class="hero">
+      <p class="eyebrow reveal" style="--delay: 0s">Open Wednesday to Sunday</p>
+      <h1 class="hero-title">
+        <span class="reveal" style="--delay: 0.1s">Sit back.</span>
+        <span class="reveal" style="--delay: 0.25s">Look up.</span>
+      </h1>
+      <p class="hero-text reveal" style="--delay: 0.4s">A small planetarium with a very large sky. Star shows every evening, telescope nights when it's clear, and a café that stays open late.</p>
+      <div class="hero-buttons reveal" style="--delay: 0.55s">
+        <a class="button" href="shows.html">See tonight's shows</a>
+        <a class="button button-ghost" href="#visit">Plan a visit</a>
+      </div>
+
+      <!-- A planet that drifts up and down for as long as the page is open -->
+      <div class="planet" aria-hidden="true">
+        <span class="planet-ring"></span>
+      </div>
+    </section>
+
+    <!-- Hover effects: lift, glow, and an icon that spins -->
+    <section class="section" id="what-we-do">
+      <h2 class="section-title">What's on</h2>
+      <p class="section-intro">Hover any card, or tab to it with the keyboard.</p>
+      <div class="card-grid">
+        <article class="card" tabindex="0">
+          <span class="card-icon" aria-hidden="true">★</span>
+          <h3>Star shows</h3>
+          <p>A 40-minute tour of tonight's sky, narrated live by whoever is on the desk.</p>
+          <span class="card-more">Every evening →</span>
+        </article>
+        <article class="card" tabindex="0">
+          <span class="card-icon" aria-hidden="true">◐</span>
+          <h3>Telescope nights</h3>
+          <p>We wheel the big telescope onto the roof whenever the forecast is kind.</p>
+          <span class="card-more">Clear nights →</span>
+        </article>
+        <article class="card" tabindex="0">
+          <span class="card-icon" aria-hidden="true">☕</span>
+          <h3>The café</h3>
+          <p>Cake, coffee and a ceiling painted with the winter constellations.</p>
+          <span class="card-more">Open till 10pm →</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- A band of text that slides past forever, and pauses when you hover it -->
+    <section class="marquee" aria-label="Objects visible tonight">
+      <div class="marquee-track">
+        <span>Andromeda</span><span>·</span><span>Orion's Belt</span><span>·</span><span>Jupiter</span><span>·</span><span>The Pleiades</span><span>·</span><span>Saturn</span><span>·</span><span>Cassiopeia</span><span>·</span>
+        <span aria-hidden="true">Andromeda</span><span aria-hidden="true">·</span><span aria-hidden="true">Orion's Belt</span><span aria-hidden="true">·</span><span aria-hidden="true">Jupiter</span><span aria-hidden="true">·</span><span aria-hidden="true">The Pleiades</span><span aria-hidden="true">·</span><span aria-hidden="true">Saturn</span><span aria-hidden="true">·</span><span aria-hidden="true">Cassiopeia</span><span aria-hidden="true">·</span>
+      </div>
+    </section>
+
+    <!-- These fade in as they scroll into view -->
+    <section class="section" id="visit">
+      <h2 class="section-title">Plan a visit</h2>
+      <div class="step-list">
+        <div class="step scroll-reveal">
+          <span class="step-number" aria-hidden="true">01</span>
+          <h3>Pick a show</h3>
+          <p>Show times are on the <a class="link-slide" href="shows.html">show times page</a>. Evening shows fill up first.</p>
+        </div>
+        <div class="step scroll-reveal">
+          <span class="step-number" aria-hidden="true">02</span>
+          <h3>Arrive early</h3>
+          <p>The doors close when the show starts, because the room has to be properly dark.</p>
+        </div>
+        <div class="step scroll-reveal">
+          <span class="step-number" aria-hidden="true">03</span>
+          <h3>Stay for the roof</h3>
+          <p>If the sky is clear, the telescope goes up straight after the last show.</p>
+        </div>
+      </div>
+
+      <p class="status">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        Tonight's sky: clear, telescope going up at 9pm
+      </p>
+    </section>
+
+    <!-- What each animation is, so it's easy to see how the page was built -->
+    <section class="section" id="how">
+      <h2 class="section-title">How this page moves</h2>
+      <p class="section-intro">Every effect below is plain CSS. No JavaScript is used anywhere on this site.</p>
+      <div class="table-wrap">
+        <table class="how-table">
+          <thead>
+            <tr><th scope="col">Effect</th><th scope="col">Where</th><th scope="col">Built with</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Fade and rise on load</td><td>Hero lines, one after another</td><td><code>@keyframes</code> + <code>animation-delay</code></td></tr>
+            <tr><td>Twinkling stars</td><td>The background</td><td><code>@keyframes</code> + <code>animation-direction: alternate</code></td></tr>
+            <tr><td>Drifting planet</td><td>Right of the hero</td><td><code>transform: translateY</code> on a loop</td></tr>
+            <tr><td>Lift and glow</td><td>The three cards</td><td><code>transition</code> on <code>:hover</code> and <code>:focus</code></td></tr>
+            <tr><td>Spinning icon</td><td>Card icons, on hover</td><td><code>transform: rotate</code></td></tr>
+            <tr><td>Shine sweep</td><td>The main buttons</td><td><code>::after</code> moved on hover</td></tr>
+            <tr><td>Sliding underline</td><td>Links inside paragraphs</td><td><code>transform: scaleX</code> + <code>transform-origin</code></td></tr>
+            <tr><td>Endless scroll</td><td>The band of star names</td><td><code>@keyframes</code>, paused on hover</td></tr>
+            <tr><td>Pulse</td><td>The green dot above</td><td><code>@keyframes</code> on <code>box-shadow</code></td></tr>
+            <tr><td>Reveal on scroll</td><td>The three numbered steps</td><td><code>animation-timeline: view()</code></td></tr>
+            <tr><td>Page transition</td><td>Moving between these two pages</td><td><code>@view-transition</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Orbit Planetarium · 4 Meridian Way · A made-up place, built for a CSS animation exercise.</p>
+    <a class="link-slide" href="shows.html">See the show times →</a>
+  </footer>
+</body>
+</html>

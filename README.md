@@ -19,7 +19,7 @@ My coursework for the IT Online Learning web development courses: HTML, CSS and 
 |---|---|---|
 | 01 | Personal Portfolio | Done |
 | 02 | Responsive Design | Done |
-| 03 | CSS Animation | To do |
+| 03 | CSS Animation | Done |
 | 04 | Form Styling | Done |
 | 05 | Flexbox/Grid Layout | Done |
 | 06 | Typography | Done |
@@ -28,7 +28,7 @@ My coursework for the IT Online Learning web development courses: HTML, CSS and 
 | 09 | Map Page | Done |
 | 10 | Accessibility | Done |
 | 11 | PSD to HTML | To do |
-| 12 | HTML Email Template | To do |
+| 12 | HTML Email Template | Done |
 | 13 | Web Application UI | Done |
 
 ## Viewing the pages
