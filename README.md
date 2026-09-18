@@ -2,6 +2,8 @@
 
 My coursework for the IT Online Learning web development courses: HTML, CSS and Tailwind CSS. Every project is plain HTML and CSS (plus a little JavaScript in a few places), so you can open any `index.html` straight in a browser.
 
+**Live site:** https://crouswebco-max.github.io/itonlinelearning-coursework/ — every project can be opened from there, and my portfolio is at [Portfolio Checkpoint](https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/).
+
 ## Folders
 
 | Folder | What's inside |
