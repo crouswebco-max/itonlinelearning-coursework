@@ -1,0 +1,5 @@
+# macOS folder settings
+.DS_Store
+
+# npm packages (run "npm install" inside the project folder to get them back)
+node_modules/
