@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Us | Sunny Side Café</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!--Header with logo and menu-->
+  <header>
+    <a href="index.html" class="logo">☕ Sunny Side Café</a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="booking.html">Book a Table</a></li>
+        <li><a href="find-us.html">Find Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Find Us</h1>
+    <hr />
+    <p>We're just off the Piazza in Covent Garden. The map below shows where to find us. Use the buttons underneath it to reload the map or view it full screen.</p>
+
+    <div class="map-container">
+      <iframe src="https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1sCovent+Garden+Piazza,+London+WC2E"
+        title="Map showing Sunny Side Café in Covent Garden"
+        width="600"
+        height="450"
+        loading="lazy"
+        allowfullscreen=""
+        referrerpolicy="no-referrer-when-downgrade"
+        sandbox="allow-scripts allow-same-origin allow-popups">
+        <p>Your browser can't show the map. <a href="https://www.google.com/maps/search/?api=1&query=Covent+Garden+Piazza,+London">Open it in Google Maps</a>.</p>
+      </iframe>
+    </div>
+
+    <div class="map-controls">
+      <button onclick="reloadMap()">Reload Map</button>
+      <button onclick="showFullscreen()">Fullscreen</button>
+    </div>
+
+    <aside class="info-box">
+      <h2>Getting Here</h2>
+      <ul>
+        <li><strong>Tube:</strong> Covent Garden (Piccadilly line) or Leicester Square</li>
+        <li><strong>Bus:</strong> several routes stop along the Strand</li>
+      </ul>
+    </aside>
+  </main>
+
+  <!--Footer-->
+  <footer>
+    <p>&copy; 2026 Sunny Side Café. All rights reserved.</p>
+    <ul class="social-links">
+      <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+      <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
+      <li><a href="https://www.tiktok.com" target="_blank">TikTok</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    function reloadMap() {
+      const map = document.querySelector('.map-container iframe');
+      map.src = map.src;
+    }
+
+    function showFullscreen() {
+      const map = document.querySelector('.map-container iframe');
+      if (map.requestFullscreen) {
+        map.requestFullscreen();
+      }
+    }
+  </script>
+</body>
+</html>

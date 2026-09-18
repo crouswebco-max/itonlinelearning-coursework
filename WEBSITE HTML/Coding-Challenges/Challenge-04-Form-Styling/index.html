@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sign up for StudyBuddy: find a tutor and book your first session.">
+  <title>Sign Up | StudyBuddy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <div class="form-card">
+      <div class="form-intro">
+        <h1>Create your account</h1>
+        <p>Join StudyBuddy to book one-to-one tutoring sessions in the subjects you're learning.</p>
+      </div>
+
+      <form novalidate>
+        <!-- Floating-label text fields: the label sits inside the box until you type -->
+        <div class="field-row">
+          <div class="field floating">
+            <input type="text" id="first-name" name="first-name" placeholder=" " required minlength="2" autocomplete="given-name">
+            <label for="first-name">First name</label>
+            <span class="error">Enter at least 2 characters.</span>
+          </div>
+          <div class="field floating">
+            <input type="text" id="last-name" name="last-name" placeholder=" " required minlength="2" autocomplete="family-name">
+            <label for="last-name">Last name</label>
+            <span class="error">Enter at least 2 characters.</span>
+          </div>
+        </div>
+
+        <div class="field floating">
+          <input type="email" id="email" name="email" placeholder=" " required autocomplete="email">
+          <label for="email">Email address</label>
+          <span class="error">Enter a valid email address.</span>
+        </div>
+
+        <div class="field-row">
+          <div class="field floating">
+            <input type="password" id="password" name="password" placeholder=" " required minlength="8" autocomplete="new-password">
+            <label for="password">Password</label>
+            <span class="error">At least 8 characters.</span>
+          </div>
+          <div class="field floating">
+            <input type="password" id="confirm-password" name="confirm-password" placeholder=" " required minlength="8" autocomplete="new-password">
+            <label for="confirm-password">Confirm password</label>
+            <span class="error" data-mismatch>Passwords don't match.</span>
+          </div>
+        </div>
+
+        <div class="field floating">
+          <select id="subject" name="subject" required>
+            <option value="" disabled selected hidden> </option>
+            <option value="maths">Maths</option>
+            <option value="english">English</option>
+            <option value="science">Science</option>
+            <option value="coding">Coding</option>
+          </select>
+          <label for="subject">Subject you need help with</label>
+          <span class="error">Choose a subject.</span>
+        </div>
+
+        <fieldset class="field-group">
+          <legend>Your current level</legend>
+          <div class="radio-row">
+            <label class="radio-option">
+              <input type="radio" name="level" value="beginner" checked>
+              <span class="radio-dot"></span>
+              Beginner
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="level" value="intermediate">
+              <span class="radio-dot"></span>
+              Intermediate
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="level" value="advanced">
+              <span class="radio-dot"></span>
+              Advanced
+            </label>
+          </div>
+        </fieldset>
+
+        <label class="checkbox-option">
+          <input type="checkbox" name="newsletter">
+          <span class="checkbox-box"></span>
+          Send me tips and session reminders by email
+        </label>
+
+        <label class="checkbox-option">
+          <input type="checkbox" name="terms" required>
+          <span class="checkbox-box"></span>
+          I agree to the <a href="#">Terms of Service</a>
+          <span class="error">You need to accept the terms to continue.</span>
+        </label>
+
+        <button type="submit">Create account</button>
+
+        <p class="form-footer">Already have an account? <a href="#">Log in</a></p>
+      </form>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

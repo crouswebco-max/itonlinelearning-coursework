@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Table | Sunny Side Café</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!--Header with logo and menu-->
+  <header>
+    <a href="index.html" class="logo">☕ Sunny Side Café</a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="booking.html">Book a Table</a></li>
+        <li><a href="find-us.html">Find Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Book a Table</h1>
+    <hr />
+    <p>Fill in the form below and we'll confirm your booking by email.</p>
+
+    <div class="booking-container">
+      <form id="booking-form" action="#" method="POST">
+        <div class="form-group">
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="name" placeholder="e.g. Sam Smith" required minlength="2">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email" placeholder="e.g. sam@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number (optional):</label>
+          <input type="tel" id="phone" name="phone" placeholder="e.g. 07700900123" pattern="[0-9]{11}" title="11 digits, no spaces">
+        </div>
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+        <div class="form-group">
+          <label for="time">Time:</label>
+          <select id="time" name="time" required>
+            <option value="">Please choose a time</option>
+            <option value="09:00">9:00am</option>
+            <option value="11:00">11:00am</option>
+            <option value="13:00">1:00pm</option>
+            <option value="15:00">3:00pm</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="guests">Number of Guests:</label>
+          <input type="number" id="guests" name="guests" min="1" max="8" value="2" required>
+        </div>
+        <fieldset class="form-group">
+          <legend>Where would you like to sit?</legend>
+          <label class="radio-option"><input type="radio" name="seating" value="inside" checked> Inside</label>
+          <label class="radio-option"><input type="radio" name="seating" value="outside"> Outside</label>
+        </fieldset>
+        <div class="form-group">
+          <label for="requests">Special Requests:</label>
+          <textarea id="requests" name="requests" rows="4" maxlength="300" placeholder="e.g. allergies, a high chair, a birthday"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="checkbox-option"><input type="checkbox" name="newsletter"> Send me news and offers</label>
+        </div>
+        <button type="submit">Book Table</button>
+      </form>
+    </div>
+  </main>
+
+  <!--Footer-->
+  <footer>
+    <p>&copy; 2026 Sunny Side Café. All rights reserved.</p>
+    <ul class="social-links">
+      <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+      <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
+      <li><a href="https://www.tiktok.com" target="_blank">TikTok</a></li>
+    </ul>
+  </footer>
+</body>
+</html>

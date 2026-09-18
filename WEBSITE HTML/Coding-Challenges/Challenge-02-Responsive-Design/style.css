@@ -1,0 +1,426 @@
+/* ==========================================================
+   Coding Challenge 2: Responsive Design
+   This file is organised as: base styles (mobile-friendly by
+   default) → components → three media queries at the bottom
+   for tablet and phone adjustments.
+   ========================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 76px;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #1f2a24;
+  background-color: #f6f7f4;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1, h2, h3 {
+  margin: 0 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 6%;
+  background-color: #1f4d3a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav a {
+  color: #e7efe9;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.main-nav a:hover {
+  color: #ffd966;
+}
+
+/* The hamburger button is hidden on wide screens; the phone media query shows it */
+.menu-button {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 34px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.menu-button span {
+  display: block;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+
+/* ---------- Buttons ---------- */
+.button {
+  display: inline-block;
+  padding: 12px 26px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #1f4d3a;
+  text-decoration: none;
+  background-color: #ffd966;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #ffcc33;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+}
+
+.hero-image {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+}
+
+.hero-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 6%;
+  color: #ffffff;
+  background: linear-gradient(to right, rgba(15, 30, 22, 0.75), rgba(15, 30, 22, 0.1));
+}
+
+.hero-text h1 {
+  font-size: 46px;
+  max-width: 620px;
+}
+
+.hero-text p {
+  max-width: 480px;
+  margin-bottom: 24px;
+}
+
+/* ---------- Sections ---------- */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 6%;
+}
+
+.section-alt {
+  max-width: none;
+  background-color: #eaeee7;
+}
+
+.section-alt h2 {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------- Trail cards ---------- */
+.trail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.trail-card {
+  overflow: hidden;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
+}
+
+.trail-card:hover {
+  transform: translateY(-4px);
+}
+
+.trail-card img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+
+.trail-body {
+  padding: 18px 20px 22px;
+}
+
+.trail-stats {
+  display: flex;
+  gap: 14px;
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  font-size: 14px;
+  color: #4a564f;
+}
+
+.tag {
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 999px;
+  color: #ffffff;
+}
+
+.tag-easy {
+  background-color: #4c9a5e;
+}
+
+.tag-moderate {
+  background-color: #d98c2b;
+}
+
+.tag-hard {
+  background-color: #c1443a;
+}
+
+/* ---------- Guided hikes table ---------- */
+.hikes-table {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.hikes-table th,
+.hikes-table td {
+  padding: 14px 18px;
+  text-align: left;
+}
+
+.hikes-table thead {
+  background-color: #1f4d3a;
+  color: #ffffff;
+}
+
+.hikes-table tbody tr:nth-child(even) {
+  background-color: #f6f7f4;
+}
+
+/* ---------- Contact / newsletter ---------- */
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.contact-image {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.signup-form {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.signup-form input {
+  flex: 1;
+  padding: 12px 14px;
+  font-size: 16px;
+  border: 1px solid #c7cdc8;
+  border-radius: 6px;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 6%;
+  color: #e7efe9;
+  background-color: #1f4d3a;
+}
+
+.site-footer a {
+  color: #ffffff;
+}
+
+/* ==========================================================
+   TABLET: screens 1024px and narrower
+   - Trail cards drop from 3 columns to 2
+   - The contact section stacks
+   ========================================================== */
+@media (max-width: 1024px) {
+  .trail-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-image {
+    height: 240px;
+  }
+
+  .hero-text h1 {
+    font-size: 38px;
+  }
+}
+
+/* ==========================================================
+   PHONE: screens 640px and narrower
+   - The menu collapses behind a hamburger button
+   - Trail cards go to a single column
+   - The hikes table turns into stacked cards
+   - Headings and spacing shrink a little
+   ========================================================== */
+@media (max-width: 640px) {
+  html {
+    scroll-padding-top: 66px;
+  }
+
+  .menu-button {
+    display: flex;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #1f4d3a;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 6% 16px;
+  }
+
+  .main-nav li {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .main-nav a {
+    display: block;
+    padding: 12px 0;
+  }
+
+  /* Checked checkbox = menu open. This is the "checkbox hack": a hidden
+     checkbox plus a <label> lets CSS alone open and close the menu. */
+  .menu-toggle:checked ~ .main-nav {
+    max-height: 300px;
+  }
+
+  .hero-image {
+    height: 520px;
+  }
+
+  .hero-text {
+    background: linear-gradient(to bottom, rgba(15, 30, 22, 0.35), rgba(15, 30, 22, 0.85) 70%);
+    justify-content: flex-end;
+    padding-bottom: 48px;
+  }
+
+  .hero-text h1 {
+    font-size: 30px;
+  }
+
+  .section {
+    padding: 44px 6%;
+  }
+
+  .trail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Turn the table into a set of labelled cards, since rows are too
+     narrow to read once there are four columns on a small screen */
+  .hikes-table thead {
+    display: none;
+  }
+
+  .hikes-table,
+  .hikes-table tbody,
+  .hikes-table tr,
+  .hikes-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .hikes-table tr {
+    padding: 14px 18px;
+    border-bottom: 1px solid #e2e6e0;
+  }
+
+  .hikes-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+  }
+
+  .hikes-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #4a564f;
+  }
+
+  .signup-form {
+    flex-direction: column;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}

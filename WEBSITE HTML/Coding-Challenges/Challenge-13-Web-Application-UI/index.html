@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A responsive stock trading application dashboard.">
+  <title>MarketDesk | Trading Dashboard</title>
+  <style>
+    :root {
+      --ink: #101114;
+      --surface: #191b20;
+      --panel: #24272e;
+      --panel-light: #2d3038;
+      --muted: #8f96a3;
+      --line: #3a3f4a;
+      --green: #8be28b;
+      --red: #ff7f88;
+      --white: #f6f7f9;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { color-scheme: dark; }
+    body { margin: 0; min-width: 320px; background: var(--ink); color: var(--white); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    button, input, select { font: inherit; }
+    button, a, select, input { -webkit-tap-highlight-color: transparent; }
+    button, a { cursor: pointer; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+    a { color: inherit; text-decoration: none; }
+
+    .app-shell { min-height: 100vh; display: grid; grid-template-columns: 248px minmax(0, 1fr); }
+    .sidebar { display: flex; flex-direction: column; border-right: 1px solid var(--line); background: #0d0e11; padding: 24px 16px; }
+    .brand { display: flex; align-items: center; gap: 10px; margin: 0 10px 42px; font-weight: 800; letter-spacing: -.03em; }
+    .brand-mark, .avatar { display: grid; place-items: center; flex: 0 0 auto; border: 1px solid var(--line); border-radius: 50%; background: var(--panel-light); color: var(--green); font-weight: 800; }
+    .brand-mark { width: 34px; height: 34px; font-size: 11px; }
+    .brand span:last-child { font-size: 15px; }
+    .side-section { margin-bottom: 28px; }
+    .side-label { display: block; padding: 0 14px 10px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .side-link { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 10px; color: #c6cbd4; font-size: 14px; transition: background .2s, color .2s, transform .2s; }
+    .side-link:hover, .side-link[aria-current="page"] { background: var(--panel); color: var(--white); transform: translateX(3px); }
+    .side-link[aria-current="page"] { box-shadow: inset 3px 0 var(--green); }
+    .side-icon { width: 18px; color: var(--muted); text-align: center; }
+    .sidebar-footer { margin-top: auto; padding: 18px 14px 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+
+    .app-main { min-width: 0; }
+    .topbar { display: flex; align-items: center; gap: 22px; min-height: 82px; border-bottom: 1px solid var(--line); padding: 16px 30px; }
+    .menu-button { display: none; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--white); padding: 10px 12px; }
+    .search { display: flex; align-items: center; gap: 10px; max-width: 560px; flex: 1; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 11px 14px; color: var(--muted); }
+    .search input { min-width: 0; flex: 1; border: 0; outline: 0; background: transparent; color: var(--white); }
+    .top-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+    .icon-button { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--white); transition: background .2s, border-color .2s; }
+    .icon-button:hover { border-color: var(--green); background: var(--panel); }
+    .profile { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; }
+    .avatar { width: 36px; height: 36px; }
+
+    .content { padding: 30px; }
+    .welcome { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(100deg, var(--panel), #20242b); padding: 24px; }
+    .eyebrow { margin: 0 0 8px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 8px; font-size: clamp(25px, 3vw, 37px); letter-spacing: -.04em; }
+    .welcome p:last-child { margin: 0; color: var(--muted); font-size: 13px; }
+    .quick-actions { display: flex; gap: 10px; }
+    .button { border: 1px solid var(--line); border-radius: 8px; background: var(--panel-light); color: var(--white); padding: 11px 15px; font-size: 12px; font-weight: 800; transition: transform .2s, background .2s, border-color .2s; }
+    .button:hover { border-color: var(--green); background: #39414a; transform: translateY(-2px); }
+    .button-primary { border-color: var(--green); background: var(--green); color: #102014; }
+    .button-primary:hover { background: #b2efad; }
+
+    .dashboard-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(260px, .8fr); gap: 24px; }
+    .card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 20px; }
+    .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+    .card-title { margin: 0; font-size: 15px; }
+    .card-subtitle { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+    .range-controls { display: flex; flex-wrap: wrap; gap: 3px; }
+    .range-controls button { border: 0; border-radius: 5px; background: transparent; color: var(--muted); padding: 6px 8px; font-size: 11px; }
+    .range-controls button:hover, .range-controls button.active { background: var(--panel-light); color: var(--white); }
+    .chart-summary { display: flex; align-items: baseline; gap: 12px; margin: 20px 0 8px; }
+    .chart-value { font-size: 32px; font-weight: 800; letter-spacing: -.04em; }
+    .positive { color: var(--green); }
+    .negative { color: var(--red); }
+    .chart-wrap { height: 250px; border-bottom: 1px solid var(--line); background: repeating-linear-gradient(to bottom, transparent 0, transparent 61px, rgba(143,150,163,.12) 62px); }
+    .chart-wrap svg { width: 100%; height: 100%; overflow: visible; }
+    .chart-line { fill: none; stroke: var(--green); stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; vector-effect: non-scaling-stroke; }
+    .chart-area { fill: url(#areaFill); }
+    .chart-legend { display: flex; justify-content: space-between; margin-top: 10px; color: var(--muted); font-size: 10px; }
+
+    .watchlist { display: grid; gap: 10px; }
+    .watch-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--line); padding: 11px 0; }
+    .watch-row:last-child { border-bottom: 0; }
+    .ticker { font-weight: 800; }
+    .ticker small { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; font-weight: 500; }
+    .price { text-align: right; font-size: 12px; }
+    .price span { display: block; margin-top: 4px; font-size: 11px; }
+
+    .lower-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(260px, .8fr); gap: 24px; margin-top: 24px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; min-width: 550px; border-collapse: collapse; font-size: 12px; }
+    th { padding: 10px 12px; color: var(--muted); font-size: 10px; letter-spacing: .1em; text-align: left; text-transform: uppercase; }
+    td { border-top: 1px solid var(--line); padding: 14px 12px; }
+    .asset { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+    .asset-badge { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--panel-light); color: var(--green); font-size: 10px; }
+    .todo { display: grid; gap: 13px; }
+    .todo-item { display: flex; gap: 10px; align-items: flex-start; color: #cdd1d8; font-size: 12px; line-height: 1.45; }
+    .todo-item input { margin-top: 2px; accent-color: var(--green); }
+    .mobile-nav { display: none; }
+    select { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--white); padding: 6px 8px; font-size: 12px; }
+
+    .extra-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 24px; }
+    .report-list { margin: 0; padding: 0; list-style: none; }
+    .report-list li, .setting, .help-item { border-bottom: 1px solid var(--line); padding: 11px 0; font-size: 13px; }
+    .report-list li:last-child, .setting:last-child, .help-item:last-child { border-bottom: 0; }
+    .report-list li { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .report-list small { color: var(--muted); font-size: 11px; white-space: nowrap; }
+    .setting { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .setting input { width: 18px; height: 18px; accent-color: var(--green); }
+    .help-item summary { cursor: pointer; font-weight: 700; }
+    .help-item p { margin: 8px 0 0; color: var(--muted); line-height: 1.5; }
+
+    @media (max-width: 1000px) {
+      .app-shell { grid-template-columns: 210px minmax(0, 1fr); }
+      .topbar, .content { padding-left: 22px; padding-right: 22px; }
+      .dashboard-grid, .lower-grid, .extra-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .app-shell { display: block; padding-bottom: 72px; }
+      .sidebar { display: none; }
+      .sidebar.is-open { position: fixed; top: 70px; bottom: 0; left: 0; z-index: 10; display: flex; width: 240px; overflow-y: auto; }
+      .topbar { min-height: 70px; padding: 12px 16px; }
+      .menu-button { display: block; }
+      .top-actions .icon-button { display: none; }
+      .profile span { display: none; }
+      .content { padding: 18px 16px; }
+      .welcome { align-items: flex-start; flex-direction: column; padding: 20px; }
+      .quick-actions { width: 100%; }
+      .quick-actions .button { flex: 1; }
+      .card { padding: 16px; }
+      .card-header { flex-direction: column; }
+      .range-controls { width: 100%; justify-content: space-between; }
+      .range-controls button { flex: 1; }
+      .chart-wrap { height: 200px; }
+      .mobile-nav { position: fixed; right: 0; bottom: 0; left: 0; z-index: 5; display: flex; justify-content: space-around; border-top: 1px solid var(--line); background: rgba(13,14,17,.96); padding: 10px 8px; }
+      .mobile-nav a { color: var(--muted); font-size: 10px; font-weight: 800; text-align: center; }
+      .mobile-nav a[aria-current="page"] { color: var(--green); }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <a class="brand" href="#top"><span class="brand-mark">MD</span><span>MARKETDESK</span></a>
+      <div class="side-section">
+        <span class="side-label">Workspace</span>
+        <a class="side-link" href="#top" aria-current="page"><span class="side-icon">⌂</span>Home</a>
+        <a class="side-link" href="#performance"><span class="side-icon">◈</span>Performance</a>
+        <a class="side-link" href="#portfolio"><span class="side-icon">▣</span>Portfolio</a>
+      </div>
+      <div class="side-section">
+        <span class="side-label">Data tools</span>
+        <a class="side-link" href="#todo"><span class="side-icon">⌁</span>To-do list</a>
+        <a class="side-link" href="#reports"><span class="side-icon">▤</span>Data reports</a>
+        <a class="side-link" href="#watchlist"><span class="side-icon">☆</span>Watchlist</a>
+      </div>
+      <div class="side-section">
+        <span class="side-label">Account</span>
+        <a class="side-link" href="#settings"><span class="side-icon">⚙</span>Preferences</a>
+        <a class="side-link" href="#help"><span class="side-icon">?</span>Help centre</a>
+      </div>
+      <p class="sidebar-footer">Market data is illustrative only.<br>Last synced: 09:42 UTC</p>
+    </aside>
+
+    <div class="app-main" id="top">
+      <header class="topbar">
+        <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+        <label class="search" for="market-search"><span aria-hidden="true">⌕</span><input id="market-search" type="search" placeholder="Search markets, assets, reports" autocomplete="off"></label>
+        <div class="top-actions"><button class="icon-button" type="button" aria-label="Notifications">♧</button><button class="icon-button" type="button" aria-label="Messages">✉</button><button class="icon-button" type="button" aria-label="Basket">▱</button><div class="profile"><span class="avatar">JD</span><span>Jordan Davis</span></div></div>
+      </header>
+
+      <main class="content">
+        <section class="welcome" aria-labelledby="welcome-title">
+          <div><p class="eyebrow">Thursday, 17 September 2026</p><h1 id="welcome-title">Welcome back, Jordan</h1><p>Administrator · MarketDesk workspace</p></div>
+          <div class="quick-actions"><button class="button button-primary" type="button" id="deposit-button">Add funds</button><button class="button" type="button" id="export-button">Export report</button></div>
+        </section>
+
+        <div class="dashboard-grid">
+          <section class="card" id="performance" aria-labelledby="market-title">
+            <div class="card-header"><div><h2 class="card-title" id="market-title">Portfolio performance</h2><p class="card-subtitle">Total balance · All accounts</p></div><div class="range-controls" aria-label="Chart time range"><button type="button">1D</button><button type="button">1W</button><button type="button" class="active">1M</button><button type="button">1Y</button><button type="button">ALL</button></div></div>
+            <div class="chart-summary"><span class="chart-value">£84,230.42</span><span class="positive">+8.42% ↑</span></div>
+            <div class="chart-wrap" role="img" aria-label="Portfolio value increased over the selected month"><svg viewBox="0 0 800 250" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="areaFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#8be28b" stop-opacity=".28"></stop><stop offset="1" stop-color="#8be28b" stop-opacity="0"></stop></linearGradient></defs><path class="chart-area" d="M0 210 C60 204, 72 170, 130 180 S190 202, 245 145 S310 165, 360 120 S430 143, 480 92 S535 105, 590 118 S650 52, 700 75 S750 43, 800 24 V250 H0 Z"></path><path class="chart-line" d="M0 210 C60 204, 72 170, 130 180 S190 202, 245 145 S310 165, 360 120 S430 143, 480 92 S535 105, 590 118 S650 52, 700 75 S750 43, 800 24"></path></svg></div>
+            <div class="chart-legend"><span>18 Aug</span><span>25 Aug</span><span>01 Sep</span><span>08 Sep</span><span>17 Sep</span></div>
+          </section>
+          <section class="card" id="watchlist" aria-labelledby="watchlist-title"><div class="card-header"><div><h2 class="card-title" id="watchlist-title">Market watchlist</h2><p class="card-subtitle">Your tracked assets</p></div><button class="icon-button" type="button" aria-label="Add asset">+</button></div><div class="watchlist"><div class="watch-row"><div class="ticker">AAPL<small>Apple Inc.</small></div><div class="price">$226.96<span class="positive">+1.24%</span></div></div><div class="watch-row"><div class="ticker">TSLA<small>Tesla Inc.</small></div><div class="price">$246.38<span class="negative">-0.81%</span></div></div><div class="watch-row"><div class="ticker">NVDA<small>NVIDIA Corp.</small></div><div class="price">$116.91<span class="positive">+2.16%</span></div></div><div class="watch-row"><div class="ticker">BTC<small>Bitcoin / USD</small></div><div class="price">$59,842<span class="positive">+0.44%</span></div></div></div></section>
+        </div>
+
+        <div class="lower-grid">
+          <section class="card" id="portfolio" aria-labelledby="holdings-title"><div class="card-header"><div><h2 class="card-title" id="holdings-title">Portfolio holdings</h2><p class="card-subtitle">Your current positions</p></div><select aria-label="Filter holdings"><option>All assets</option><option>Stocks</option><option>Crypto</option></select></div><div class="table-wrap"><table><thead><tr><th>Asset</th><th>Shares</th><th>Avg. price</th><th>Current</th><th>Return</th></tr></thead><tbody><tr><td><div class="asset"><span class="asset-badge">AP</span>AAPL</div></td><td>42</td><td>$194.20</td><td>$226.96</td><td class="positive">+16.86%</td></tr><tr><td><div class="asset"><span class="asset-badge">NV</span>NVDA</div></td><td>18</td><td>$88.40</td><td>$116.91</td><td class="positive">+32.25%</td></tr><tr><td><div class="asset"><span class="asset-badge">TS</span>TSLA</div></td><td>12</td><td>$258.60</td><td>$246.38</td><td class="negative">-4.72%</td></tr><tr><td><div class="asset"><span class="asset-badge">MS</span>MSFT</div></td><td>24</td><td>$401.12</td><td>$430.59</td><td class="positive">+7.35%</td></tr></tbody></table></div></section>
+          <section class="card" id="todo" aria-labelledby="todo-title"><div class="card-header"><div><h2 class="card-title" id="todo-title">My to-do list</h2><p class="card-subtitle">Keep your workspace current</p></div><span class="avatar">✓</span></div><div class="todo"><label class="todo-item"><input type="checkbox" checked>Review portfolio allocation</label><label class="todo-item"><input type="checkbox">Read the latest market report</label><label class="todo-item"><input type="checkbox">Set a price alert for NVDA</label><label class="todo-item"><input type="checkbox">Schedule monthly review</label></div></section>
+        </div>
+
+        <div class="extra-grid">
+          <section class="card" id="reports" aria-labelledby="reports-title">
+            <div class="card-header"><div><h2 class="card-title" id="reports-title">Data reports</h2><p class="card-subtitle">Ready to download</p></div></div>
+            <ul class="report-list">
+              <li><span>Monthly performance</span><small>Sep 2026 · PDF</small></li>
+              <li><span>Dividend summary</span><small>Q2 2026 · CSV</small></li>
+              <li><span>Tax year overview</span><small>2025/26 · PDF</small></li>
+            </ul>
+          </section>
+          <section class="card" id="settings" aria-labelledby="settings-title">
+            <div class="card-header"><div><h2 class="card-title" id="settings-title">Preferences</h2><p class="card-subtitle">How your workspace behaves</p></div></div>
+            <label class="setting"><span>Price alerts by email</span><input type="checkbox" checked></label>
+            <label class="setting"><span>Show crypto assets</span><input type="checkbox" checked></label>
+            <label class="setting"><span>Display currency</span><select><option>GBP (£)</option><option>USD ($)</option><option>EUR (€)</option></select></label>
+          </section>
+          <section class="card" id="help" aria-labelledby="help-title">
+            <div class="card-header"><div><h2 class="card-title" id="help-title">Help centre</h2><p class="card-subtitle">Common questions</p></div></div>
+            <details class="help-item"><summary>Are these prices live?</summary><p>No. The prices on this dashboard are examples and don't change.</p></details>
+            <details class="help-item"><summary>How do I add an asset to my watchlist?</summary><p>In a real app, the + button on the watchlist card would open a search. In this demo the list is fixed.</p></details>
+            <details class="help-item"><summary>How do I export a report?</summary><p>Use the Export report button at the top of the page.</p></details>
+          </section>
+        </div>
+      </main>
+      <nav class="mobile-nav" aria-label="Mobile navigation"><a href="#top" aria-current="page">⌂<br>Home</a><a href="#performance">◈<br>Performance</a><a href="#portfolio">▣<br>Portfolio</a><a href="#watchlist">☆<br>Watchlist</a><a href="#settings">⚙<br>Settings</a></nav>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.range-controls button').forEach((button) => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.range-controls button').forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+
+    const menuButton = document.querySelector('.menu-button');
+    const sidebar = document.querySelector('.sidebar');
+
+    function setMenu(open) {
+      sidebar.classList.toggle('is-open', open);
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    }
+
+    menuButton.addEventListener('click', () => setMenu(!sidebar.classList.contains('is-open')));
+    sidebar.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+
+    document.getElementById('deposit-button').addEventListener('click', () => alert('Deposit flow ready for connection to your payment provider.'));
+    document.getElementById('export-button').addEventListener('click', () => alert('Your portfolio report is ready to export.'));
+  </script>
+</body>
+</html>

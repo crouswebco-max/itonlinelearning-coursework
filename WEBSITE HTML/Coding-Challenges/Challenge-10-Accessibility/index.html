@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get involved with Riverside Community Project: volunteer, donate, or join an event.">
+  <title>Get Involved | Riverside Community Project</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!--
+    Coding Challenge 10: Accessibility.
+    Things to notice while reading this file: the skip link, the
+    landmark elements (header/nav/main/footer), the ARIA tabs pattern
+    with roving tabindex and arrow-key support, <details>/<summary>
+    used for the FAQ instead of a hand-built accordion, and the form's
+    labels/fieldset/aria-describedby/aria-live wiring.
+  -->
+
+  <!-- Skip link: the very first focusable thing on the page, invisible
+       until it receives keyboard focus. Lets a keyboard or screen
+       reader user jump straight past the header/nav on every page load. -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="#top">Riverside Community Project</a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="#ways-to-help">Ways to help</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#signup">Sign up</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" id="top">
+      <div class="hero-text">
+        <h1>Get involved this spring</h1>
+        <p>Riverside Community Project runs a food bank, a community garden and a Saturday repair café — all run by local volunteers. There's a way to help that fits almost any amount of time.</p>
+      </div>
+      <img src="images/food-drive.jpg" alt="Volunteers in matching branded hoodies stacking boxes of food onto a cart for distribution" class="hero-image">
+    </section>
+
+    <!-- ================= Tabs: "Ways to help" =================
+         Follows the WAI-ARIA Authoring Practices tabs pattern:
+         - role="tablist" / role="tab" / role="tabpanel"
+         - aria-selected marks the current tab
+         - only the selected tab has tabindex="0" (roving tabindex);
+           the others are tabindex="-1" so Tab moves past the whole
+           group in one step, and Left/Right/Home/End move between tabs
+         - each tab points at its panel via aria-controls; each panel
+           is labelled by its tab via aria-labelledby
+    -->
+    <section id="ways-to-help" class="section">
+      <h2>Ways to help</h2>
+
+      <div class="tabs">
+        <div class="tablist" role="tablist" aria-label="Ways to help">
+          <button role="tab" id="tab-volunteer" aria-selected="true" aria-controls="panel-volunteer" tabindex="0">Volunteer</button>
+          <button role="tab" id="tab-donate" aria-selected="false" aria-controls="panel-donate" tabindex="-1">Donate</button>
+          <button role="tab" id="tab-spread" aria-selected="false" aria-controls="panel-spread" tabindex="-1">Spread the word</button>
+        </div>
+
+        <div role="tabpanel" id="panel-volunteer" aria-labelledby="tab-volunteer" tabindex="0">
+          <h3>Volunteer your time</h3>
+          <p>We always need help sorting food donations on Tuesday evenings, weeding the community garden on Saturday mornings, or greeting visitors at the repair café. No experience is needed — someone will show you the ropes on your first visit.</p>
+        </div>
+
+        <div role="tabpanel" id="panel-donate" aria-labelledby="tab-donate" tabindex="0" hidden>
+          <h3>Donate</h3>
+          <p>Tinned and dried food donations can be dropped at the front desk any weekday between 9am and 5pm. If you'd rather give money, every donation goes directly to buying fresh produce and repair parts — nothing is spent on overheads.</p>
+        </div>
+
+        <div role="tabpanel" id="panel-spread" aria-labelledby="tab-spread" tabindex="0" hidden>
+          <h3>Spread the word</h3>
+          <p>Not everyone who needs us knows we exist. Tell a neighbour, share our Saturday sessions with a community group you're part of, or put a poster up somewhere local. It's the easiest way to help and it costs nothing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ =================
+         <details>/<summary> is a native HTML disclosure widget: it's
+         keyboard-operable and understood by screen readers with no
+         ARIA or JavaScript needed at all — often a better choice than
+         a hand-built accordion. -->
+    <section id="faq" class="section section-alt">
+      <h2>Frequently asked questions</h2>
+      <div class="faq-list">
+        <details>
+          <summary>Do I need to sign up before I turn up?</summary>
+          <p>Not for a first visit — just come along at the times listed below. For repeat weekly slots, signing up helps us plan how much food to expect that week.</p>
+        </details>
+        <details>
+          <summary>Is there a minimum time commitment?</summary>
+          <p>No. Some volunteers come every week, others help out twice a year. Both matter to us.</p>
+        </details>
+        <details>
+          <summary>Can under-18s volunteer?</summary>
+          <p>Yes, from age 14, alongside a parent or guardian for food bank shifts. The garden sessions welcome younger children too.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ================= Sign-up form ================= -->
+    <section id="signup" class="section">
+      <h2>Sign up to volunteer</h2>
+      <p class="form-intro">Fields marked <span aria-hidden="true">*</span><span class="visually-hidden">required</span> <span class="required-note">(required)</span> are required.</p>
+
+      <form id="signupForm" novalidate>
+        <div class="form-group">
+          <label for="name">Full name <span aria-hidden="true">*</span><span class="visually-hidden">required</span></label>
+          <input type="text" id="name" name="name" autocomplete="name" required aria-describedby="name-error">
+          <p class="error-message" id="name-error" role="alert"></p>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address <span aria-hidden="true">*</span><span class="visually-hidden">required</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" required aria-describedby="email-error email-hint">
+          <p class="field-hint" id="email-hint">We'll only use this to confirm your sign-up.</p>
+          <p class="error-message" id="email-error" role="alert"></p>
+        </div>
+
+        <fieldset class="form-group">
+          <legend>Which activities interest you?</legend>
+          <label class="checkbox-option">
+            <input type="checkbox" name="activities" value="food-bank">
+            Food bank sorting (Tuesday evenings)
+          </label>
+          <label class="checkbox-option">
+            <input type="checkbox" name="activities" value="garden">
+            Community garden (Saturday mornings)
+          </label>
+          <label class="checkbox-option">
+            <input type="checkbox" name="activities" value="repair-cafe">
+            Repair café (Saturday afternoons)
+          </label>
+        </fieldset>
+
+        <div class="form-group">
+          <label for="notes">Anything we should know? (optional)</label>
+          <textarea id="notes" name="notes" rows="4"></textarea>
+        </div>
+
+        <button type="submit">Sign up</button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>Riverside Community Project &middot; 14 Mill Lane</p>
+      <p>Email: <a href="mailto:hello@example.org">hello@example.org</a> &middot; Phone: <a href="tel:+441632960456">01632 960456</a></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

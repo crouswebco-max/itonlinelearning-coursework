@@ -1,0 +1,71 @@
+/* ==========================================================
+   Coding Challenge 8: CSS Framework (Bootstrap 5.3)
+   This file only customises Bootstrap's defaults — the layout,
+   grid, cards, navbar, carousel and accordion all come from
+   Bootstrap itself (see the CDN links in index.html).
+   ========================================================== */
+
+:root {
+  /* Bootstrap reads these Sass variables at build time, not at runtime,
+     so overriding "--bs-primary" here just recolours anywhere Bootstrap
+     already uses var(--bs-primary) under the hood (buttons, badges, etc.) */
+  --bs-primary: #4f46e5;
+  --bs-primary-rgb: 79, 70, 229;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.hero {
+  background: linear-gradient(180deg, #eef0ff 0%, #ffffff 100%);
+}
+
+.feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  font-size: 24px;
+  background-color: #eef0ff;
+  border-radius: 12px;
+}
+
+.mockup-card {
+  border-radius: 16px;
+}
+
+.mockup-bars {
+  height: 120px;
+}
+
+.mockup-bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+}
+
+/* Bootstrap's default carousel arrows are faint on a light background;
+   the dark circular chips added in the HTML need their own spacing fix */
+.carousel-control-prev,
+.carousel-control-next {
+  width: auto;
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+}
+
+.carousel-control-prev {
+  left: -10px;
+}
+
+.carousel-control-next {
+  right: -10px;
+}
+
+@media (max-width: 767px) {
+  .carousel-control-prev,
+  .carousel-control-next {
+    display: none;
+  }
+}

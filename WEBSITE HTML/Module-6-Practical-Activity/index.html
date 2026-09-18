@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Content</title>
+    <style>
+        /* Step 4: Responsive iframe container */
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin: 2rem 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .iframe-container {
+                padding-bottom: 75%; /* Adjust aspect ratio for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page title -->
+    <header>
+        <h1>Our Location</h1>
+    </header>
+
+    <main>
+        <!-- Map section -->
+        <section class="map-section">
+            <h2>Find Us</h2>
+            <p>The map below shows where to find us, beside Trafalgar Square in central London. You can drag the map to look around, zoom in and out, or use the buttons underneath to reload the map or view it full screen.</p>
+
+            <div class="iframe-container">
+                <iframe src="https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1sTrafalgar+Square,+London"
+                    title="Google Maps Location"
+                    width="600"
+                    height="450"
+                    loading="lazy"
+                    allowfullscreen=""
+                    referrerpolicy="no-referrer-when-downgrade"
+                    sandbox="allow-scripts allow-same-origin allow-popups">
+                    <p>Your browser does not support iframes. Please visit our <a href="https://www.google.com/maps/search/?api=1&query=Trafalgar+Square,+London">location page</a>.</p>
+                </iframe>
+            </div>
+
+            <!-- Step 5: Interactive controls -->
+            <div class="iframe-controls">
+                <button onclick="reloadFrame()">Reload Content</button>
+                <button onclick="toggleFullscreen()">Fullscreen</button>
+            </div>
+        </section>
+
+        <!-- Directions section -->
+        <section class="directions-section">
+            <h2>Getting Here</h2>
+            <p>The nearest stations are Charing Cross and Embankment, both a few minutes' walk away. Several bus routes also stop at Trafalgar Square.</p>
+        </section>
+    </main>
+
+    <!-- Additional information -->
+    <aside>
+        <h2>Opening Hours</h2>
+        <p>Monday to Friday: 9am to 5pm<br>
+        Saturday: 10am to 2pm<br>
+        Sunday: Closed</p>
+    </aside>
+
+    <footer>
+        <p>&copy; 2026 My Website. All rights reserved.</p>
+    </footer>
+
+    <script>
+    function reloadFrame() {
+        const frame = document.querySelector('iframe');
+        frame.src = frame.src;
+    }
+
+    function toggleFullscreen() {
+        const frame = document.querySelector('iframe');
+        if (frame.requestFullscreen) {
+            frame.requestFullscreen();
+        }
+    }
+    </script>
+</body>
+</html>
