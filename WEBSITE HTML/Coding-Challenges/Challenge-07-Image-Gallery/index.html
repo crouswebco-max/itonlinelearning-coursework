@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Field Notes: a photo gallery. Click any photo for a full-size view.">
+  <title>Field Notes | Photo Gallery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="page-header">
+    <h1>Field Notes</h1>
+    <p>A small collection of photographs. Click any of them for a closer look.</p>
+  </header>
+
+  <!--
+    A masonry-style grid: CSS Grid with a short, fixed row height
+    (grid-auto-rows), where some tiles span more rows than others
+    (see .tall / .wide in style.css) to create the uneven layout.
+  -->
+  <main class="gallery">
+    <!-- Each figure is also a link (#photo-1) to the full-size view below -->
+    <a class="tile tile-tall" href="#photo-1" aria-label="Open Lioness, close up">
+      <img src="images/lioness.jpg" alt="A lioness looking directly at the camera" loading="lazy">
+      <span class="tile-caption">Lioness <em>Kenya</em></span>
+    </a>
+    <a class="tile" href="#photo-2" aria-label="Open Strawberries, close up">
+      <img src="images/strawberries.jpg" alt="A close-up of fresh strawberries" loading="lazy">
+      <span class="tile-caption">Strawberries <em>Market stall</em></span>
+    </a>
+    <a class="tile tile-wide" href="#photo-3" aria-label="Open Glass tower, close up">
+      <img src="images/skyscraper.jpg" alt="Looking straight up at a glass office tower" loading="lazy">
+      <span class="tile-caption">Glass Tower <em>Downtown</em></span>
+    </a>
+    <a class="tile" href="#photo-4" aria-label="Open Jellyfish, close up">
+      <img src="images/jellyfish.jpg" alt="An orange jellyfish drifting in deep blue water" loading="lazy">
+      <span class="tile-caption">Drifting <em>Open water</em></span>
+    </a>
+    <a class="tile tile-tall" href="#photo-5" aria-label="Open Fjord overlook, close up">
+      <img src="images/fjord.jpg" alt="A clifftop path above a bright blue fjord" loading="lazy">
+      <span class="tile-caption">Fjord Overlook <em>Norway</em></span>
+    </a>
+    <a class="tile" href="#photo-6" aria-label="Open Vintage car, close up">
+      <img src="images/vintage-car.jpg" alt="A vintage car parked on a city street" loading="lazy">
+      <span class="tile-caption">Parked <em>Old town</em></span>
+    </a>
+    <a class="tile" href="#photo-7" aria-label="Open Vulture in flight, close up">
+      <img src="images/vulture.jpg" alt="A vulture in flight with wings fully spread" loading="lazy">
+      <span class="tile-caption">In Flight <em>Highlands</em></span>
+    </a>
+    <a class="tile tile-wide" href="#photo-8" aria-label="Open Waterfall and rainbow, close up">
+      <img src="images/waterfall-rainbow.jpg" alt="A person standing beneath a waterfall with a rainbow overhead" loading="lazy">
+      <span class="tile-caption">Chasing Rainbows <em>Skógafoss</em></span>
+    </a>
+    <a class="tile" href="#photo-9" aria-label="Open Breaking wave, close up">
+      <img src="images/wave.jpg" alt="A wave curling and breaking at sea" loading="lazy">
+      <span class="tile-caption">Break <em>Open sea</em></span>
+    </a>
+    <a class="tile tile-tall" href="#photo-10" aria-label="Open Coastal cliffs, close up">
+      <img src="images/coastal-cliffs.jpg" alt="Rugged green cliffs meeting a turquoise sea" loading="lazy">
+      <span class="tile-caption">Where Land Ends <em>Coastline</em></span>
+    </a>
+  </main>
+
+  <footer class="page-footer">
+    <p>&copy; 2026 Field Notes</p>
+  </footer>
+
+  <!--
+    Lightbox: one overlay per photo, shown with CSS's :target selector
+    when its id matches the page's URL fragment — no JavaScript needed.
+    Each overlay's close link (×) and its own dark background both
+    point back to "#", which clears the fragment and hides it again.
+  -->
+  <div class="lightbox" id="photo-1">
+    <a class="lightbox-backdrop" href="#" aria-label="Close"></a>
+    <figure>
+      <img src="images/lioness.jpg" alt="A lioness looking directly at the camera">
+      <figcaption>Lioness — Kenya</figcaption>
+    </figure>
+    <a class="lightbox-close" href="#" aria-label="Close">&times;</a>
+  </div>
+  <div class="lightbox" id="photo-2">
+    <a class="lightbox-backdrop" href="#" aria-label="Close"></a>
+    <figure>
+      <img src="images/strawberries.jpg" alt="A close-up of fresh strawberries">
+      <figcaption>Strawberries — Market stall</figcaption>
+    </figure>
+    <a class="lightbox-close" href="#" aria-label="Close">&times;</a>
+  </div>
+  <div class="lightbox" id="photo-3">
+    <a class="lightbox-backdrop" href="#" aria-label="Close"></a>
+    <figure>
+      <img src="images/skyscraper.jpg" alt="Looking straight up at a glass office tower">
+      <figcaption>Glass Tower — Downtown</figcaption>
+    </figure>
+    <a class="lightbox-close" href="#" aria-label="Close">&times;</a>
+  </div>
+  <div class="lightbox" id="photo-4">
+    <a class="lightbox-backdrop" href="#" aria-label="Close"></a>
+    <figure>
+      <img src="images/jellyfish.jpg" alt="An orange jellyfish drifting in deep blue water">
+      <figcaption>Drifting — Open water</figcaption>
+    </figure>
+    <a class="lightbox-close" href="#" aria-label="Close">&times;</a>
+  </div>
+  <div class="lightbox" id="photo-5">
+    <a class="lightbox-backdrop" href="#" aria-label="Close"></a>
+    <figure>
+      <img src="images/fjord.jpg" alt="A clifftop path above a bright blue fjord">
+      <figcaption>Fjord Overlook — Norway</figcaption>
+    </figure>
+    <a class="lightbox-close" href="#" aria-label="Close">&times;</a>
+  </div>
+  <div class="lightbox" id="photo-6">
+    <a class="lightbox-backdrop" href="#" aria-label="Close"></a>
+    <figure>
+      <img src="images/vintage-car.jpg" alt="A vintage car parked on a city street">
+      <figcaption>Parked — Old town</figcaption>
+    </figure>
+    <a class="lightbox-close" href="#" aria-label="Close">&times;</a>
+  </div>
+  <div class="lightbox" id="photo-7">
+    <a class="lightbox-backdrop" href="#" aria-label="Close"></a>
+    <figure>
+      <img src="images/vulture.jpg" alt="A vulture in flight with wings fully spread">
+      <figcaption>In Flight — Highlands</figcaption>
+    </figure>
+    <a class="lightbox-close" href="#" aria-label="Close">&times;</a>
+  </div>
+  <div class="lightbox" id="photo-8">
+    <a class="lightbox-backdrop" href="#" aria-label="Close"></a>
+    <figure>
+      <img src="images/waterfall-rainbow.jpg" alt="A person standing beneath a waterfall with a rainbow overhead">
+      <figcaption>Chasing Rainbows — Skógafoss</figcaption>
+    </figure>
+    <a class="lightbox-close" href="#" aria-label="Close">&times;</a>
+  </div>
+  <div class="lightbox" id="photo-9">
+    <a class="lightbox-backdrop" href="#" aria-label="Close"></a>
+    <figure>
+      <img src="images/wave.jpg" alt="A wave curling and breaking at sea">
+      <figcaption>Break — Open sea</figcaption>
+    </figure>
+    <a class="lightbox-close" href="#" aria-label="Close">&times;</a>
+  </div>
+  <div class="lightbox" id="photo-10">
+    <a class="lightbox-backdrop" href="#" aria-label="Close"></a>
+    <figure>
+      <img src="images/coastal-cliffs.jpg" alt="Rugged green cliffs meeting a turquoise sea">
+      <figcaption>Where Land Ends — Coastline</figcaption>
+    </figure>
+    <a class="lightbox-close" href="#" aria-label="Close">&times;</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get in touch with Nova about your next project.">
+  <title>Contact | Nova</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="contact-page">
+  <!-- Logo and main menu (on every page) -->
+  <header class="site-header">
+    <a class="logo" href="index.html">NOVA</a>
+    <nav aria-label="Main menu">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="contact">
+    <h1>Let me tell your digital stories</h1>
+
+    <!-- The form isn't connected to a server yet, so nothing is sent -->
+    <form class="contact-form" action="#" method="post">
+      <div class="form-field">
+        <label for="first-name">First name</label>
+        <input type="text" id="first-name" name="first-name" autocomplete="given-name" required>
+      </div>
+      <div class="form-field">
+        <label for="last-name">Last name</label>
+        <input type="text" id="last-name" name="last-name" autocomplete="family-name" required>
+      </div>
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email" required>
+      </div>
+      <button class="button" type="submit">Submit</button>
+    </form>
+
+    <!-- Nova's social media accounts -->
+    <ul class="social-links">
+      <li><a href="https://www.facebook.com" target="_blank" aria-label="Nova on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5.5h-1.8a2.7 2.7 0 0 0-2.7 2.7V20M8 11.3h6.6" fill="none" stroke="currentColor" stroke-width="2.6"/></svg></a></li>
+      <li><a href="https://www.instagram.com" target="_blank" aria-label="Nova on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16.4" cy="7.6" r="1.1" fill="currentColor"/></svg></a></li>
+      <li><a href="https://x.com" target="_blank" aria-label="Nova on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 5h4.1l9.5 14h-4.1z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M18.4 5l-5.6 6.3M11.2 12.8L5.6 19" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a></li>
+    </ul>
+  </main>
+</body>
+</html>

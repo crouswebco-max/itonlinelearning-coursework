@@ -1,0 +1,332 @@
+/* ==========================================================
+   Coding Challenge 10: Accessibility
+   ========================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background-color: #fbfaf8;
+}
+
+h1, h2, h3 {
+  line-height: 1.25;
+}
+
+/* A visible focus outline on every interactive element — never
+   removed, only ever restyled to something equally visible. This
+   matters more than almost any other single rule on this page. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[role="tab"]:focus-visible {
+  outline: 3px solid #0b4fbf;
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- Skip link ---------- */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 12px;
+  z-index: 100;
+  padding: 10px 18px;
+  color: #ffffff;
+  background-color: #0b4fbf;
+  border-radius: 0 0 6px 6px;
+  text-decoration: none;
+  transition: top 0.15s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  background-color: #16324f;
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px 24px;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.site-header nav ul {
+  display: flex;
+  gap: 22px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-header nav a {
+  color: #dce6f2;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.site-header nav a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Keeping :focus-visible working on a dark background needs its own
+   colour — the blue used everywhere else wouldn't show up here */
+.site-header a:focus-visible {
+  outline-color: #ffd166;
+}
+
+/* ---------- Main / sections ---------- */
+main:focus-visible {
+  outline: none;
+}
+
+.section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 56px 24px;
+}
+
+.section-alt {
+  max-width: none;
+  background-color: #eef1ee;
+}
+
+.section-alt h2,
+.section-alt .faq-list {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 56px 24px;
+}
+
+.hero-text {
+  flex: 1 1 320px;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  margin-top: 0;
+}
+
+.hero-image {
+  flex: 1 1 320px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* ---------- Tabs ---------- */
+.tablist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #d7d2c8;
+}
+
+.tablist [role="tab"] {
+  padding: 12px 20px;
+  font: inherit;
+  font-weight: bold;
+  color: #4a4438;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  margin-bottom: -2px;
+}
+
+.tablist [role="tab"][aria-selected="true"] {
+  color: #16324f;
+  border-bottom-color: #16324f;
+}
+
+.tablist [role="tab"]:hover {
+  color: #16324f;
+}
+
+[role="tabpanel"] {
+  padding: 4px 2px 8px;
+}
+
+[role="tabpanel"] h3 {
+  margin-top: 0;
+}
+
+/* ---------- FAQ ---------- */
+.faq-list details {
+  padding: 6px 0;
+  border-bottom: 1px solid #d7d2c8;
+}
+
+.faq-list summary {
+  padding: 12px 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.faq-list details p {
+  margin: 0 4px 16px;
+  color: #4a4438;
+}
+
+/* ---------- Form ---------- */
+.form-intro {
+  color: #4a4438;
+}
+
+.required-note {
+  font-size: 0.85rem;
+}
+
+.form-group {
+  max-width: 460px;
+  margin-bottom: 24px;
+}
+
+label,
+legend {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  border: 2px solid #7a7568;
+  border-radius: 5px;
+}
+
+/* aria-invalid is set by script.js once a field has actually been
+   checked — colour never carries the only signal: the text error
+   message next to it says the same thing in words. */
+input[aria-invalid="true"] {
+  border-color: #b3261e;
+}
+
+.field-hint {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: #4a4438;
+}
+
+.error-message {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #b3261e;
+  min-height: 1.2em;
+}
+
+fieldset {
+  border: 2px solid #7a7568;
+  border-radius: 5px;
+  padding: 14px 16px;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: normal;
+  margin: 8px 0;
+}
+
+.checkbox-option input {
+  width: 18px;
+  height: 18px;
+}
+
+button[type="submit"] {
+  padding: 12px 28px;
+  font: inherit;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #16324f;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0f2338;
+}
+
+.form-status {
+  margin-top: 14px;
+  font-weight: bold;
+  color: #2c6e3f;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background-color: #16324f;
+  color: #dce6f2;
+  text-align: center;
+  padding: 28px 24px;
+}
+
+.site-footer a {
+  color: #ffffff;
+}
+
+/* Respect a visitor's OS-level "reduce motion" preference */
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 1.7rem;
+  }
+
+  .section {
+    padding: 40px 20px;
+  }
+}

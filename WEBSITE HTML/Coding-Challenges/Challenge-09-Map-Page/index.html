@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Maps: a Google Maps-style search and explore page, built for practice.">
+  <title>Maps</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!--
+    Coding Challenge 9: recreating the LAYOUT and FUNCTIONALITY of a
+    Google Maps-style app — a full-page map, a floating search bar, a
+    results sidebar, and working zoom/search/recenter controls — as a
+    CSS + a little JS layout exercise. It doesn't use Google's logo or
+    branding; it's a UI-pattern exercise, not the real product.
+
+    (Note: the task text for this challenge mentions "the selected CSS
+    framework", left over from the previous challenge's template — this
+    one asks for plain HTML/CSS, so that's what's used here.)
+  -->
+  <div class="app">
+    <!-- Sidebar: search bar + results list -->
+    <aside class="sidebar" id="sidebar">
+      <div class="search-bar">
+        <button class="icon-btn" id="menuToggle" aria-label="Toggle menu" aria-expanded="true" aria-controls="sidebar">
+          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </button>
+        <form id="searchForm" role="search">
+          <input type="text" id="searchInput" placeholder="Search Maps" value="coffee shops near Covent Garden, London" aria-label="Search">
+        </form>
+        <button class="icon-btn icon-btn-round" id="searchBtn" aria-label="Search" form="searchForm" type="submit">🔍</button>
+      </div>
+
+      <div class="result-count" id="resultCount">Coffee shops near Covent Garden</div>
+
+      <ul class="result-list" id="resultList">
+        <li class="result" data-query="Monmouth Coffee Company, Covent Garden, London" tabindex="0">
+          <span class="result-icon">☕</span>
+          <div class="result-body">
+            <p class="result-name">Monmouth Coffee Company</p>
+            <p class="result-meta"><span class="stars">★★★★★</span> <span class="rating">4.6</span> · Coffee shop</p>
+            <p class="result-sub">Open · Closes 6:00 pm · 0.2 mi</p>
+          </div>
+        </li>
+        <li class="result" data-query="Neal Street Espresso, Covent Garden, London" tabindex="0">
+          <span class="result-icon">☕</span>
+          <div class="result-body">
+            <p class="result-name">Neal Street Espresso</p>
+            <p class="result-meta"><span class="stars">★★★★☆</span> <span class="rating">4.4</span> · Coffee shop</p>
+            <p class="result-sub">Open · Closes 5:30 pm · 0.3 mi</p>
+          </div>
+        </li>
+        <li class="result" data-query="WatchHouse Covent Garden, London" tabindex="0">
+          <span class="result-icon">☕</span>
+          <div class="result-body">
+            <p class="result-name">WatchHouse Covent Garden</p>
+            <p class="result-meta"><span class="stars">★★★★☆</span> <span class="rating">4.5</span> · Coffee shop</p>
+            <p class="result-sub">Open · Closes 7:00 pm · 0.3 mi</p>
+          </div>
+        </li>
+        <li class="result" data-query="Kiss the Hippo Coffee, Covent Garden, London" tabindex="0">
+          <span class="result-icon">☕</span>
+          <div class="result-body">
+            <p class="result-name">Kiss the Hippo Coffee</p>
+            <p class="result-meta"><span class="stars">★★★★★</span> <span class="rating">4.7</span> · Coffee shop</p>
+            <p class="result-sub">Open · Closes 5:00 pm · 0.4 mi</p>
+          </div>
+        </li>
+        <li class="result" data-query="Notes Coffee Roasters and Bar, Covent Garden, London" tabindex="0">
+          <span class="result-icon">☕</span>
+          <div class="result-body">
+            <p class="result-name">Notes Coffee Roasters &amp; Bar</p>
+            <p class="result-meta"><span class="stars">★★★★☆</span> <span class="rating">4.3</span> · Coffee shop</p>
+            <p class="result-sub">Open · Closes 6:00 pm · 0.4 mi</p>
+          </div>
+        </li>
+        <li class="result" data-query="Capilungo, Covent Garden, London" tabindex="0">
+          <span class="result-icon">☕</span>
+          <div class="result-body">
+            <p class="result-name">Capilungo</p>
+            <p class="result-meta"><span class="stars">★★★★☆</span> <span class="rating">4.2</span> · Coffee shop</p>
+            <p class="result-sub">Open · Closes 5:00 pm · 0.5 mi</p>
+          </div>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Map: a real embedded map, its src rewritten by search / result clicks / zoom controls -->
+    <main class="map-area">
+      <iframe id="mapFrame"
+        title="Map"
+        src="https://www.google.com/maps?q=coffee+shops+near+Covent+Garden,+London&z=15&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+
+      <!-- Floating controls, positioned over the map like Google Maps' own -->
+      <div class="map-controls">
+        <button class="map-btn" id="recenterBtn" aria-label="Recenter">🎯</button>
+        <div class="zoom-controls">
+          <button class="map-btn" id="zoomIn" aria-label="Zoom in">+</button>
+          <button class="map-btn" id="zoomOut" aria-label="Zoom out">&minus;</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

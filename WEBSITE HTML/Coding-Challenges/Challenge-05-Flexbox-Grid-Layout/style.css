@@ -1,0 +1,425 @@
+/* ==========================================================
+   Coding Challenge 5: Flexbox / Grid Layout
+   ========================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.55;
+  color: #22262e;
+  background-color: #f7f7f5;
+}
+
+h1, h2, h3 {
+  margin: 0 0 10px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+/* ==========================================================
+   PAGE SHELL — CSS Grid with named areas.
+   Five areas laid out in three rows: a full-width header, a
+   middle row of sidebar / main / aside, and a full-width footer.
+   ========================================================== */
+.page-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr 260px;
+  grid-template-areas:
+    "header  header header"
+    "sidebar main   aside"
+    "footer  footer footer";
+  min-height: 100vh;
+}
+
+.area-header  { grid-area: header; }
+.area-sidebar { grid-area: sidebar; }
+.area-main    { grid-area: main; }
+.area-aside   { grid-area: aside; }
+.area-footer  { grid-area: footer; }
+
+/* ---------- Header: Flexbox row, space-between ---------- */
+.area-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 28px;
+  background-color: #1c2733;
+  color: #ffffff;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.logo span {
+  color: #6cc4ff;
+}
+
+.area-header nav ul {
+  display: flex;
+  gap: 26px;
+}
+
+.area-header nav a {
+  text-decoration: none;
+  color: #cfd8e3;
+  font-weight: bold;
+}
+
+.area-header nav a:hover {
+  color: #6cc4ff;
+}
+
+.button {
+  padding: 9px 20px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #1c2733;
+  background-color: #6cc4ff;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.button:hover {
+  background-color: #9adaff;
+}
+
+/* ---------- Sidebar: Flexbox column ---------- */
+.area-sidebar {
+  padding: 28px 20px;
+  background-color: #eef1ee;
+  border-right: 1px solid #dfe3df;
+}
+
+.area-sidebar h2 {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #5a6167;
+}
+
+.chip-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.chip {
+  padding: 8px 16px;
+  font: inherit;
+  font-weight: bold;
+  color: #3a4048;
+  background-color: #ffffff;
+  border: 1px solid #d8dcd8;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.chip-active {
+  color: #ffffff;
+  background-color: #1c2733;
+  border-color: #1c2733;
+}
+
+/* ---------- Main content ---------- */
+.area-main {
+  /* min-width: 0 overrides the grid item default of min-width: auto, which
+     would otherwise stop this 1fr column shrinking below its content's
+     natural width (a common cause of a page scrolling sideways) */
+  min-width: 0;
+  padding: 32px;
+}
+
+.section {
+  margin-bottom: 48px;
+}
+
+.lead {
+  max-width: 640px;
+  margin: 0 0 32px;
+  color: #5a6167;
+}
+
+/* ---------- Stats demo: two Flexbox rows, different justify-content ---------- */
+.stats-demo {
+  margin-bottom: 48px;
+}
+
+.stats-row + .stats-row {
+  margin-top: 20px;
+}
+
+.stats-label {
+  margin: 0 0 8px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  color: #5a6167;
+}
+
+.stats-flex {
+  display: flex;
+  padding: 20px 24px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.stats-between {
+  justify-content: space-between;
+}
+
+.stats-around {
+  justify-content: space-around;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat strong {
+  font-size: 26px;
+}
+
+.stat span {
+  font-size: 13px;
+  color: #5a6167;
+}
+
+/* ---------- Schedule: each row is a Flexbox layout ---------- */
+.session-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.session {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 18px 22px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.session-time {
+  flex: 0 0 70px;
+  font-weight: bold;
+  color: #1c2733;
+}
+
+.session-details {
+  flex: 1;
+}
+
+.session-details h3 {
+  font-size: 17px;
+}
+
+.session-details p {
+  margin: 0;
+  color: #5a6167;
+  font-size: 14px;
+}
+
+.session-speaker {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3a4048;
+  white-space: nowrap;
+}
+
+/* ---------- Avatars ---------- */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #ffffff;
+  border-radius: 50%;
+}
+
+.avatar-lg {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.avatar-a { background-color: #e0665e; }
+.avatar-b { background-color: #4c9a8e; }
+.avatar-c { background-color: #d98c2b; }
+.avatar-d { background-color: #5b7fd9; }
+.avatar-e { background-color: #9a5bc9; }
+.avatar-f { background-color: #4a8fd6; }
+
+/* ---------- Speakers: CSS Grid, auto-fit/minmax ---------- */
+.speaker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.speaker-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.speaker-card h3 {
+  font-size: 16px;
+}
+
+.speaker-card p {
+  margin: 0;
+  font-size: 13px;
+  color: #5a6167;
+}
+
+/* ---------- Aside: Flexbox column of icon + text rows ---------- */
+.area-aside {
+  padding: 28px 20px;
+  background-color: #eef1ee;
+  border-left: 1px solid #dfe3df;
+}
+
+.reason-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.reason-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.reason-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.reason-list p {
+  margin: 0;
+  font-size: 14px;
+  color: #3a4048;
+}
+
+/* ---------- Footer: Flexbox row, space-between ---------- */
+.area-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 28px;
+  color: #cfd8e3;
+  background-color: #1c2733;
+}
+
+.area-footer a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/* ==========================================================
+   TABLET: the three-column grid area layout drops the fixed
+   sidebar/aside widths and lets them share the row with main.
+   ========================================================== */
+@media (max-width: 1100px) {
+  .page-grid {
+    grid-template-columns: 180px 1fr 220px;
+  }
+}
+
+/* ==========================================================
+   PHONE: the grid becomes a single column, and the header nav
+   is hidden to keep the header short (the anchor links inside
+   the page still work by scrolling down to each section).
+   ========================================================== */
+@media (max-width: 760px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main"
+      "sidebar"
+      "aside"
+      "footer";
+  }
+
+  .area-header nav {
+    display: none;
+  }
+
+  .area-sidebar,
+  .area-aside {
+    border: none;
+  }
+
+  .chip-list,
+  .reason-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .stats-flex {
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center !important;
+  }
+
+  .session {
+    flex-wrap: wrap;
+  }
+
+  .session-details {
+    flex-basis: 100%;
+    order: 3;
+  }
+
+  .area-footer {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}

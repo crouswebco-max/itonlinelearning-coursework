@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PixelConf: a one-day web design conference. Schedule, speakers and venue details.">
+  <title>PixelConf | Schedule</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!--
+    Overall page shell: CSS Grid with named areas (see .page-grid in style.css).
+    Named areas make the big-picture layout easy to read straight from the CSS,
+    and easy to rearrange for phones in the media query at the bottom.
+  -->
+  <div class="page-grid">
+
+    <!-- Header: a Flexbox row (logo on the left, nav on the right, space-between) -->
+    <header class="area-header">
+      <a class="logo" href="#top">Pixel<span>Conf</span></a>
+      <nav aria-label="Main menu">
+        <ul>
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#speakers">Speakers</a></li>
+          <li><a href="#venue">Venue</a></li>
+        </ul>
+      </nav>
+      <a class="button" href="#tickets">Get tickets</a>
+    </header>
+
+    <!-- Sidebar: a Flexbox column of filter chips (align-items: flex-start, gap) -->
+    <aside class="area-sidebar">
+      <h2>Filter by track</h2>
+      <div class="chip-list">
+        <button class="chip chip-active" type="button">All sessions</button>
+        <button class="chip" type="button">Design</button>
+        <button class="chip" type="button">Front End</button>
+        <button class="chip" type="button">Accessibility</button>
+        <button class="chip" type="button">Careers</button>
+      </div>
+    </aside>
+
+    <main class="area-main" id="top">
+      <h1>PixelConf Schedule</h1>
+      <p class="lead">One day, twelve talks, six workshops — everything you need to plan your day.</p>
+
+      <!--
+        Stats bar: two Flexbox rows, side by side, that use different
+        `justify-content` values so the difference is easy to see.
+      -->
+      <section class="stats-demo">
+        <div class="stats-row">
+          <p class="stats-label">justify-content: space-between</p>
+          <div class="stats-flex stats-between">
+            <div class="stat"><strong>12</strong><span>Talks</span></div>
+            <div class="stat"><strong>6</strong><span>Workshops</span></div>
+            <div class="stat"><strong>400+</strong><span>Attendees</span></div>
+            <div class="stat"><strong>1</strong><span>Day</span></div>
+          </div>
+        </div>
+        <div class="stats-row">
+          <p class="stats-label">justify-content: space-around</p>
+          <div class="stats-flex stats-around">
+            <div class="stat"><strong>12</strong><span>Talks</span></div>
+            <div class="stat"><strong>6</strong><span>Workshops</span></div>
+            <div class="stat"><strong>400+</strong><span>Attendees</span></div>
+            <div class="stat"><strong>1</strong><span>Day</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Schedule: each session is a Flexbox row (time | details | speaker), align-items: center -->
+      <section id="schedule" class="section">
+        <h2>Schedule</h2>
+        <ul class="session-list">
+          <li class="session">
+            <div class="session-time">09:30</div>
+            <div class="session-details">
+              <h3>Opening Keynote: The State of the Web</h3>
+              <p>Where browsers, frameworks and design tools are heading next.</p>
+            </div>
+            <div class="session-speaker">
+              <span class="avatar avatar-a">AM</span>
+              Aisha Mensah
+            </div>
+          </li>
+          <li class="session">
+            <div class="session-time">10:15</div>
+            <div class="session-details">
+              <h3>Designing with CSS Grid</h3>
+              <p>Building flexible page layouts without a single wrapper div.</p>
+            </div>
+            <div class="session-speaker">
+              <span class="avatar avatar-b">DK</span>
+              Daniel Kim
+            </div>
+          </li>
+          <li class="session">
+            <div class="session-time">11:30</div>
+            <div class="session-details">
+              <h3>Accessible Forms, By Default</h3>
+              <p>Small habits that make every form usable with a keyboard or screen reader.</p>
+            </div>
+            <div class="session-speaker">
+              <span class="avatar avatar-c">RP</span>
+              Rosa Petrova
+            </div>
+          </li>
+          <li class="session">
+            <div class="session-time">13:30</div>
+            <div class="session-details">
+              <h3>From Junior to Lead: A Career Panel</h3>
+              <p>Four developers on the moves that shaped their careers.</p>
+            </div>
+            <div class="session-speaker">
+              <span class="avatar avatar-d">TO</span>
+              Tunde Okafor
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Speakers: a CSS Grid with auto-fit/minmax, so the column count adapts on its own -->
+      <section id="speakers" class="section">
+        <h2>Speakers</h2>
+        <div class="speaker-grid">
+          <article class="speaker-card">
+            <span class="avatar avatar-a avatar-lg">AM</span>
+            <h3>Aisha Mensah</h3>
+            <p>Principal Designer, Northwind</p>
+          </article>
+          <article class="speaker-card">
+            <span class="avatar avatar-b avatar-lg">DK</span>
+            <h3>Daniel Kim</h3>
+            <p>Front End Engineer, Fable Labs</p>
+          </article>
+          <article class="speaker-card">
+            <span class="avatar avatar-c avatar-lg">RP</span>
+            <h3>Rosa Petrova</h3>
+            <p>Accessibility Consultant</p>
+          </article>
+          <article class="speaker-card">
+            <span class="avatar avatar-d avatar-lg">TO</span>
+            <h3>Tunde Okafor</h3>
+            <p>Engineering Lead, Various Studio</p>
+          </article>
+          <article class="speaker-card">
+            <span class="avatar avatar-e avatar-lg">LC</span>
+            <h3>Lena Cruz</h3>
+            <p>Design Systems Lead, Orbit</p>
+          </article>
+          <article class="speaker-card">
+            <span class="avatar avatar-f avatar-lg">HW</span>
+            <h3>Hugo Weiss</h3>
+            <p>Independent Product Designer</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="venue" class="section">
+        <h2>Venue</h2>
+        <p>The Old Foundry, 22 Riverside Walk. Doors open at 8:45am, with coffee and pastries before the keynote.</p>
+        <a class="button" href="#tickets" id="tickets">Get your ticket</a>
+      </section>
+    </main>
+
+    <!-- "Why attend" panel: a Flexbox column of icon + text rows -->
+    <aside class="area-aside">
+      <h2>Why attend</h2>
+      <ul class="reason-list">
+        <li><span class="reason-icon">🎤</span><p>12 talks from working designers and developers.</p></li>
+        <li><span class="reason-icon">🤝</span><p>Small enough to actually talk to the speakers.</p></li>
+        <li><span class="reason-icon">🍩</span><p>Breakfast, lunch and snacks all included.</p></li>
+      </ul>
+    </aside>
+
+    <!-- Footer: a Flexbox row (space-between), wraps to a column on phones -->
+    <footer class="area-footer">
+      <p>&copy; 2026 PixelConf</p>
+      <a href="#top">Back to top ↑</a>
+    </footer>
+  </div>
+</body>
+</html>

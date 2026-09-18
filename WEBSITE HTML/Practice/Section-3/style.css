@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: sans-serif;
+  background-color: #fffaf0;
+}
+
+h1 {
+  font-size: 50px;
+  color: saddlebrown;
+  font-family: "Courier New", Courier, monospace;
+}
+
+p {
+  font-size: 18px;
+  color: rgb(60, 60, 60);
+}
+
+#special-offer {
+  color: orange;
+  font-weight: bold;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+a {
+  color: #b5651d;
+}

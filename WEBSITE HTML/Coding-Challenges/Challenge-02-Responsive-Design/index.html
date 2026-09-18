@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Trailhead: find hiking trails and join guided group hikes.">
+  <title>Trailhead | Find Your Next Hike</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="#top">🥾 Trailhead</a>
+
+    <!-- The checkbox below powers the mobile menu with pure CSS, no JavaScript needed.
+         It must be a sibling of .main-nav (both inside .site-header) for the
+         ".menu-toggle:checked ~ .main-nav" rule in style.css to reach it. -->
+    <input type="checkbox" id="menu-toggle" class="menu-toggle" hidden>
+    <label for="menu-toggle" class="menu-button" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </label>
+
+    <nav class="main-nav" aria-label="Main menu">
+      <ul>
+        <li><a href="#top">Home</a></li>
+        <li><a href="#trails">Trails</a></li>
+        <li><a href="#hikes">Guided Hikes</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- Hero: swaps to a taller, narrower photo on phones (see the picture element) -->
+    <section class="hero">
+      <picture>
+        <source media="(max-width: 640px)" srcset="images/hero-tall.jpg">
+        <img src="images/hero-wide.jpg" alt="A misty green valley seen from a ridge trail" class="hero-image">
+      </picture>
+      <div class="hero-text">
+        <h1>Find your next trail</h1>
+        <p>Trail guides, difficulty ratings and group hikes, all in one place. Pick a trail below or join one of our guided walks.</p>
+        <a class="button" href="#trails">Browse trails</a>
+      </div>
+    </section>
+
+    <!-- Trails: a grid that goes from 3 columns to 2 to 1 as the screen narrows -->
+    <section id="trails" class="section">
+      <h2>Popular Trails</h2>
+      <div class="trail-grid">
+        <article class="trail-card">
+          <img src="images/trail-fjord.jpg" alt="A rocky clifftop path above a blue fjord" loading="lazy">
+          <div class="trail-body">
+            <h3>Fjord Overlook</h3>
+            <p>A dramatic clifftop walk with sweeping views over the water.</p>
+            <ul class="trail-stats">
+              <li><span class="tag tag-hard">Hard</span></li>
+              <li>11 km</li>
+              <li>4–5 hrs</li>
+            </ul>
+          </div>
+        </article>
+        <article class="trail-card">
+          <img src="images/trail-falls.jpg" alt="A waterfall dropping through a green forest gorge" loading="lazy">
+          <div class="trail-body">
+            <h3>Forest Falls</h3>
+            <p>A shaded woodland trail that ends at a hidden waterfall.</p>
+            <ul class="trail-stats">
+              <li><span class="tag tag-easy">Easy</span></li>
+              <li>4 km</li>
+              <li>1–2 hrs</li>
+            </ul>
+          </div>
+        </article>
+        <article class="trail-card">
+          <img src="images/trail-valley.jpg" alt="A river winding through a misty forest valley" loading="lazy">
+          <div class="trail-body">
+            <h3>Misty Valley</h3>
+            <p>A gentle riverside path, best walked early in the morning.</p>
+            <ul class="trail-stats">
+              <li><span class="tag tag-moderate">Moderate</span></li>
+              <li>7 km</li>
+              <li>2–3 hrs</li>
+            </ul>
+          </div>
+        </article>
+        <article class="trail-card">
+          <img src="images/trail-snow.jpg" alt="Snow-covered mountain peaks under a bright sky" loading="lazy">
+          <div class="trail-body">
+            <h3>Summit Ridge</h3>
+            <p>A high-altitude route with snow underfoot for much of the year.</p>
+            <ul class="trail-stats">
+              <li><span class="tag tag-hard">Hard</span></li>
+              <li>14 km</li>
+              <li>6–7 hrs</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Guided hikes: a table on wide screens, stacked cards on phones (same HTML, different CSS) -->
+    <section id="hikes" class="section section-alt">
+      <h2>Upcoming Guided Hikes</h2>
+      <table class="hikes-table">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Trail</th>
+            <th scope="col">Level</th>
+            <th scope="col">Spots left</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Date">Sat 3 Oct</td>
+            <td data-label="Trail">Forest Falls</td>
+            <td data-label="Level"><span class="tag tag-easy">Easy</span></td>
+            <td data-label="Spots left">6</td>
+          </tr>
+          <tr>
+            <td data-label="Date">Sun 11 Oct</td>
+            <td data-label="Trail">Misty Valley</td>
+            <td data-label="Level"><span class="tag tag-moderate">Moderate</span></td>
+            <td data-label="Spots left">3</td>
+          </tr>
+          <tr>
+            <td data-label="Date">Sat 17 Oct</td>
+            <td data-label="Trail">Fjord Overlook</td>
+            <td data-label="Level"><span class="tag tag-hard">Hard</span></td>
+            <td data-label="Spots left">8</td>
+          </tr>
+          <tr>
+            <td data-label="Date">Sun 25 Oct</td>
+            <td data-label="Trail">Summit Ridge</td>
+            <td data-label="Level"><span class="tag tag-hard">Hard</span></td>
+            <td data-label="Spots left">2</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Contact / newsletter -->
+    <section id="contact" class="section contact">
+      <img src="images/meadow-path.jpg" alt="A gravel path through a green meadow" class="contact-image" loading="lazy">
+      <div class="contact-text">
+        <h2>Get trail updates</h2>
+        <p>New trails and guided hikes, straight to your inbox. No spam, just walking.</p>
+        <form class="signup-form" action="#" method="post">
+          <label for="email" class="visually-hidden">Email address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          <button type="submit" class="button">Sign up</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Trailhead</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,276 @@
+/* ==========================================================
+   Coding Challenge 9: Map Page
+   ========================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, "Segoe UI", sans-serif;
+  color: #202124;
+  overflow: hidden;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ---------- App shell: sidebar + map, side by side ---------- */
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  flex-shrink: 0;
+  background-color: #ffffff;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+  transition: margin-left 0.25s ease;
+}
+
+.sidebar.collapsed {
+  margin-left: -400px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* Left padding reserves room for #menuToggle, which is fixed-positioned
+     (see below) and sits visually in that space, but is no longer part
+     of this flex row */
+  padding: 14px 14px 14px 58px;
+  border-bottom: 1px solid #e8eaed;
+}
+
+.search-bar form {
+  flex: 1;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 15px;
+  border: none;
+  border-radius: 24px;
+  background-color: #f1f3f4;
+}
+
+.search-bar input:focus {
+  outline: 2px solid #1a73e8;
+  background-color: #ffffff;
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 18px;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #5f6368;
+}
+
+/* #menuToggle needs to open AND close the sidebar, so it can't live
+   inside the element it's controlling — position: fixed pins it to the
+   viewport (not to .sidebar), so it stays reachable even once the
+   sidebar has slid off-screen */
+#menuToggle {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 20;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.icon-btn:hover,
+.icon-btn:focus-visible {
+  background-color: #f1f3f4;
+}
+
+.icon-btn-round {
+  color: #1a73e8;
+}
+
+/* Hamburger icon: three CSS bars, no icon font/image needed */
+#menuToggle .bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  margin: 2px 0;
+  background-color: #5f6368;
+}
+
+.result-count {
+  padding: 12px 20px 4px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #5f6368;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- Results list ---------- */
+.result-list {
+  flex: 1;
+  margin: 0;
+  padding: 4px 0 12px;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.result {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+
+.result:hover,
+.result:focus-visible {
+  background-color: #f8f9fa;
+}
+
+.result.active {
+  background-color: #e8f0fe;
+  border-left-color: #1a73e8;
+}
+
+.result-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  font-size: 16px;
+  background-color: #fce8e6;
+  border-radius: 50%;
+}
+
+.result-name {
+  margin: 0 0 3px;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.result-meta {
+  margin: 0 0 3px;
+  font-size: 13px;
+  color: #5f6368;
+}
+
+.stars {
+  color: #fbbc04;
+  letter-spacing: -1px;
+}
+
+.result-sub {
+  margin: 0;
+  font-size: 13px;
+  color: #188038;
+}
+
+/* ---------- Map ---------- */
+.map-area {
+  position: relative;
+  flex: 1;
+}
+
+.map-area iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.map-controls {
+  position: absolute;
+  right: 20px;
+  bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.map-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333333;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.map-btn:hover,
+.map-btn:focus-visible {
+  background-color: #f1f3f4;
+}
+
+.zoom-controls {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.zoom-controls .map-btn {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.zoom-controls .map-btn:first-child {
+  border-bottom: 1px solid #e8eaed;
+}
+
+/* ==========================================================
+   PHONE: the sidebar becomes a slide-in panel over the map
+   (starts collapsed), rather than sharing space beside it.
+   ========================================================== */
+@media (max-width: 760px) {
+  .sidebar {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 88vw;
+    max-width: 400px;
+    margin-left: -88vw;
+  }
+
+  .sidebar:not(.collapsed) {
+    margin-left: 0;
+  }
+
+  .map-controls {
+    bottom: 20px;
+    right: 14px;
+  }
+}
