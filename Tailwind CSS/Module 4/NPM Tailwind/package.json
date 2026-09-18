@@ -1,0 +1,19 @@
+{
+  "name": "npm-tailwind",
+  "version": "1.0.0",
+  "description": "Tailwind CSS installed with npm and built with the Tailwind CLI (Module 4).",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css",
+    "watch": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}
