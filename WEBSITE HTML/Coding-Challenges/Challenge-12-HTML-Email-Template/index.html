@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <!-- Stops Outlook on Windows from shrinking the email -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="supported-color-schemes" content="light dark" />
+  <title>Thornbury Bookshop: this month's picks</title>
+
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+
+  <!--
+    Coding Challenge 12: HTML email template.
+
+    Email is not the web. Gmail strips <style> blocks in some cases,
+    Outlook on Windows renders with Word, and almost nothing supports
+    flexbox or grid. So this template sticks to what works everywhere:
+
+      * tables for layout, nested no more than necessary
+      * every style written inline on the element it affects
+      * a fixed 600px width, the safe maximum
+      * one <style> block, used ONLY for the mobile media query and
+        small client fixes, never for anything the email depends on
+      * no background images, no web fonts, no JavaScript
+      * "bulletproof" buttons: a table cell with a padded link, so they
+        look right even in Outlook
+
+    See README.md for the client-by-client testing checklist.
+  -->
+
+  <style type="text/css">
+    /* Client fixes. If a client strips this block, the email still works. */
+    body { margin: 0 !important; padding: 0 !important; width: 100% !important; }
+    table { border-collapse: collapse !important; }
+    img { border: 0; line-height: 100%; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
+
+    /* Outlook.com / Office 365 sometimes adds its own line height */
+    .ExternalClass { width: 100%; }
+    .ExternalClass, .ExternalClass p, .ExternalClass td, .ExternalClass div { line-height: 100%; }
+
+    /* Stops iOS turning dates and addresses into blue links */
+    a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
+
+    /* Phones: everything becomes one column.
+       Apple Mail, iOS Mail, Gmail app and Outlook app all honour this. */
+    @media screen and (max-width: 620px) {
+      .wrapper { width: 100% !important; }
+      .stack { display: block !important; width: 100% !important; max-width: 100% !important; }
+      .stack-pad { padding: 0 0 20px 0 !important; }
+      .mobile-center { text-align: center !important; }
+      .mobile-hide { display: none !important; }
+      .pad-side { padding-left: 24px !important; padding-right: 24px !important; }
+      .h1 { font-size: 26px !important; line-height: 32px !important; }
+      .btn a { display: block !important; }
+    }
+  </style>
+</head>
+
+<!-- The body colour shows around the 600px card on wide screens -->
+<body style="margin: 0; padding: 0; width: 100%; background-color: #f0ece4;">
+
+  <!-- Preheader: the grey preview line next to the subject in an inbox.
+       Hidden in the email itself, and padded so the client doesn't pull
+       the next sentence in after it. -->
+  <div style="display: none; font-size: 1px; color: #f0ece4; line-height: 1px; max-height: 0; max-width: 0; opacity: 0; overflow: hidden;">
+    Three books we can't stop recommending, plus Friday's reading group.
+    &#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;
+  </div>
+
+  <!-- Outer table: full width, holds the background colour -->
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse; background-color: #f0ece4;">
+    <tr>
+      <td align="center" style="padding: 24px 12px;">
+
+        <!-- The 600px card -->
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" class="wrapper" style="width: 600px; max-width: 600px; border-collapse: collapse; background-color: #ffffff; border: 1px solid #e0d8cc;">
+
+          <!-- Header -->
+          <tr>
+            <td class="pad-side" style="padding: 28px 32px; background-color: #1f3a34;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                <tr>
+                  <td class="stack mobile-center" style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: 22px; font-weight: bold; color: #ffffff; letter-spacing: 0.5px;">
+                    Thornbury Bookshop
+                  </td>
+                  <td class="stack mobile-center mobile-hide" align="right" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #b9cfc6; letter-spacing: 1px; text-transform: uppercase;">
+                    September picks
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Headline -->
+          <tr>
+            <td class="pad-side" style="padding: 36px 32px 8px 32px;">
+              <p style="margin: 0 0 10px 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; color: #a8571f;">
+                What we're reading
+              </p>
+              <h1 class="h1" style="margin: 0 0 14px 0; font-family: Georgia, 'Times New Roman', Times, serif; font-size: 32px; line-height: 38px; font-weight: normal; color: #1f3a34;">
+                Three books we can't stop recommending
+              </h1>
+              <p style="margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 26px; color: #4a4a4a;">
+                Hello,<br />
+                Here's what's been passing between us behind the till this month. All three are on the front table, and members get 10% off until the end of September.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Button. The padding lives on the link, so the whole coloured
+               area is clickable, and Outlook still renders it properly. -->
+          <tr>
+            <td class="pad-side" style="padding: 24px 32px 8px 32px;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn" style="border-collapse: collapse;">
+                <tr>
+                  <td align="center" bgcolor="#a8571f" style="background-color: #a8571f; border-radius: 4px;">
+                    <a href="https://example.com/september-picks" target="_blank" style="display: inline-block; padding: 14px 30px; font-family: Arial, Helvetica, sans-serif; font-size: 15px; font-weight: bold; color: #ffffff; text-decoration: none; border-radius: 4px;">
+                      See all this month's picks
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td class="pad-side" style="padding: 28px 32px 0 32px;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                <tr><td height="1" style="height: 1px; background-color: #e0d8cc; line-height: 1px; font-size: 0;">&nbsp;</td></tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Book 1: two columns that stack on a phone.
+               The cover is a coloured cell, not an image, so nothing
+               breaks when a client blocks images. -->
+          <tr>
+            <td class="pad-side" style="padding: 28px 32px 0 32px;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                <tr>
+                  <td class="stack stack-pad" width="120" valign="top" style="width: 120px; padding-right: 20px;">
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="120" style="width: 120px; border-collapse: collapse;">
+                      <tr>
+                        <td align="center" valign="middle" height="160" bgcolor="#1f3a34" style="height: 160px; background-color: #1f3a34; font-family: Georgia, 'Times New Roman', Times, serif; font-size: 34px; color: #ffffff;">
+                          SH
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td class="stack" valign="top" style="font-family: Arial, Helvetica, sans-serif;">
+                    <p style="margin: 0 0 6px 0; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; color: #a8571f;">Fiction</p>
+                    <h2 style="margin: 0 0 8px 0; font-family: Georgia, 'Times New Roman', Times, serif; font-size: 20px; line-height: 26px; font-weight: normal; color: #1f3a34;">The Salt House</h2>
+                    <p style="margin: 0 0 12px 0; font-size: 15px; line-height: 24px; color: #4a4a4a;">A family returns to a crumbling house on the coast for one last summer. Quiet, sharp, and very hard to put down.</p>
+                    <p style="margin: 0; font-size: 15px; line-height: 24px; color: #1f3a34;"><strong>&pound;9.99</strong> <span style="color: #8a8a8a;">&nbsp;paperback</span></p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Book 2 -->
+          <tr>
+            <td class="pad-side" style="padding: 28px 32px 0 32px;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                <tr>
+                  <td class="stack stack-pad" width="120" valign="top" style="width: 120px; padding-right: 20px;">
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="120" style="width: 120px; border-collapse: collapse;">
+                      <tr>
+                        <td align="center" valign="middle" height="160" bgcolor="#a8571f" style="height: 160px; background-color: #a8571f; font-family: Georgia, 'Times New Roman', Times, serif; font-size: 34px; color: #ffffff;">
+                          NW
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td class="stack" valign="top" style="font-family: Arial, Helvetica, sans-serif;">
+                    <p style="margin: 0 0 6px 0; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; color: #a8571f;">Nature writing</p>
+                    <h2 style="margin: 0 0 8px 0; font-family: Georgia, 'Times New Roman', Times, serif; font-size: 20px; line-height: 26px; font-weight: normal; color: #1f3a34;">Night Walks</h2>
+                    <p style="margin: 0 0 12px 0; font-size: 15px; line-height: 24px; color: #4a4a4a;">A year of walking the same three fields after dark. It will make you want to go outside at eleven at night.</p>
+                    <p style="margin: 0; font-size: 15px; line-height: 24px; color: #1f3a34;"><strong>&pound;12.99</strong> <span style="color: #8a8a8a;">&nbsp;hardback</span></p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Book 3 -->
+          <tr>
+            <td class="pad-side" style="padding: 28px 32px 0 32px;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                <tr>
+                  <td class="stack stack-pad" width="120" valign="top" style="width: 120px; padding-right: 20px;">
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="120" style="width: 120px; border-collapse: collapse;">
+                      <tr>
+                        <td align="center" valign="middle" height="160" bgcolor="#3c5c8c" style="height: 160px; background-color: #3c5c8c; font-family: Georgia, 'Times New Roman', Times, serif; font-size: 34px; color: #ffffff;">
+                          TK
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td class="stack" valign="top" style="font-family: Arial, Helvetica, sans-serif;">
+                    <p style="margin: 0 0 6px 0; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; color: #a8571f;">Children's</p>
+                    <h2 style="margin: 0 0 8px 0; font-family: Georgia, 'Times New Roman', Times, serif; font-size: 20px; line-height: 26px; font-weight: normal; color: #1f3a34;">The Tea Kettle Dragon</h2>
+                    <p style="margin: 0 0 12px 0; font-size: 15px; line-height: 24px; color: #4a4a4a;">A dragon the size of a kettle moves into a very tidy house. Ages 5 and up, and a good read-aloud.</p>
+                    <p style="margin: 0; font-size: 15px; line-height: 24px; color: #1f3a34;"><strong>&pound;7.99</strong> <span style="color: #8a8a8a;">&nbsp;paperback</span></p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Events panel -->
+          <tr>
+            <td class="pad-side" style="padding: 32px 32px 0 32px;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#f6f2eb" style="border-collapse: collapse; background-color: #f6f2eb;">
+                <tr>
+                  <td style="padding: 24px; font-family: Arial, Helvetica, sans-serif;">
+                    <h3 style="margin: 0 0 14px 0; font-family: Georgia, 'Times New Roman', Times, serif; font-size: 18px; font-weight: normal; color: #1f3a34;">Coming up in the shop</h3>
+
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                      <tr>
+                        <td width="70" valign="top" style="width: 70px; padding: 0 0 12px 0; font-size: 14px; font-weight: bold; color: #a8571f;">Fri 25</td>
+                        <td valign="top" style="padding: 0 0 12px 0; font-size: 14px; line-height: 21px; color: #4a4a4a;">Reading group: <em>The Salt House</em>, 7pm, upstairs</td>
+                      </tr>
+                      <tr>
+                        <td width="70" valign="top" style="width: 70px; padding: 0 0 12px 0; font-size: 14px; font-weight: bold; color: #a8571f;">Sat 26</td>
+                        <td valign="top" style="padding: 0 0 12px 0; font-size: 14px; line-height: 21px; color: #4a4a4a;">Story time for little ones, 10:30am, free</td>
+                      </tr>
+                      <tr>
+                        <td width="70" valign="top" style="width: 70px; font-size: 14px; font-weight: bold; color: #a8571f;">Thu 31</td>
+                        <td valign="top" style="font-size: 14px; line-height: 21px; color: #4a4a4a;">Local authors evening, 6:30pm, tickets &pound;4</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Sign off -->
+          <tr>
+            <td class="pad-side" style="padding: 28px 32px 36px 32px; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 26px; color: #4a4a4a;">
+              See you soon,<br />
+              <strong style="color: #1f3a34;">Everyone at Thornbury</strong>
+            </td>
+          </tr>
+
+          <!-- Footer. A real postal address and a working unsubscribe link
+               are legal requirements for marketing email in the UK and EU. -->
+          <tr>
+            <td class="pad-side" style="padding: 24px 32px; background-color: #1f3a34; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 20px; color: #b9cfc6;">
+              <p style="margin: 0 0 10px 0;">
+                Thornbury Bookshop, 8 Market Row, Thornbury BS35 1AA
+              </p>
+              <p style="margin: 0 0 10px 0;">
+                You're getting this because you signed up in the shop or online.
+              </p>
+              <p style="margin: 0;">
+                <a href="https://example.com/unsubscribe" target="_blank" style="color: #ffffff; text-decoration: underline;">Unsubscribe</a>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="https://example.com/preferences" target="_blank" style="color: #ffffff; text-decoration: underline;">Email preferences</a>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="https://example.com/newsletter/september" target="_blank" style="color: #ffffff; text-decoration: underline;">View in browser</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+        <!-- /600px card -->
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

@@ -1,0 +1,799 @@
+/* =========================================================
+   Coding Challenge 3: CSS Animation
+   Orbit Planetarium. Every moving thing here is CSS only.
+   Sections:
+     1. Base
+     2. Page transitions
+     3. Starfield (twinkle)
+     4. Header and logo (endless orbit)
+     5. Hero (staggered entrance, drifting planet)
+     6. Buttons (shine sweep)
+     7. Cards (lift, glow, spinning icon)
+     8. Links (sliding underline)
+     9. Marquee (endless scroll, pauses on hover)
+    10. Pulse dot
+    11. Reveal on scroll
+    12. Show list (staggered rows)
+    13. Table and footer
+    14. Small screens
+    15. Reduced motion
+   ========================================================= */
+
+
+/* ---------- 1. Base ---------- */
+
+:root {
+  --ink: #050716;
+  --panel: #101436;
+  --panel-light: #1a1f47;
+  --line: #2a3160;
+  --text: #e7e9ff;
+  --muted: #a3a9d4;
+  --accent: #ffc971;
+  --accent-deep: #f0a500;
+  --green: #6ee7a5;
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--ink);
+  color: var(--text);
+  font-family: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 0.4em;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+a {
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+
+/* ---------- 2. Page transitions ---------- */
+
+/* Chrome and Edge fade between the two pages instead of blinking.
+   Other browsers just navigate normally, which is fine. */
+@view-transition {
+  navigation: auto;
+}
+
+/* Naming an element means the browser morphs it from one page to the
+   other, rather than crossfading it with everything else. */
+.site-header {
+  view-transition-name: site-header;
+}
+
+.site-footer {
+  view-transition-name: site-footer;
+}
+
+
+/* ---------- 3. Starfield ---------- */
+
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 600px at 75% -10%, #1b2153 0%, transparent 60%),
+    radial-gradient(900px 500px at 10% 110%, #17173f 0%, transparent 60%),
+    var(--ink);
+}
+
+/* Three layers of dots made from repeating radial gradients. Each one
+   fades in and out at a different speed, so the sky twinkles. */
+.star-layer {
+  position: absolute;
+  inset: -50%;
+  background-repeat: repeat;
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+.star-layer-1 {
+  background-image: radial-gradient(1.6px 1.6px at 20px 30px, #ffffff, transparent);
+  background-size: 180px 180px;
+  opacity: 0.9;
+}
+
+.star-layer-2 {
+  background-image: radial-gradient(1.4px 1.4px at 60px 90px, #cfd6ff, transparent);
+  background-size: 260px 260px;
+  animation-duration: 6s;
+  animation-delay: -2s;
+  opacity: 0.7;
+}
+
+.star-layer-3 {
+  background-image: radial-gradient(2.2px 2.2px at 120px 40px, var(--accent), transparent);
+  background-size: 420px 420px;
+  animation-duration: 9s;
+  animation-delay: -4s;
+  opacity: 0.55;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.25; }
+  to   { opacity: 0.95; }
+}
+
+
+/* ---------- 4. Header and logo ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 6%;
+  border-bottom: 1px solid var(--line);
+  background-color: rgba(5, 7, 22, 0.82);
+  backdrop-filter: blur(8px);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+/* A small planet going round and round the logo, forever. */
+.logo-orbit {
+  position: relative;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  border: 1px dashed var(--line);
+  border-radius: 50%;
+  animation: spin 6s linear infinite;
+}
+
+.logo-planet {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-link {
+  position: relative;
+  padding: 0.2rem 0;
+  color: var(--muted);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible,
+.nav-link.is-current {
+  color: var(--text);
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link.is-current::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+
+/* ---------- 5. Hero ---------- */
+
+.hero,
+.page-head {
+  position: relative;
+  padding: 5rem 6% 3rem;
+  max-width: 1100px;
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-size: clamp(2.6rem, 8vw, 5.5rem);
+}
+
+/* Each line is its own block so the two lines can rise separately. */
+.hero-title span {
+  display: block;
+}
+
+.hero-text {
+  max-width: 34rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2rem;
+}
+
+/* The entrance animation. --delay is set per element in the HTML, so the
+   lines arrive one after another instead of all at once. */
+.reveal {
+  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* The planet drifts up and down, and its ring turns, on two different
+   loops so the motion never looks mechanical. */
+.planet {
+  position: absolute;
+  top: 3.5rem;
+  right: 6%;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #ffd79a, var(--accent-deep) 55%, #7a4b00);
+  box-shadow: 0 0 60px rgba(240, 165, 0, 0.35);
+  animation: drift 7s ease-in-out infinite alternate;
+}
+
+.planet-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 210px;
+  height: 46px;
+  margin: -23px 0 0 -105px;
+  border: 2px solid rgba(255, 201, 113, 0.55);
+  border-radius: 50%;
+  transform: rotate(-18deg);
+  animation: ring-tilt 9s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  from { transform: translateY(-12px); }
+  to   { transform: translateY(14px); }
+}
+
+@keyframes ring-tilt {
+  from { transform: rotate(-22deg) scaleX(0.96); }
+  to   { transform: rotate(-12deg) scaleX(1.04); }
+}
+
+
+/* ---------- 6. Buttons ---------- */
+
+.button {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  padding: 0.85rem 1.6rem;
+  border: 2px solid var(--accent);
+  border-radius: 999px;
+  background-color: var(--accent);
+  color: #241700;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+/* A band of light that sweeps across the button on hover. */
+.button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.55s ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  box-shadow: 0 10px 28px rgba(255, 201, 113, 0.28);
+  transform: translateY(-3px);
+}
+
+.button:hover::after,
+.button:focus-visible::after {
+  left: 130%;
+}
+
+.button:active {
+  transform: translateY(-1px);
+}
+
+.button-ghost {
+  background-color: transparent;
+  color: var(--accent);
+}
+
+.button-ghost:hover,
+.button-ghost:focus-visible {
+  background-color: rgba(255, 201, 113, 0.12);
+}
+
+
+/* ---------- 7. Sections and cards ---------- */
+
+.section {
+  max-width: 1100px;
+  padding: 3.5rem 6%;
+}
+
+.section-title {
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+}
+
+.section-intro {
+  max-width: 34rem;
+  margin-top: 0;
+  color: var(--muted);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.card {
+  padding: 1.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background-color: rgba(16, 20, 54, 0.75);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  transform: translateY(-8px);
+}
+
+.card h3 {
+  margin-top: 0.8rem;
+}
+
+.card p {
+  margin: 0 0 1rem;
+  color: var(--muted);
+}
+
+/* The icon spins and grows when its card is hovered. */
+.card-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  background-color: rgba(255, 201, 113, 0.14);
+  color: var(--accent);
+  font-size: 1.3rem;
+  transition: transform 0.5s ease, background-color 0.3s ease;
+}
+
+.card:hover .card-icon,
+.card:focus-visible .card-icon {
+  background-color: rgba(255, 201, 113, 0.28);
+  transform: rotate(360deg) scale(1.1);
+}
+
+.card-more {
+  display: inline-block;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-more,
+.card:focus-visible .card-more {
+  transform: translateX(6px);
+}
+
+
+/* ---------- 8. Links with a sliding underline ---------- */
+
+.link-slide {
+  position: relative;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.link-slide::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -2px;
+  left: 0;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.link-slide:hover::after,
+.link-slide:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+
+/* ---------- 9. Marquee ---------- */
+
+.marquee {
+  overflow: hidden;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background-color: rgba(16, 20, 54, 0.6);
+  /* Fades the text out at both ends instead of cutting it dead. */
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* The list is written twice in the HTML, so when the first copy has
+   scrolled fully out of sight the second one is exactly in its place,
+   and the jump back to the start is invisible. */
+.marquee-track {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  color: var(--muted);
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: slide-left 26s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes slide-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+
+/* ---------- 10. Pulse dot ---------- */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 2.5rem;
+  padding: 0.7rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background-color: rgba(16, 20, 54, 0.75);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--green);
+  animation: pulse 2s ease-out infinite;
+}
+
+/* The ring grows outwards and fades, like a radar ping. */
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(110, 231, 165, 0.7); }
+  70%  { box-shadow: 0 0 0 14px rgba(110, 231, 165, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(110, 231, 165, 0); }
+}
+
+
+/* ---------- 11. Reveal on scroll ---------- */
+
+.step-list {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.step {
+  padding: 1.5rem 1.8rem;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background-color: rgba(16, 20, 54, 0.7);
+}
+
+.step h3 {
+  margin: 0.3rem 0 0.4rem;
+}
+
+.step p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.step-number {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+/* Scroll-driven animation: the timeline is the element's own trip
+   through the viewport, so it fades in as it arrives. Browsers that
+   don't support it simply show the steps normally, which is why the
+   rule sits inside @supports. */
+@supports (animation-timeline: view()) {
+  .scroll-reveal {
+    animation: rise-in both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 35%;
+  }
+}
+
+
+/* ---------- 12. Show list ---------- */
+
+.show-list {
+  display: grid;
+  gap: 0.9rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Same entrance animation as the hero, staggered down the list. */
+.show-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1.4rem;
+  padding: 1.2rem 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background-color: rgba(16, 20, 54, 0.72);
+  animation: rise-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--delay, 0s);
+  transition: border-color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+.show-row:hover {
+  border-color: var(--accent);
+  background-color: rgba(26, 31, 71, 0.9);
+  transform: translateX(8px);
+}
+
+.show-time {
+  min-width: 4.5rem;
+  color: var(--accent);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.show-body {
+  flex: 1 1 14rem;
+}
+
+.show-name {
+  display: block;
+  font-weight: 500;
+}
+
+.show-note {
+  display: block;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.show-tag {
+  padding: 0.25rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.back-line {
+  margin-top: 2.5rem;
+}
+
+
+/* ---------- 13. Table and footer ---------- */
+
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.how-table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.how-table th,
+.how-table td {
+  padding: 0.85rem 1.1rem;
+  text-align: left;
+}
+
+.how-table th {
+  background-color: rgba(42, 49, 96, 0.6);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.how-table tbody tr {
+  border-top: 1px solid var(--line);
+  transition: background-color 0.25s ease;
+}
+
+.how-table tbody tr:hover {
+  background-color: rgba(42, 49, 96, 0.35);
+}
+
+.how-table code {
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 2rem 6%;
+  border-top: 1px solid var(--line);
+  background-color: rgba(5, 7, 22, 0.7);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+
+/* ---------- 14. Small screens ---------- */
+
+@media (max-width: 760px) {
+  .hero,
+  .page-head {
+    padding-top: 3rem;
+  }
+
+  /* The planet would sit on top of the heading, so it moves below it. */
+  .planet {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 96px;
+    height: 96px;
+    margin: 3rem auto 1rem;
+  }
+
+  .planet-ring {
+    width: 150px;
+    height: 34px;
+    margin: -17px 0 0 -75px;
+  }
+
+  .site-header {
+    justify-content: center;
+  }
+}
+
+
+/* ---------- 15. Reduced motion ---------- */
+
+/* If someone has asked their computer to reduce motion, everything
+   stops moving: no drifting, no twinkling, no marquee. The page still
+   works, and the hover colours still change. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .marquee-track {
+    animation: none;
+    transform: none;
+  }
+
+  /* The scroll-driven steps are shown straight away, fully visible. */
+  .scroll-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  @view-transition {
+    navigation: none;
+  }
+}
