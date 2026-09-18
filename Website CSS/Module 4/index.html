@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brushstroke Paints</title>
+
+  <!-- Google Fonts (from Module 3) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome icons (from Module 3) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Internal CSS (from Module 1) -->
+  <style>
+    h2 {
+      color: green;
+    }
+
+    li {
+      line-height: 1.8;
+    }
+  </style>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="site-header">
+    <div class="header-text">
+      <i class="fa-solid fa-paint-roller header-icon" aria-hidden="true"></i>
+      <h1 id="shop-name">Brushstroke Paints</h1>
+      <p class="tagline">Colour for every room in your house</p>
+    </div>
+  </header>
+
+  <!-- New in Module 4: the menu is its own bar below the header, as a
+       list, so it can stick to the top of the screen while you scroll. -->
+  <nav class="main-nav">
+    <ul>
+      <li><a href="#colours"><i class="fa-solid fa-palette" aria-hidden="true"></i> Colours</a></li>
+      <li><a href="#frames"><i class="fa-regular fa-image" aria-hidden="true"></i> Frames</a></li>
+      <li><a href="#shop"><i class="fa-solid fa-bucket" aria-hidden="true"></i> Shop</a></li>
+      <li><a href="#tips"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Tips</a></li>
+      <li><a href="#visit"><i class="fa-solid fa-store" aria-hidden="true"></i> Visit</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="welcome">
+      <h2>Welcome</h2>
+      <p class="intro">Brushstroke Paints is a small, family-run paint shop. We mix any colour you like while you wait.</p>
+
+      <!-- New in Module 4: a box around the photo, so the badge can be
+           positioned on top of it. -->
+      <div class="photo-wrap">
+        <img class="shop-photo" src="images/yellow-doors.jpg" alt="Two garage doors painted bright yellow, with two old cars parked in front">
+        <p class="sale-badge">20% off yellow</p>
+      </div>
+      <p class="photo-caption">Garage doors painted in our Sunshine Yellow.</p>
+
+      <p class="story">We opened in 1998 with one shelf of paint and a borrowed mixing machine. Today we stock more than two thousand colours, and we still remember most of our customers by the colour of their kitchen.</p>
+      <p>Not sure where to start? <a href="#colours">See this season's colours</a> or <a href="#tips">read our painting tips</a>.</p>
+
+      <h3>Why shop with us</h3>
+      <ul class="icon-list">
+        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Colours mixed while you wait</li>
+        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Free advice from real decorators</li>
+        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Sample pots from £2</li>
+      </ul>
+
+      <p class="highlight">This week only: a free brush with every large tin.</p>
+      <a class="button-link" href="#visit">Come and visit</a>
+    </section>
+
+    <section id="colours">
+      <h2>This season's colours</h2>
+      <p>Each colour below is written a different way in the CSS.</p>
+      <div class="swatch" id="swatch-named">Tomato: <code>tomato</code></div>
+      <div class="swatch" id="swatch-hex">Ocean Blue: <code>#1e6fa8</code></div>
+      <div class="swatch" id="swatch-rgb">Forest Green: <code>rgb(46, 125, 50)</code></div>
+      <div class="swatch" id="swatch-rgba">Sunshine, half see-through: <code>rgba(255, 193, 7, 0.5)</code></div>
+      <div class="swatch" id="swatch-hsl">Lavender: <code>hsl(270, 50%, 70%)</code></div>
+    </section>
+
+    <section id="frames">
+      <h2>Picture frames <span class="new-tag">New</span></h2>
+      <p>We sell frames too. Each one below uses a different border style.</p>
+      <div class="frame frame-solid">solid</div>
+      <div class="frame frame-dashed">dashed</div>
+      <div class="frame frame-dotted">dotted</div>
+      <div class="frame frame-double">double</div>
+      <div class="frame frame-groove">groove</div>
+      <div class="frame frame-ridge">ridge</div>
+      <div class="frame frame-inset">inset</div>
+      <div class="frame frame-outset">outset</div>
+    </section>
+
+    <!-- New in Module 4 -->
+    <section id="shop">
+      <h2>In the shop</h2>
+
+      <h3>Colour chips</h3>
+      <p>Pick up a free chip and hold it against your wall. The first chip sits on top.</p>
+      <div class="chip-stack">
+        <div class="chip chip-1">Tomato</div>
+        <div class="chip chip-2">Ocean Blue</div>
+        <div class="chip chip-3">Forest Green</div>
+        <div class="chip chip-4">Lavender</div>
+      </div>
+
+      <h3>Tin sizes</h3>
+      <p>Sizes that have sold out are hidden.</p>
+      <div class="tins">
+        <span class="tin">250ml</span>
+        <span class="tin">500ml</span>
+        <span class="tin sold-out">1 litre</span>
+        <span class="tin">2.5 litres</span>
+        <span class="tin">5 litres</span>
+      </div>
+
+      <h3>Full colour chart</h3>
+      <p>Scroll inside the box to see every colour.</p>
+      <ul class="colour-chart" tabindex="0" aria-label="Full colour chart">
+        <li>Arctic White</li>
+        <li>Buttermilk</li>
+        <li>Lemon Sorbet</li>
+        <li>Sunshine Yellow</li>
+        <li>Marigold</li>
+        <li>Burnt Orange</li>
+        <li>Tomato</li>
+        <li>Brick Red</li>
+        <li>Dusty Pink</li>
+        <li>Lavender</li>
+        <li>Plum</li>
+        <li>Midnight Navy</li>
+        <li>Ocean Blue</li>
+        <li>Duck Egg</li>
+        <li>Sea Glass</li>
+        <li>Sage</li>
+        <li>Forest Green</li>
+        <li>Olive</li>
+        <li>Oak Brown</li>
+        <li>Charcoal</li>
+      </ul>
+    </section>
+
+    <section id="tips">
+      <h2>Painting tips</h2>
+      <ul class="tips-list">
+        <li>Wash the walls before you paint.</li>
+        <li>Put masking tape around windows and light switches.</li>
+        <li>Two thin coats look better than one thick coat.</li>
+      </ul>
+
+      <h3>How to paint a wall</h3>
+      <ol class="steps">
+        <li>Fill any holes and sand them smooth.</li>
+        <li>Paint the edges first with a small brush.</li>
+        <li>Roll the middle in a big W shape.</li>
+        <li>Leave it to dry, then add a second coat.</li>
+      </ol>
+      <p class="note">Always test a small patch first.</p>
+    </section>
+
+    <section id="visit">
+      <h2>Visit us</h2>
+      <ul class="contact-list">
+        <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i> 12 Canvas Street</li>
+        <li><i class="fa-regular fa-clock" aria-hidden="true"></i> Monday to Saturday, 9am to 5pm</li>
+        <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> <a href="mailto:hello@example.com">hello@example.com</a></li>
+      </ul>
+      <p class="note highlight">Free parking behind the shop.</p>
+    </section>
+  </main>
+
+  <footer>
+    <!-- Inline CSS (from Module 1) -->
+    <p style="color: #bbbbbb; font-style: italic;">&copy; 2026 Brushstroke Paints. A made-up shop for CSS practice.</p>
+    <p>Photos from <a href="https://unsplash.com">Unsplash</a>. Icons from <a href="https://fontawesome.com">Font Awesome</a>.</p>
+  </footer>
+
+  <!-- New in Module 4: stays in the corner while you scroll -->
+  <a class="back-to-top" href="#site-header" aria-label="Back to top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a>
+</body>
+</html>

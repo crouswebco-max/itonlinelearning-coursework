@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brushstroke Paints</title>
+
+  <!-- Internal CSS (from Module 1) -->
+  <style>
+    h2 {
+      color: green;
+    }
+
+    li {
+      line-height: 1.8;
+    }
+  </style>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="site-header">
+    <!-- New in Module 2: a box around the header text, so it can have
+         its own see-through background on top of the photo. -->
+    <div class="header-text">
+      <h1 id="shop-name">Brushstroke Paints</h1>
+      <p class="tagline">Colour for every room in your house</p>
+      <nav>
+        <a href="#colours">Colours</a> |
+        <a href="#frames">Frames</a> |
+        <a href="#tips">Painting tips</a> |
+        <a href="#visit">Visit us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="welcome">
+      <h2>Welcome</h2>
+      <p>Brushstroke Paints is a small, family-run paint shop. We mix any colour you like while you wait.</p>
+      <img class="shop-photo" src="images/yellow-doors.jpg" alt="Two garage doors painted bright yellow, with two old cars parked in front">
+      <p class="photo-caption">Garage doors painted in our Sunshine Yellow.</p>
+      <p class="highlight">This week only: a free brush with every large tin.</p>
+    </section>
+
+    <section id="colours">
+      <h2>This season's colours</h2>
+      <p>Each colour below is written a different way in the CSS.</p>
+      <div class="swatch" id="swatch-named">Tomato: <code>tomato</code></div>
+      <div class="swatch" id="swatch-hex">Ocean Blue: <code>#1e6fa8</code></div>
+      <div class="swatch" id="swatch-rgb">Forest Green: <code>rgb(46, 125, 50)</code></div>
+      <div class="swatch" id="swatch-rgba">Sunshine, half see-through: <code>rgba(255, 193, 7, 0.5)</code></div>
+      <div class="swatch" id="swatch-hsl">Lavender: <code>hsl(270, 50%, 70%)</code></div>
+    </section>
+
+    <!-- New in Module 2: one frame for each border style -->
+    <section id="frames">
+      <h2>Picture frames</h2>
+      <p>We sell frames too. Each one below uses a different border style.</p>
+      <div class="frame frame-solid">solid</div>
+      <div class="frame frame-dashed">dashed</div>
+      <div class="frame frame-dotted">dotted</div>
+      <div class="frame frame-double">double</div>
+      <div class="frame frame-groove">groove</div>
+      <div class="frame frame-ridge">ridge</div>
+      <div class="frame frame-inset">inset</div>
+      <div class="frame frame-outset">outset</div>
+    </section>
+
+    <section id="tips">
+      <h2>Painting tips</h2>
+      <ul>
+        <li>Wash the walls before you paint.</li>
+        <li>Put masking tape around windows and light switches.</li>
+        <li>Two thin coats look better than one thick coat.</li>
+      </ul>
+      <p class="note">Always test a small patch first.</p>
+    </section>
+
+    <section id="visit">
+      <h2>Visit us</h2>
+      <p>12 Canvas Street. Open Monday to Saturday, 9am to 5pm.</p>
+      <p class="note highlight">Free parking behind the shop.</p>
+    </section>
+  </main>
+
+  <footer>
+    <!-- Inline CSS (from Module 1) -->
+    <p style="color: #bbbbbb; font-style: italic;">&copy; 2026 Brushstroke Paints. A made-up shop for CSS practice.</p>
+  </footer>
+</body>
+</html>

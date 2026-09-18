@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brushstroke Paints</title>
+
+  <!-- New in Module 3: two Google Fonts (Poppins and Lora) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- New in Module 3: Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Internal CSS (from Module 1) -->
+  <style>
+    h2 {
+      color: green;
+    }
+
+    li {
+      line-height: 1.8;
+    }
+  </style>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="site-header">
+    <div class="header-text">
+      <!-- Icons are decoration, so aria-hidden tells screen readers to skip them. -->
+      <i class="fa-solid fa-paint-roller header-icon" aria-hidden="true"></i>
+      <h1 id="shop-name">Brushstroke Paints</h1>
+      <p class="tagline">Colour for every room in your house</p>
+      <nav>
+        <a href="#colours"><i class="fa-solid fa-palette" aria-hidden="true"></i> Colours</a> |
+        <a href="#frames"><i class="fa-regular fa-image" aria-hidden="true"></i> Frames</a> |
+        <a href="#tips"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Painting tips</a> |
+        <a href="#visit"><i class="fa-solid fa-store" aria-hidden="true"></i> Visit us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="welcome">
+      <h2>Welcome</h2>
+      <p class="intro">Brushstroke Paints is a small, family-run paint shop. We mix any colour you like while you wait.</p>
+      <img class="shop-photo" src="images/yellow-doors.jpg" alt="Two garage doors painted bright yellow, with two old cars parked in front">
+      <p class="photo-caption">Garage doors painted in our Sunshine Yellow.</p>
+      <p class="story">We opened in 1998 with one shelf of paint and a borrowed mixing machine. Today we stock more than two thousand colours, and we still remember most of our customers by the colour of their kitchen.</p>
+      <p>Not sure where to start? <a href="#colours">See this season's colours</a> or <a href="#tips">read our painting tips</a>.</p>
+
+      <h3>Why shop with us</h3>
+      <!-- A list with icons instead of bullets -->
+      <ul class="icon-list">
+        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Colours mixed while you wait</li>
+        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Free advice from real decorators</li>
+        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Sample pots from £2</li>
+      </ul>
+
+      <p class="highlight">This week only: a free brush with every large tin.</p>
+      <a class="button-link" href="#visit">Come and visit</a>
+    </section>
+
+    <section id="colours">
+      <h2>This season's colours</h2>
+      <p>Each colour below is written a different way in the CSS.</p>
+      <div class="swatch" id="swatch-named">Tomato: <code>tomato</code></div>
+      <div class="swatch" id="swatch-hex">Ocean Blue: <code>#1e6fa8</code></div>
+      <div class="swatch" id="swatch-rgb">Forest Green: <code>rgb(46, 125, 50)</code></div>
+      <div class="swatch" id="swatch-rgba">Sunshine, half see-through: <code>rgba(255, 193, 7, 0.5)</code></div>
+      <div class="swatch" id="swatch-hsl">Lavender: <code>hsl(270, 50%, 70%)</code></div>
+    </section>
+
+    <section id="frames">
+      <h2>Picture frames</h2>
+      <p>We sell frames too. Each one below uses a different border style.</p>
+      <div class="frame frame-solid">solid</div>
+      <div class="frame frame-dashed">dashed</div>
+      <div class="frame frame-dotted">dotted</div>
+      <div class="frame frame-double">double</div>
+      <div class="frame frame-groove">groove</div>
+      <div class="frame frame-ridge">ridge</div>
+      <div class="frame frame-inset">inset</div>
+      <div class="frame frame-outset">outset</div>
+    </section>
+
+    <section id="tips">
+      <h2>Painting tips</h2>
+      <!-- An unordered list with a picture as the bullet -->
+      <ul class="tips-list">
+        <li>Wash the walls before you paint.</li>
+        <li>Put masking tape around windows and light switches.</li>
+        <li>Two thin coats look better than one thick coat.</li>
+      </ul>
+
+      <h3>How to paint a wall</h3>
+      <!-- An ordered list with a different numbering style -->
+      <ol class="steps">
+        <li>Fill any holes and sand them smooth.</li>
+        <li>Paint the edges first with a small brush.</li>
+        <li>Roll the middle in a big W shape.</li>
+        <li>Leave it to dry, then add a second coat.</li>
+      </ol>
+      <p class="note">Always test a small patch first.</p>
+    </section>
+
+    <section id="visit">
+      <h2>Visit us</h2>
+      <ul class="contact-list">
+        <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i> 12 Canvas Street</li>
+        <li><i class="fa-regular fa-clock" aria-hidden="true"></i> Monday to Saturday, 9am to 5pm</li>
+        <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> <a href="mailto:hello@example.com">hello@example.com</a></li>
+      </ul>
+      <p class="note highlight">Free parking behind the shop.</p>
+    </section>
+  </main>
+
+  <footer>
+    <!-- Inline CSS (from Module 1) -->
+    <p style="color: #bbbbbb; font-style: italic;">&copy; 2026 Brushstroke Paints. A made-up shop for CSS practice.</p>
+    <p>Photos from <a href="https://unsplash.com">Unsplash</a>. Icons from <a href="https://fontawesome.com">Font Awesome</a>.</p>
+  </footer>
+</body>
+</html>

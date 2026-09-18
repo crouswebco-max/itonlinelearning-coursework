@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brushstroke Paints</title>
+
+  <!-- Internal CSS: written inside this page's <head>, so it only affects this page. -->
+  <style>
+    /* style.css also sets the h2 colour. The <link> comes after this
+       <style> block, so style.css wins and the headings end up blue.
+       Move the <link> above the <style> and they turn green. */
+    h2 {
+      color: green;
+    }
+
+    li {
+      line-height: 1.8;
+    }
+  </style>
+
+  <!-- External CSS: a separate file that any page can link to. -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="site-header">
+    <h1 id="shop-name">Brushstroke Paints</h1>
+    <p class="tagline">Colour for every room in your house</p>
+    <nav>
+      <a href="#colours">Colours</a> |
+      <a href="#tips">Painting tips</a> |
+      <a href="#visit">Visit us</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="welcome">
+      <h2>Welcome</h2>
+      <p>Brushstroke Paints is a small, family-run paint shop. We mix any colour you like while you wait.</p>
+      <p class="highlight">This week only: a free brush with every large tin.</p>
+    </section>
+
+    <section id="colours">
+      <h2>This season's colours</h2>
+      <p>Each colour below is written a different way in the CSS.</p>
+      <div class="swatch" id="swatch-named">Tomato: <code>tomato</code></div>
+      <div class="swatch" id="swatch-hex">Ocean Blue: <code>#1e6fa8</code></div>
+      <div class="swatch" id="swatch-rgb">Forest Green: <code>rgb(46, 125, 50)</code></div>
+      <div class="swatch" id="swatch-rgba">Sunshine, half see-through: <code>rgba(255, 193, 7, 0.5)</code></div>
+      <div class="swatch" id="swatch-hsl">Lavender: <code>hsl(270, 50%, 70%)</code></div>
+    </section>
+
+    <section id="tips">
+      <h2>Painting tips</h2>
+      <ul>
+        <li>Wash the walls before you paint.</li>
+        <li>Put masking tape around windows and light switches.</li>
+        <li>Two thin coats look better than one thick coat.</li>
+      </ul>
+      <p class="note">Always test a small patch first.</p>
+    </section>
+
+    <section id="visit">
+      <h2>Visit us</h2>
+      <p>12 Canvas Street. Open Monday to Saturday, 9am to 5pm.</p>
+      <p class="note highlight">Free parking behind the shop.</p>
+    </section>
+  </main>
+
+  <footer>
+    <!-- Inline CSS: written on the element itself. It beats the
+         "footer p" colour in style.css. -->
+    <p style="color: #bbbbbb; font-style: italic;">&copy; 2026 Brushstroke Paints. A made-up shop for CSS practice.</p>
+  </footer>
+</body>
+</html>

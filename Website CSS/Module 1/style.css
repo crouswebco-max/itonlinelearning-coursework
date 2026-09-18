@@ -1,0 +1,132 @@
+/* =========================================================
+   Brushstroke Paints: Module 1 practice (finished version)
+   Topics: how to add CSS, comments, selectors, colours
+   ========================================================= */
+
+/* A comment starts with slash-star and ends with star-slash.
+   The browser ignores everything in between, so comments are
+   for notes to yourself, and for switching code off. */
+
+
+/* ---------- Universal selector ---------- */
+
+/* The star matches every element on the page. */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ---------- Element selectors ---------- */
+
+body {
+  background-color: #fdf8f3;
+  color: #333333;
+}
+
+h2 {
+  color: #1e6fa8;
+}
+
+footer {
+  background-color: #2b2b2b;
+}
+
+/* An element selector beats the universal selector, so code
+   gets this font instead of Arial. */
+code {
+  font-family: "Courier New", monospace;
+}
+
+
+/* ---------- Grouping selector ---------- */
+
+/* A comma applies the same rule to several selectors. */
+h1,
+h2 {
+  font-family: Georgia, serif;
+}
+
+
+/* ---------- ID selectors (#) ---------- */
+
+/* An id is used by only one element per page. */
+#site-header {
+  background-color: #2b2b2b;
+  color: #dddddd;
+  text-align: center;
+}
+
+#shop-name {
+  color: tomato;
+}
+
+
+/* ---------- Class selectors (.) ---------- */
+
+/* A class can be used by as many elements as you like. */
+.tagline {
+  color: #dddddd;
+}
+
+.highlight {
+  background-color: rgba(255, 193, 7, 0.4);
+}
+
+/* "note highlight" in the HTML gives an element both classes,
+   so it gets both rules. */
+.note {
+  color: #555555;
+  font-style: italic;
+}
+
+.swatch {
+  font-weight: bold;
+}
+
+
+/* ---------- Descendant selectors ---------- */
+
+/* "nav a" means: any <a> that is inside a <nav>. */
+nav a {
+  color: #ffc107;
+}
+
+/* The inline style on the footer paragraph beats this colour. */
+footer p {
+  color: #ffffff;
+  text-align: center;
+}
+
+
+/* ---------- Colours: five ways to write them ---------- */
+
+/* 1. A named colour */
+#swatch-named {
+  background-color: tomato;
+  color: #222222;
+}
+
+/* 2. Hex: #RRGGBB, from 00 (none) to ff (full) */
+#swatch-hex {
+  background-color: #1e6fa8;
+  color: #fff; /* short hex: #fff is the same as #ffffff */
+}
+
+/* 3. rgb(red, green, blue), each from 0 to 255 */
+#swatch-rgb {
+  background-color: rgb(46, 125, 50);
+  color: white;
+}
+
+/* 4. rgba(): the 4th number is opacity, from 0 (invisible) to 1 (solid) */
+#swatch-rgba {
+  background-color: rgba(255, 193, 7, 0.5);
+  color: #222222;
+}
+
+/* 5. hsl(hue, saturation, lightness). Hue is an angle on the
+   colour wheel: 0 red, 120 green, 240 blue, 270 purple. */
+#swatch-hsl {
+  background-color: hsl(270, 50%, 70%);
+  color: #222222;
+}
