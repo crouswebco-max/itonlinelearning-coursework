@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Nova portfolio page, built in HTML and CSS from the supplied design mock-up.">
+  <title>Portfolio | NOVA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!--
+    Coding Challenge 11: design to HTML.
+
+    Source design: design/Portfolio.png (1366 x 768).
+    Everything here was measured from that file rather than guessed:
+    the colours were sampled pixel by pixel, and the tile sizes, gaps
+    and margins were read off the image. The numbers are written in
+    the comments in style.css next to the rules that use them.
+  -->
+
+  <header class="site-header">
+    <a class="logo" href="index.html">NOVA</a>
+    <nav aria-label="Main menu">
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="is-current" href="index.html" aria-current="page">Portfolio</a></li>
+        <li><a href="index.html">Services</a></li>
+        <li><a href="index.html">About</a></li>
+        <li><a href="index.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="visually-hidden">Portfolio</h1>
+
+    <!-- Eight square tiles: four across on a computer, in the same
+         order as the mock-up. -->
+    <div class="gallery">
+      <figure class="tile"><img src="images/gallery5.jpg" alt="Hand-drawn wireframes on paper covered in sticky notes, with a designer sketching" width="262" height="262"></figure>
+      <figure class="tile"><img src="images/gallery1.jpg" alt="Close-up of CSS code on a dark screen" width="262" height="262"></figure>
+      <figure class="tile"><img src="images/gallery7.jpg" alt="A hand sketching a page layout in pencil on paper" width="262" height="262"></figure>
+      <figure class="tile"><img src="images/gallery2.jpg" alt="An iMac showing a design system of colour swatches and components, beside a plant" width="262" height="262"></figure>
+      <figure class="tile"><img src="images/gallery4.jpg" alt="A laptop showing colourful code, with a plant on the desk" width="262" height="262"></figure>
+      <figure class="tile"><img src="images/gallery8.jpg" alt="A hand drawing a wireframe on a tablet with a stylus" width="262" height="262"></figure>
+      <figure class="tile"><img src="images/gallery3.jpg" alt="A desk with a laptop and a monitor showing a website, a lamp and a plant" width="262" height="262"></figure>
+      <figure class="tile"><img src="images/gallery6.jpg" alt="Wireframe sketches painted in blue and purple on paper" width="262" height="262"></figure>
+    </div>
+  </main>
+</body>
+</html>

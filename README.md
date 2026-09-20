@@ -27,7 +27,7 @@ My coursework for the IT Online Learning web development courses: HTML, CSS and 
 | 08 | CSS Framework | Done |
 | 09 | Map Page | Done |
 | 10 | Accessibility | Done |
-| 11 | PSD to HTML | To do |
+| 11 | PSD to HTML | Done |
 | 12 | HTML Email Template | Done |
 | 13 | Web Application UI | Done |
 

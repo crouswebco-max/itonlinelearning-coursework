@@ -1,0 +1,216 @@
+/* =========================================================
+   Coding Challenge 11: design to HTML
+   Built from design/Portfolio.png (1366 x 768).
+
+   Measured from the mock-up:
+     page background      #1b1f24
+     menu button fill     #3c3b37
+     menu button border   #71706d (1px)
+     menu button text     #dededd
+     logo                 #ffffff, x = 36px, baseline around y = 52px
+     menu buttons         107 x 38px, 8px apart, right edge 23px in
+     tiles                262 x 262px, 4 across
+     gaps                 30px between columns, 36px between rows
+     page margins         116px left, 113px right
+     first row of tiles   starts 42px below the header
+   ========================================================= */
+
+/* The Roboto files came with the design brief. */
+@font-face {
+  font-family: "Roboto";
+  src: url("fonts/Roboto-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("fonts/Roboto-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --bg: #1b1f24;
+  --button: #3c3b37;
+  --button-border: #71706d;
+  --button-text: #dededd;
+  --white: #ffffff;
+  --tile: 262px;
+  --gap-x: 30px;
+  --gap-y: 36px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--white);
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+}
+
+/* For the page heading, which the design doesn't show but a screen
+   reader still needs. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+
+/* ---------- Header ---------- */
+
+/* 21px top and bottom + the 38px buttons = the 80px header in the design. */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 21px 23px 21px 36px;
+}
+
+.logo {
+  color: var(--white);
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-list a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 107px;
+  height: 38px;
+  border: 1px solid var(--button-border);
+  background-color: var(--button);
+  color: var(--button-text);
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* The design has no hover state, so this is kept quiet: the button
+   lightens slightly, nothing moves. */
+.nav-list a:hover,
+.nav-list a:focus-visible {
+  background-color: #4b4a45;
+  color: var(--white);
+}
+
+.nav-list a:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
+}
+
+
+/* ---------- Gallery ---------- */
+
+main {
+  padding: 42px 113px 60px 116px;
+}
+
+/* 4 columns x 262px + 3 gaps of 30px = 1138px, which matches the
+   1366px design once the side margins are taken off. */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap-y) var(--gap-x);
+  max-width: calc(var(--tile) * 4 + var(--gap-x) * 3);
+  margin: 0 auto;
+}
+
+.tile {
+  margin: 0;
+}
+
+/* Square tiles, with the photo cropped to fill rather than squashed. */
+.tile img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+
+/* ---------- Responsive ---------- */
+
+/* The design is a fixed 1366px comp, so these steps are my own
+   decision: keep the tiles square and drop a column at a time. */
+
+/* Laptops narrower than the comp */
+@media (max-width: 1200px) {
+  main {
+    padding: 42px 60px 50px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+  main {
+    padding: 32px 40px 40px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 20px;
+  }
+}
+
+/* Phones: the menu goes full width under the logo, and the buttons
+   share the row evenly instead of staying 107px wide. */
+@media (max-width: 620px) {
+  .site-header {
+    justify-content: center;
+    padding: 18px 20px;
+    text-align: center;
+  }
+
+  .nav-list {
+    width: 100%;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .nav-list a {
+    width: auto;
+    min-width: 92px;
+    flex: 1 1 92px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  main {
+    padding: 24px 20px 32px;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
