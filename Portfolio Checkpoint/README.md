@@ -37,7 +37,7 @@ Then visit `http://localhost:8000`.
 
 ## Before publishing
 
-- [ ] Replace `hello@example.com` on `contact.html` with the email address you want to use publicly
+- [x] Replace the placeholder email on `contact.html` with a real address
 - [ ] Connect the contact form to a form service, or remove it and leave the email link
 
 ## Publishing checklist
@@ -45,7 +45,16 @@ Then visit `http://localhost:8000`.
 - [x] Push the full folder to a public GitHub repository
 - [x] Deploy the site with GitHub Pages
 - [x] Add the live URL to this README
-- [ ] Write and publish the blog post with desktop/mobile screenshots
+- [x] Desktop and mobile screenshots taken (`screenshots/`)
+- [ ] Write and publish the blog post — draft ready in `blog-post.md`
 - [ ] Record and publish the YouTube walkthrough
-- [ ] Share the project on LinkedIn and social media
+- [ ] Share on LinkedIn and social media — draft ready in `social-post.md`
 - [ ] Add the project links to the CV and portfolio
+
+## Extra files
+
+| File | What it is |
+|---|---|
+| `blog-post.md` | Draft of the blog post, to put in your own words |
+| `social-post.md` | Draft LinkedIn and short social posts |
+| `screenshots/` | Desktop and mobile screenshots of every page |
