@@ -4,6 +4,8 @@ My coursework for the IT Online Learning web development courses: HTML, CSS and 
 
 **Live site:** https://crouswebco-max.github.io/itonlinelearning-coursework/ — every project can be opened from there, and my portfolio is at [Portfolio Checkpoint](https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/).
 
+**Video walkthrough:** [Building My Portfolio with Tailwind CSS](https://youtu.be/0hTm40-tZ7c) — a tour of the portfolio and its code.
+
 ## Folders
 
 | Folder | What's inside |

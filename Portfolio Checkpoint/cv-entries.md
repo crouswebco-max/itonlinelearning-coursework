@@ -6,6 +6,7 @@ Wording you can drop straight into your CV, LinkedIn profile or a job applicatio
 
 - **Portfolio:** https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/
 - **Blog post:** https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/blog.html
+- **Video walkthrough:** https://youtu.be/0hTm40-tZ7c
 - **GitHub:** https://github.com/crouswebco-max
 
 ## Projects section

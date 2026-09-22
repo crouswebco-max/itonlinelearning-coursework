@@ -10,6 +10,7 @@ I've just finished my portfolio site, built with Tailwind CSS. It's four pages â
 
 **Live site:** https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/
 **Code:** https://github.com/crouswebco-max/itonlinelearning-coursework
+**Video:** https://youtu.be/0hTm40-tZ7c
 
 ## Why Tailwind
 

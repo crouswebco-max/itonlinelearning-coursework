@@ -4,6 +4,8 @@ My portfolio site, built with Tailwind CSS through the Play CDN.
 
 **Live site:** https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/ It's a four-page site for Crous WebCo, my web development studio, and it doubles as the Tailwind checkpoint project.
 
+**Video walkthrough:** https://youtu.be/0hTm40-tZ7c
+
 ## Pages
 
 | File | What's on it |
@@ -48,7 +50,7 @@ Then visit `http://localhost:8000`.
 - [x] Add the live URL to this README
 - [x] Desktop and mobile screenshots taken (`screenshots/`)
 - [x] Write and publish the blog post — published at `blog.html` on this site
-- [ ] Record and publish the YouTube walkthrough — script ready in `video-script.md`
+- [x] Record and publish the YouTube walkthrough — https://youtu.be/0hTm40-tZ7c
 - [x] Share on LinkedIn and social media
 - [ ] Add the project links to the CV and portfolio — wording ready in `cv-entries.md`
 
@@ -59,6 +61,6 @@ Then visit `http://localhost:8000`.
 | `blog-post.md` | Draft of the blog post, to put in your own words |
 | `blog-post-devto.md` | The same post, ready to paste into Dev.to |
 | `social-post.md` | Draft LinkedIn and short social posts |
-| `video-script.md` | Shot list and script for the walkthrough video |
+| `video-script.md` | Shot list, script, and the YouTube title and description for the walkthrough video |
 | `cv-entries.md` | Project wording for your CV and LinkedIn profile |
 | `screenshots/` | Desktop and mobile screenshots of every page |

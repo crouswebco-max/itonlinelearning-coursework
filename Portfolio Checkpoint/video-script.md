@@ -51,8 +51,56 @@ Say where it lives (GitHub Pages), what you'd do next (connect the contact form,
 ## Checklist before you upload
 
 - [ ] Sound is clear, no background noise
-- [ ] No personal tabs, emails or messages on screen
-- [ ] Title: something like "Building a portfolio site with Tailwind CSS"
-- [ ] Description includes the live link and the GitHub link
-- [ ] Set to Public or Unlisted, not Private, so your tutor can open it
-- [ ] Add the video link to `README.md` in this folder once it's up
+- [x] No personal tabs, emails or messages on screen
+- [x] Title: something like "Building a portfolio site with Tailwind CSS"
+- [x] Description includes the live link and the GitHub link
+- [x] Set to Public or Unlisted, not Private, so your tutor can open it
+- [x] Add the video link to `README.md` in this folder once it's up
+
+---
+
+## Paste into YouTube
+
+Upload at https://www.youtube.com/upload
+
+**Title**
+
+```text
+Building My Portfolio with Tailwind CSS | Walkthrough
+```
+
+**Description**
+
+The chapter times match the edited video (`Portfolio Walkthrough - Edited.mp4`). YouTube turns them into clickable chapters on its own.
+
+```text
+A walkthrough of my portfolio site, built with Tailwind CSS for the portfolio checkpoint on my ITonlinelearning web development course. I go through each page, show how the layout changes from a computer to a phone, and open up the code behind it.
+
+Live site: https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/
+How I built it (blog post): https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/blog.html
+Code on GitHub: https://github.com/crouswebco-max/itonlinelearning-coursework
+
+Chapters
+0:00 Intro
+0:20 Home page
+1:03 Responsive layout
+1:28 Work page
+1:43 Image gallery
+1:59 Blog post
+2:10 The code
+2:52 Wrap-up
+
+Built with HTML and Tailwind CSS, with my own brand colours added through an @theme block, and hosted on GitHub Pages.
+
+I'm Juan, and I run Crous WebCo, a small web development studio building websites for small businesses. If you need a website, get in touch: https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/contact.html
+
+#TailwindCSS #WebDevelopment #Portfolio
+```
+
+**Tags**
+
+```text
+Tailwind CSS, web development, portfolio website, HTML, CSS, responsive design, GitHub Pages
+```
+
+**Settings:** audience is "No, it's not made for kids". On the last step, choose **Public** or **Unlisted**, not Private.
