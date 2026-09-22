@@ -47,9 +47,9 @@ Then visit `http://localhost:8000`.
 - [x] Add the live URL to this README
 - [x] Desktop and mobile screenshots taken (`screenshots/`)
 - [ ] Write and publish the blog post — draft ready in `blog-post.md`
-- [ ] Record and publish the YouTube walkthrough
+- [ ] Record and publish the YouTube walkthrough — script ready in `video-script.md`
 - [ ] Share on LinkedIn and social media — draft ready in `social-post.md`
-- [ ] Add the project links to the CV and portfolio
+- [ ] Add the project links to the CV and portfolio — wording ready in `cv-entries.md`
 
 ## Extra files
 
@@ -57,4 +57,6 @@ Then visit `http://localhost:8000`.
 |---|---|
 | `blog-post.md` | Draft of the blog post, to put in your own words |
 | `social-post.md` | Draft LinkedIn and short social posts |
+| `video-script.md` | Shot list and script for the walkthrough video |
+| `cv-entries.md` | Project wording for your CV and LinkedIn profile |
 | `screenshots/` | Desktop and mobile screenshots of every page |
