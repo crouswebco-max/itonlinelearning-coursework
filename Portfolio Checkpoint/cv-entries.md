@@ -5,12 +5,13 @@ Wording you can drop straight into your CV, LinkedIn profile or a job applicatio
 ## Links to include
 
 - **Portfolio:** https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/
+- **Blog post:** https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/blog.html
 - **GitHub:** https://github.com/crouswebco-max
 
 ## Projects section
 
 **Portfolio website — Tailwind CSS**
-Designed and built a four-page portfolio with Tailwind CSS, including a custom colour theme, responsive layouts from phone to desktop, and hover states throughout. Deployed with GitHub Pages.
+Designed and built a five-page portfolio with Tailwind CSS, including a custom colour theme, responsive layouts from phone to desktop, and hover states throughout. Deployed with GitHub Pages, with a written technical post on how it was built.
 
 **Nova design portfolio — HTML & CSS**
 Built a five-page website from a written client brief and a set of design mock-ups, matching the supplied layout, typography and spacing. Includes eight individual project pages and a responsive layout.
