@@ -1,10 +1,10 @@
 # Tailwind CSS Portfolio Checkpoint
 
-My portfolio site, built with Tailwind CSS through the Play CDN.
+My portfolio site, built with Tailwind CSS through the Play CDN. It's a four-page site for Crous WebCo, my web development studio, and it doubles as the Tailwind checkpoint project.
 
-**Live site:** https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/ It's a four-page site for Crous WebCo, my web development studio, and it doubles as the Tailwind checkpoint project.
-
-**Video walkthrough:** https://youtu.be/0hTm40-tZ7c
+- **Live site:** https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/
+- **Video walkthrough:** https://youtu.be/0hTm40-tZ7c
+- **Blog post:** https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/blog.html
 
 ## Pages
 
@@ -38,29 +38,10 @@ python3 -m http.server 8000
 
 Then visit `http://localhost:8000`.
 
-## Before publishing
+## Screenshots
 
-- [x] Replace the placeholder email on `contact.html` with a real address
-- [ ] Connect the contact form to a form service, or remove it and leave the email link
+Desktop and mobile screenshots of every page are in `screenshots/`.
 
-## Publishing checklist
+## Still to do
 
-- [x] Push the full folder to a public GitHub repository
-- [x] Deploy the site with GitHub Pages
-- [x] Add the live URL to this README
-- [x] Desktop and mobile screenshots taken (`screenshots/`)
-- [x] Write and publish the blog post — published at `blog.html` on this site
-- [x] Record and publish the YouTube walkthrough — https://youtu.be/0hTm40-tZ7c
-- [x] Share on LinkedIn and social media
-- [ ] Add the project links to the CV and portfolio — wording ready in `cv-entries.md`
-
-## Extra files
-
-| File | What it is |
-|---|---|
-| `blog-post.md` | Draft of the blog post, to put in your own words |
-| `blog-post-devto.md` | The same post, ready to paste into Dev.to |
-| `social-post.md` | Draft LinkedIn and short social posts |
-| `video-script.md` | Shot list, script, and the YouTube title and description for the walkthrough video |
-| `cv-entries.md` | Project wording for your CV and LinkedIn profile |
-| `screenshots/` | Desktop and mobile screenshots of every page |
+- Connect the contact form to a form service. Until then, the email link on the contact page is the way to get in touch.
