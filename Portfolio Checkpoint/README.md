@@ -49,7 +49,7 @@ Then visit `http://localhost:8000`.
 - [x] Desktop and mobile screenshots taken (`screenshots/`)
 - [x] Write and publish the blog post — published at `blog.html` on this site
 - [ ] Record and publish the YouTube walkthrough — script ready in `video-script.md`
-- [ ] Share on LinkedIn and social media — draft ready in `social-post.md`
+- [x] Share on LinkedIn and social media
 - [ ] Add the project links to the CV and portfolio — wording ready in `cv-entries.md`
 
 ## Extra files
