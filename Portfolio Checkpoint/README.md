@@ -5,6 +5,7 @@ My portfolio site, built with Tailwind CSS through the Play CDN. It's a four-pag
 - **Live site:** https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/
 - **Video walkthrough:** https://youtu.be/0hTm40-tZ7c
 - **Blog post:** https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/blog.html
+- **LinkedIn post:** https://www.linkedin.com/posts/juandene-crous-823737439_tailwindcss-webdevelopment-portfolio-share-7508144445826048000-Vrvg/
 
 ## Pages
 
