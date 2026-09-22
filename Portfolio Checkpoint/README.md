@@ -12,6 +12,7 @@ My portfolio site, built with Tailwind CSS through the Play CDN.
 | `projects.html` | Client work (So Bella, Alpha Projects) and four course projects with screenshots |
 | `gallery.html` | Nine-image responsive grid: one column on a phone, two on a tablet, three on a computer |
 | `contact.html` | Contact form, email and GitHub links, and what happens after you get in touch |
+| `blog.html` | The blog post about building this site with Tailwind |
 | `index.html` | Sends visitors to `home.html`, so the site opens on the home page when it's published |
 | `images/` | Gallery photos, my photo, and screenshots of the course projects |
 
@@ -46,7 +47,7 @@ Then visit `http://localhost:8000`.
 - [x] Deploy the site with GitHub Pages
 - [x] Add the live URL to this README
 - [x] Desktop and mobile screenshots taken (`screenshots/`)
-- [ ] Write and publish the blog post — draft ready in `blog-post.md`
+- [x] Write and publish the blog post — published at `blog.html` on this site
 - [ ] Record and publish the YouTube walkthrough — script ready in `video-script.md`
 - [ ] Share on LinkedIn and social media — draft ready in `social-post.md`
 - [ ] Add the project links to the CV and portfolio — wording ready in `cv-entries.md`

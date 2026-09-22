@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="What I learned building a four-page portfolio site with Tailwind CSS, from utility classes to custom theme colours.">
+    <title>Building my portfolio with Tailwind CSS | Juan Crous</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-brand-red: #da373d;
+            --color-deep-charcoal: #1a1a1a;
+        }
+    </style>
+</head>
+<body class="bg-stone-100 font-sans text-deep-charcoal">
+    <header class="border-b-2 border-deep-charcoal bg-white">
+        <nav class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-4 px-6 py-5" aria-label="Main navigation">
+            <a href="home.html" class="text-sm font-black tracking-tight transition-colors hover:text-brand-red">JUAN_CROUS</a>
+            <div class="order-last flex w-full flex-wrap items-center gap-x-6 gap-y-2 text-xs font-bold uppercase tracking-widest sm:order-none sm:w-auto sm:gap-8">
+                <a href="home.html" class="transition-colors hover:text-brand-red">Home</a>
+                <a href="projects.html" class="transition-colors hover:text-brand-red">Work</a>
+                <a href="gallery.html" class="transition-colors hover:text-brand-red">Gallery</a>
+                <a href="blog.html" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:text-brand-red">Blog</a>
+                <a href="contact.html" class="transition-colors hover:text-brand-red">Contact</a>
+            </div>
+            <a href="contact.html" class="border-2 border-deep-charcoal bg-deep-charcoal px-4 py-2 text-[10px] font-black tracking-widest text-white transition-colors hover:border-brand-red hover:bg-brand-red">GET_IN_TOUCH</a>
+        </nav>
+    </header>
+
+    <main class="mx-auto max-w-3xl px-6 py-16">
+        <article>
+            <header class="border-b-2 border-deep-charcoal pb-8">
+                <p class="mb-4 text-xs font-bold uppercase tracking-[0.35em] text-brand-red">Tailwind CSS · September 2026</p>
+                <h1 class="text-4xl font-black uppercase leading-[0.95] tracking-[-0.05em] sm:text-6xl">Building my portfolio with Tailwind CSS</h1>
+                <p class="mt-6 text-base leading-7 text-stone-600">What I learned building a four-page portfolio site: utility classes, custom theme colours, and the hover effect that didn't work until I fixed one thing.</p>
+            </header>
+
+            <div class="mt-10 space-y-6 text-base leading-7 text-stone-700">
+                <p>I've just finished my portfolio site, built with Tailwind CSS. It's four pages — a home page, my work, an image gallery and a contact page — and it's live on GitHub Pages.</p>
+
+                <p class="border-l-2 border-deep-charcoal pl-5 text-sm">
+                    <strong class="font-black uppercase tracking-widest">Live site:</strong> <a href="home.html" class="underline transition-colors hover:text-brand-red">the site you're on</a><br>
+                    <strong class="font-black uppercase tracking-widest">Code:</strong> <a href="https://github.com/crouswebco-max/itonlinelearning-coursework" class="underline transition-colors hover:text-brand-red">github.com/crouswebco-max</a>
+                </p>
+
+                <h2 class="pt-4 text-2xl font-black uppercase tracking-tight">Why Tailwind</h2>
+                <p>Normally I write CSS in its own file and give things class names like <code class="bg-stone-200 px-1.5 py-0.5 text-sm">.card</code> or <code class="bg-stone-200 px-1.5 py-0.5 text-sm">.hero</code>. Tailwind works the other way around: you build the design from small utility classes in the HTML.</p>
+
+                <pre class="overflow-x-auto border-2 border-deep-charcoal bg-deep-charcoal p-5 text-xs leading-6 text-stone-100"><code>&lt;article class="border-2 border-deep-charcoal bg-white p-5"&gt;</code></pre>
+
+                <p>That's a bordered white box with padding, without opening a stylesheet at all.</p>
+
+                <p>What I liked was how quickly I could try something. Changing the padding on every card meant changing one class, not hunting through a stylesheet. What took getting used to is how long the class lists get — a card can carry a dozen classes, and at first that looked messy to me. It stopped bothering me once I noticed I was no longer scrolling between two files to make one change.</p>
+
+                <h2 class="pt-4 text-2xl font-black uppercase tracking-tight">The layout</h2>
+                <p>The site is a grid on a computer and a single column on a phone. Tailwind handles that with prefixes:</p>
+
+                <pre class="overflow-x-auto border-2 border-deep-charcoal bg-deep-charcoal p-5 text-xs leading-6 text-stone-100"><code>&lt;section class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"&gt;</code></pre>
+
+                <p>One column by default, two once the screen is tablet-sized, three on a computer. The gallery uses exactly that.</p>
+
+                <figure class="border-2 border-deep-charcoal bg-white p-3">
+                    <img src="screenshots/gallery.png" alt="The gallery page, showing nine photographs in a three-column grid" class="w-full" loading="lazy">
+                    <figcaption class="pt-3 text-xs font-black uppercase tracking-widest text-stone-500">The gallery page</figcaption>
+                </figure>
+
+                <p>The header was the fiddliest part. On a phone the logo, menu and button wouldn't fit on one line, so the menu wraps onto a second row:</p>
+
+                <pre class="overflow-x-auto border-2 border-deep-charcoal bg-deep-charcoal p-5 text-xs leading-6 text-stone-100"><code>&lt;div class="order-last flex w-full sm:order-none sm:w-auto"&gt;</code></pre>
+
+                <p>Full width and last in order on small screens, back in line on bigger ones.</p>
+
+                <h2 class="pt-4 text-2xl font-black uppercase tracking-tight">Custom colours</h2>
+                <p>Tailwind ships with its own palette, but I wanted my own two colours. You can add them in an <code class="bg-stone-200 px-1.5 py-0.5 text-sm">@theme</code> block:</p>
+
+                <pre class="overflow-x-auto border-2 border-deep-charcoal bg-deep-charcoal p-5 text-xs leading-6 text-stone-100"><code>@theme {
+  --color-brand-red: #da373d;
+  --color-deep-charcoal: #1a1a1a;
+}</code></pre>
+
+                <p>After that <code class="bg-stone-200 px-1.5 py-0.5 text-sm">bg-brand-red</code>, <code class="bg-stone-200 px-1.5 py-0.5 text-sm">text-brand-red</code> and <code class="bg-stone-200 px-1.5 py-0.5 text-sm">border-brand-red</code> all work, exactly like the built-in colours.</p>
+
+                <h2 class="pt-4 text-2xl font-black uppercase tracking-tight">Hover effects</h2>
+                <p>Each project card has a photo that grows slightly when you hover it. That's a <code class="bg-stone-200 px-1.5 py-0.5 text-sm">group</code> on the card and <code class="bg-stone-200 px-1.5 py-0.5 text-sm">group-hover:scale-105</code> on the image, with <code class="bg-stone-200 px-1.5 py-0.5 text-sm">overflow-hidden</code> on the box so the photo doesn't spill out:</p>
+
+                <pre class="overflow-x-auto border-2 border-deep-charcoal bg-deep-charcoal p-5 text-xs leading-6 text-stone-100"><code>&lt;article class="group border-2 border-deep-charcoal"&gt;
+  &lt;div class="aspect-[4/3] overflow-hidden"&gt;
+    &lt;img class="h-full w-full object-cover transition duration-500 group-hover:scale-105" src="..."&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</code></pre>
+
+                <p>One thing I got wrong at first: a zoom won't work on an inline element. Whatever you're scaling has to be <code class="bg-stone-200 px-1.5 py-0.5 text-sm">block</code> or <code class="bg-stone-200 px-1.5 py-0.5 text-sm">inline-block</code>, or nothing happens at all.</p>
+
+                <figure class="border-2 border-deep-charcoal bg-white p-3">
+                    <img src="screenshots/home-mobile.png" alt="The home page on a phone, with the menu wrapped onto its own row" class="mx-auto w-full max-w-xs" loading="lazy">
+                    <figcaption class="pt-3 text-xs font-black uppercase tracking-widest text-stone-500">The home page on a phone</figcaption>
+                </figure>
+
+                <h2 class="pt-4 text-2xl font-black uppercase tracking-tight">What I'd do next</h2>
+                <p>Connect the contact form to something that actually sends the message, and write proper case studies for the two client sites rather than short descriptions.</p>
+
+                <p class="text-sm text-stone-500">This was built as the Tailwind checkpoint project for my web development course with ITonlinelearning.</p>
+            </div>
+
+            <div class="mt-12 flex flex-wrap gap-3 border-t-2 border-deep-charcoal pt-8">
+                <a href="projects.html" class="border-2 border-deep-charcoal bg-deep-charcoal px-6 py-4 text-xs font-black uppercase tracking-widest text-white transition-colors hover:border-brand-red hover:bg-brand-red">See my work →</a>
+                <a href="contact.html" class="border-2 border-deep-charcoal px-6 py-4 text-xs font-black uppercase tracking-widest transition-colors hover:bg-brand-red hover:text-white">Get in touch</a>
+            </div>
+        </article>
+    </main>
+
+    <footer class="border-t-2 border-deep-charcoal bg-stone-200">
+        <div class="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-6 text-[10px] font-bold uppercase tracking-widest text-stone-500 sm:flex-row sm:items-center sm:justify-between">
+            <p>© 2026 Juan Crous · Crous WebCo</p>
+            <div class="flex flex-wrap gap-5">
+                <a href="https://github.com/crouswebco-max" class="transition-colors hover:text-brand-red">GitHub</a>
+                <a href="gallery.html" class="transition-colors hover:text-brand-red">Gallery</a>
+                <a href="contact.html" class="transition-colors hover:text-brand-red">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
