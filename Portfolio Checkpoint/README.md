@@ -56,6 +56,7 @@ Then visit `http://localhost:8000`.
 | File | What it is |
 |---|---|
 | `blog-post.md` | Draft of the blog post, to put in your own words |
+| `blog-post-devto.md` | The same post, ready to paste into Dev.to |
 | `social-post.md` | Draft LinkedIn and short social posts |
 | `video-script.md` | Shot list and script for the walkthrough video |
 | `cv-entries.md` | Project wording for your CV and LinkedIn profile |
