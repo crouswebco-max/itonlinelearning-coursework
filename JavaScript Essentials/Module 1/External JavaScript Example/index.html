@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>External JavaScript Example</title>
+    <style>
+        body {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 16px;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+        }
+
+        button {
+            padding: 10px 16px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #2563eb;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #greeting {
+            font-weight: bold;
+            color: #2563eb;
+        }
+    </style>
+    <!-- The JavaScript lives in its own file, linked here with src -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>External JavaScript Example</h1>
+
+    <p>This page has no JavaScript written inside it. All of it is in <code>script.js</code>.</p>
+
+    <p id="greeting">This text will be changed by script.js.</p>
+    <p id="today"></p>
+
+    <button type="button" id="clickButton">Click me</button>
+    <p id="clickCount">You haven't clicked yet.</p>
+</body>
+</html>

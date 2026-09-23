@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetching Data from an API</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main>
+        <h1>Fetching Data from an API</h1>
+        <p><code>fetch()</code> is the modern way to do AJAX. It returns a promise, so it works with <code>async</code> / <code>await</code>. This page gets real data from the free <a href="https://jsonplaceholder.typicode.com/">JSONPlaceholder</a> practice API.</p>
+
+        <div class="buttons">
+            <button type="button" id="loadUsersButton">Load users</button>
+            <button type="button" id="brokenButton" class="secondary">Try a broken request</button>
+        </div>
+
+        <!-- Loading and error messages -->
+        <p id="status" class="status" aria-live="polite"></p>
+
+        <!-- One card per user -->
+        <section id="users" class="cards"></section>
+
+        <!-- The chosen user's posts -->
+        <section id="postsSection" hidden>
+            <h2 id="postsHeading"></h2>
+            <ol id="posts" class="posts"></ol>
+        </section>
+    </main>
+</body>
+</html>

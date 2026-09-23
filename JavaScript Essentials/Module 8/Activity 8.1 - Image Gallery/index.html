@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>My Image Gallery</h1>
+        <p>Paste the web address (URL) of an image and click Add Image.</p>
+    </header>
+
+    <main>
+        <!-- Image URL input and add button -->
+        <div class="controls">
+            <label for="imageUrl" class="visually-hidden">Image URL</label>
+            <input type="url" id="imageUrl" placeholder="https://picsum.photos/400/300">
+            <button type="button" id="addImageButton">Add Image</button>
+        </div>
+
+        <!-- The images go in here -->
+        <section id="gallery" class="gallery" aria-label="Gallery"></section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

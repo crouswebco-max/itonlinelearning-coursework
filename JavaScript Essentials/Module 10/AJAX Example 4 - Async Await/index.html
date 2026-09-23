@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX with Async / Await</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main>
+        <h1>AJAX with Async / Await</h1>
+        <p><code>async</code> and <code>await</code> are a tidier way to use promises. Inside an <code>async</code> function, <code>await</code> pauses <em>that function</em> until the data arrives, so the code reads top to bottom. The rest of the page keeps working.</p>
+        <ul>
+            <li>Errors are caught with <code>try</code> / <code>catch</code>.</li>
+            <li><strong>One after another</strong>: each <code>await</code> waits for the request before it.</li>
+            <li><strong>All at once</strong>: <code>await Promise.all()</code> sends them together, which is faster.</li>
+        </ul>
+        <div class="buttons">
+            <button type="button" id="userButton">Get a user</button>
+            <button type="button" id="errorButton">try / catch error</button>
+            <button type="button" id="chainButton">User, posts, comments</button>
+            <button type="button" id="sequenceButton">One after another</button>
+            <button type="button" id="parallelButton">All at once</button>
+        </div>
+
+        <ul id="output" class="output" aria-live="polite"></ul>
+        <p>The same messages also go to the browser console (F12, then <strong>Console</strong>).</p>
+    </main>
+</body>
+</html>

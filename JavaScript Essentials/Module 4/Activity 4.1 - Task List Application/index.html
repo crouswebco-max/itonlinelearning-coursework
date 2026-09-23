@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app">
+        <h1>My Task List</h1>
+
+        <!-- Task input and add button -->
+        <div class="add-task">
+            <label for="task-input" class="visually-hidden">New task</label>
+            <input type="text" id="task-input" placeholder="What do you need to do?" maxlength="100">
+            <button type="button" id="add-button">Add task</button>
+        </div>
+        <p id="error-message" class="error" aria-live="polite"></p>
+
+        <!-- Container for the tasks -->
+        <ul id="task-list"></ul>
+        <p id="empty-message" class="empty">No tasks yet. Add one above.</p>
+
+        <p id="task-count" class="count"></p>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

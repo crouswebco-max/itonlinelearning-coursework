@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asynchronous JavaScript with AJAX</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main>
+        <h1>Asynchronous JavaScript with AJAX</h1>
+        <p><strong>AJAX</strong> (Asynchronous JavaScript And XML) means getting data from a server <em>without reloading the page</em>. The request is <strong>asynchronous</strong>: JavaScript sends it, carries on with the next lines, and deals with the answer when it arrives.</p>
+        <ul>
+            <li><strong>Synchronous code</strong>: runs one line after another, in order.</li>
+            <li><strong>AJAX request</strong>: the line after <code>send()</code> runs <em>before</em> the data arrives.</li>
+            <li><strong>Watch readyState</strong>: the stages a request goes through, from 1 to 4.</li>
+        </ul>
+        <div class="buttons">
+            <button type="button" id="syncButton">Synchronous code</button>
+            <button type="button" id="ajaxButton">AJAX request</button>
+            <button type="button" id="stateButton">Watch readyState</button>
+        </div>
+
+        <ul id="output" class="output" aria-live="polite"></ul>
+        <p>The same messages also go to the browser console (F12, then <strong>Console</strong>).</p>
+    </main>
+</body>
+</html>

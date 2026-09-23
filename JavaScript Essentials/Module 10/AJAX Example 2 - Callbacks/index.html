@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX with Callbacks</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main>
+        <h1>AJAX with Callbacks</h1>
+        <p>A <strong>callback</strong> is a function you pass to another function, to be run later. Here <code>getData(url, callback)</code> makes an AJAX request and calls the callback with <code>(error, data)</code> when the answer arrives.</p>
+        <ul>
+            <li><strong>Get a user</strong>: a request that works.</li>
+            <li><strong>Missing user</strong>: the server answers 404, so the callback gets an error.</li>
+            <li><strong>Callback hell</strong>: a user, then their posts, then the comments. Each request needs the one before, so the callbacks nest deeper and deeper.</li>
+        </ul>
+        <div class="buttons">
+            <button type="button" id="userButton">Get a user</button>
+            <button type="button" id="errorButton">Missing user</button>
+            <button type="button" id="hellButton">Callback hell</button>
+        </div>
+
+        <ul id="output" class="output" aria-live="polite"></ul>
+        <p>The same messages also go to the browser console (F12, then <strong>Console</strong>).</p>
+    </main>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Press</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="#" class="logo">Pixel<span>Press</span></a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#news">News</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#releases">Releases</a></li>
+                </ul>
+            </nav>
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false">
+                <span id="theme-icon" aria-hidden="true">🌙</span>
+                <span id="theme-label">Dark mode</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <p class="tag">Featured</p>
+            <h1>Starfall Legends gets a huge free update this Friday</h1>
+            <p>New maps, a co-op raid mode and a complete overhaul of the skill tree. Here is everything we know so far.</p>
+            <a href="#news" class="button">Read the story</a>
+        </section>
+
+        <section id="news">
+            <h2>Latest news</h2>
+            <div class="card-grid">
+                <article class="card">
+                    <div class="card-image image-1"></div>
+                    <div class="card-body">
+                        <p class="tag">PC</p>
+                        <h3>Indie racer Drift Circuit hits one million players</h3>
+                        <p>The two-person studio thanked fans with a free track pack and a photo mode.</p>
+                        <p class="meta">2 hours ago</p>
+                    </div>
+                </article>
+                <article class="card">
+                    <div class="card-image image-2"></div>
+                    <div class="card-body">
+                        <p class="tag">Console</p>
+                        <h3>Mech Arena 3 confirms cross-play at launch</h3>
+                        <p>Players on every platform will share the same servers and ranked ladder.</p>
+                        <p class="meta">5 hours ago</p>
+                    </div>
+                </article>
+                <article class="card">
+                    <div class="card-image image-3"></div>
+                    <div class="card-body">
+                        <p class="tag">Esports</p>
+                        <h3>London hosts the European finals next month</h3>
+                        <p>Sixteen teams, three days and the biggest prize pool the tournament has had.</p>
+                        <p class="meta">Yesterday</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="reviews">
+            <h2>Reviews</h2>
+            <ul class="review-list">
+                <li><span class="review-title">Hollow Depths</span><span class="score">9/10</span></li>
+                <li><span class="review-title">Neon Kart Rally</span><span class="score">8/10</span></li>
+                <li><span class="review-title">Farm Tales 2</span><span class="score">7/10</span></li>
+            </ul>
+        </section>
+
+        <section id="releases">
+            <h2>Coming soon</h2>
+            <table class="release-table">
+                <thead>
+                    <tr><th>Game</th><th>Platform</th><th>Release date</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Starfall Legends: Raid</td><td>PC, Console</td><td>3 October</td></tr>
+                    <tr><td>Mech Arena 3</td><td>All</td><td>17 October</td></tr>
+                    <tr><td>Pocket Knights</td><td>Mobile</td><td>30 October</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Pixel Press. Made for Activity 4.2.</p>
+    </footer>
+</body>
+</html>

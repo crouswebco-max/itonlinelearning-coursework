@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 16px;
+            font-family: Arial, sans-serif;
+            background-color: #eef2ff;
+            color: #1e1b4b;
+        }
+
+        h1 {
+            text-align: center;
+            color: #3730a3;
+        }
+
+        .calculator {
+            max-width: 380px;
+            margin: 0 auto;
+            padding: 24px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(55, 48, 163, 0.12);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            font-size: 18px;
+            border: 2px solid #c7d2fe;
+            border-radius: 8px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4f46e5;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        button {
+            padding: 14px 0;
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #4f46e5;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3730a3;
+        }
+
+        #result {
+            min-height: 56px;
+            margin-top: 20px;
+            padding: 16px;
+            font-size: 20px;
+            text-align: center;
+            background-color: #eef2ff;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Basic Calculator</h1>
+
+    <div class="calculator">
+        <label for="number1">First number</label>
+        <input type="number" id="number1" placeholder="e.g. 12" step="any">
+
+        <label for="number2">Second number</label>
+        <input type="number" id="number2" placeholder="e.g. 4" step="any">
+
+        <div class="buttons">
+            <button type="button" onclick="calculate('add')" aria-label="Add">+</button>
+            <button type="button" onclick="calculate('subtract')" aria-label="Subtract">−</button>
+            <button type="button" onclick="calculate('multiply')" aria-label="Multiply">×</button>
+            <button type="button" onclick="calculate('divide')" aria-label="Divide">÷</button>
+        </div>
+
+        <div id="result" aria-live="polite">Enter two numbers and choose an operation.</div>
+    </div>
+
+    <script>
+        // Works out the answer for the chosen operation and shows it in #result
+        function calculate(operation) {
+            // 5.1 Get the input values and turn them into decimal numbers
+            const number1 = parseFloat(document.getElementById("number1").value);
+            const number2 = parseFloat(document.getElementById("number2").value);
+            let result;
+
+            // 5.2 Check both inputs are valid numbers
+            if (isNaN(number1) || isNaN(number2)) {
+                result = "Please enter two valid numbers.";
+            } else {
+                // 5.3 Do the chosen operation
+                switch (operation) {
+                    case "add":
+                        result = `${number1} + ${number2} = ${number1 + number2}`;
+                        break;
+                    case "subtract":
+                        result = `${number1} - ${number2} = ${number1 - number2}`;
+                        break;
+                    case "multiply":
+                        result = `${number1} × ${number2} = ${number1 * number2}`;
+                        break;
+                    case "divide":
+                        // 5.4 Dividing by zero isn't allowed
+                        if (number2 === 0) {
+                            result = "You can't divide by zero.";
+                        } else {
+                            result = `${number1} ÷ ${number2} = ${number1 / number2}`;
+                        }
+                        break;
+                    default:
+                        result = "Unknown operation.";
+                }
+            }
+
+            // 5.5 Show the result on the page
+            document.getElementById("result").innerText = result;
+        }
+    </script>
+</body>
+</html>

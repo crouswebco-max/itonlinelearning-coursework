@@ -1,0 +1,164 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f8fafc;
+    color: #1e293b;
+}
+
+main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px 16px 48px;
+}
+
+h1 {
+    margin-top: 0;
+    color: #7c3aed;
+}
+
+h2 {
+    margin-top: 32px;
+}
+
+a {
+    color: #6d28d9;
+}
+
+code {
+    padding: 1px 5px;
+    font-size: 0.9em;
+    background-color: #ede9fe;
+    border-radius: 4px;
+}
+
+
+/* Buttons that run each demo */
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+button {
+    padding: 10px 16px;
+    font-size: 15px;
+    color: #ffffff;
+    background-color: #7c3aed;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #6d28d9;
+}
+
+button:disabled {
+    background-color: #a8a29e;
+    cursor: not-allowed;
+}
+
+button.secondary {
+    color: #1e293b;
+    background-color: #e2e8f0;
+}
+
+input {
+    padding: 9px 10px;
+    font-size: 15px;
+    border: 2px solid #cbd5e1;
+    border-radius: 6px;
+}
+
+/* The output log */
+.output {
+    min-height: 60px;
+    margin: 0;
+    padding: 12px 16px;
+    list-style: none;
+    font-family: Consolas, Menlo, monospace;
+    font-size: 14px;
+    color: #e2e8f0;
+    background-color: #1e1b2e;
+    border-radius: 8px;
+}
+
+.output:empty::before {
+    content: "Output appears here.";
+    color: #94a3b8;
+}
+
+.output li {
+    padding: 2px 0;
+}
+
+.output .time {
+    color: #94a3b8;
+}
+
+.output .success {
+    color: #86efac;
+}
+
+.output .error {
+    color: #fca5a5;
+}
+
+.output .wait {
+    color: #fcd34d;
+}
+
+/* User and post cards on the fetch page */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.card {
+    padding: 14px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.card h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
+}
+
+.card p {
+    margin: 0;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.card button {
+    margin-top: 10px;
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+.posts {
+    padding-left: 20px;
+}
+
+.posts li {
+    margin-bottom: 10px;
+}
+
+.status {
+    min-height: 1.4em;
+    font-weight: bold;
+}
+
+.status.error {
+    color: #b91c1c;
+}

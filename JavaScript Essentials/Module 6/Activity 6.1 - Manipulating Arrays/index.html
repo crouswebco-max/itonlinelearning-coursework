@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulating Arrays</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="app">
+        <h1>Manipulating Arrays</h1>
+
+        <!-- Adding elements -->
+        <section class="panel">
+            <h2>Add an element</h2>
+            <label for="elementInput">Value</label>
+            <input type="text" id="elementInput" placeholder="e.g. apple" maxlength="40">
+            <div class="buttons">
+                <button type="button" id="addLastButton">Add Last <code>push()</code></button>
+                <button type="button" id="addFirstButton">Add First <code>unshift()</code></button>
+            </div>
+        </section>
+
+        <!-- Removing elements -->
+        <section class="panel">
+            <h2>Remove an element</h2>
+            <div class="buttons">
+                <button type="button" id="removeLastButton" class="danger">Remove Last <code>pop()</code></button>
+                <button type="button" id="removeFirstButton" class="danger">Remove First <code>shift()</code></button>
+            </div>
+            <label for="indexInput">Index</label>
+            <input type="number" id="indexInput" placeholder="e.g. 0" min="0" step="1">
+            <div class="buttons">
+                <button type="button" id="removeAtButton" class="danger">Remove at Index <code>splice()</code></button>
+            </div>
+        </section>
+
+        <!-- Feedback after each operation -->
+        <p id="message" class="message" aria-live="polite"></p>
+
+        <!-- The array's current state -->
+        <section class="panel">
+            <h2>Array (<span id="arrayLength">0</span> elements)</h2>
+            <div id="arrayElements"></div>
+            <p class="raw">In code: <code id="arrayCode">[]</code></p>
+        </section>
+    </main>
+</body>
+</html>

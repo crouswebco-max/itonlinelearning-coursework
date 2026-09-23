@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX with Promises</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main>
+        <h1>AJAX with Promises</h1>
+        <p>A <strong>promise</strong> stands for a result that is not ready yet. It starts <em>pending</em>, then is <em>fulfilled</em> (<code>resolve</code>) or <em>rejected</em> (<code>reject</code>). Here <code>getData(url)</code> wraps the AJAX request in a promise.</p>
+        <ul>
+            <li><code>.then()</code> runs when it works, <code>.catch()</code> when it fails, <code>.finally()</code> either way.</li>
+            <li><strong>Chain</strong>: the same user, posts and comments as callback hell, but flat.</li>
+            <li><code>Promise.all()</code> sends three requests at once and waits for all of them.</li>
+        </ul>
+        <div class="buttons">
+            <button type="button" id="userButton">Get a user</button>
+            <button type="button" id="errorButton">Missing user</button>
+            <button type="button" id="chainButton">Chain of .then()</button>
+            <button type="button" id="allButton">Promise.all()</button>
+        </div>
+
+        <ul id="output" class="output" aria-live="polite"></ul>
+        <p>The same messages also go to the browser console (F12, then <strong>Console</strong>).</p>
+    </main>
+</body>
+</html>
