@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Client and course projects by Juan Crous, web developer at Crous WebCo.">
+    <meta name="description" content="Client work, course projects and my own apps and games, by Juan Crous, web developer at Crous WebCo.">
     <title>Work | Juan Crous</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
@@ -33,7 +33,7 @@
             <div>
                 <p class="mb-4 text-xs font-bold uppercase tracking-[0.35em] text-brand-red">Work</p>
                 <h1 class="text-4xl font-black uppercase leading-none tracking-[-0.05em] sm:text-6xl lg:text-7xl">Client and course projects</h1>
-                <p class="mt-6 max-w-xl text-sm leading-6 text-stone-600">Sites I've built for real clients through Crous WebCo, and the projects I've built while studying with ITonlinelearning.</p>
+                <p class="mt-6 max-w-xl text-sm leading-6 text-stone-600">Sites I've built for real clients through Crous WebCo, the projects I've built while studying with ITonlinelearning, and the apps and games I make in my own time.</p>
             </div>
         </section>
 
@@ -98,40 +98,127 @@
             </article>
         </section>
 
-        <!-- HTML and CSS projects -->
-        <h2 class="mt-14 mb-6 text-xs font-black uppercase tracking-[0.3em] text-stone-500">HTML &amp; CSS</h2>
-        <section class="grid border-l-2 border-t-2 border-deep-charcoal md:grid-cols-2" aria-label="HTML and CSS projects">
-            <article class="group border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
+        <!-- My own projects -->
+        <h2 class="mt-14 mb-6 text-xs font-black uppercase tracking-[0.3em] text-stone-500">My own projects</h2>
+        <section class="grid border-l-2 border-t-2 border-deep-charcoal md:grid-cols-3" aria-label="My own projects">
+            <article class="group flex flex-col border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
+                <div class="aspect-[4/3] overflow-hidden bg-stone-200"><img src="images/projects/odin.jpg" alt="The Odin logo: a gold Norse figure and spear inside a ring of runes" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105"></div>
+                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">Odin</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">LIVE</span></div>
+                <p class="mt-4 text-sm leading-6 text-stone-600">An AI personal assistant that runs in the browser. It keeps your task list and reminders, drafts emails, reads files you give it and talks back. You bring your own free API key. The voice is still being improved.</p>
+                <div class="mt-6 flex flex-wrap gap-3 text-[9px] font-bold uppercase tracking-widest text-stone-500"><span>#JavaScript</span><span>#AI</span><span>#Three.js</span></div>
+                <div class="mt-auto flex flex-wrap gap-4 pt-6 text-xs font-black uppercase tracking-widest">
+                    <a href="https://crouswebco-max.github.io/odin-assistant/" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Try it →</a>
+                    <a href="https://github.com/crouswebco-max/odin-assistant" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Code →</a>
+                </div>
+            </article>
+            <article class="group flex flex-col border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
+                <div class="aspect-[4/3] overflow-hidden bg-stone-200"><img src="images/projects/consequence.jpg" alt="The title screen of A Game of Consequence: Hollowmere House, a dark ballroom in the rain" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105"></div>
+                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">A Game of Consequence</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">GAME</span></div>
+                <p class="mt-4 text-sm leading-6 text-stone-600">A murder-mystery party game. The projector shows the house, and every player uses their own phone for their cards and notebook. Classic Cluedo rules on an original board, run by a small Node.js server.</p>
+                <div class="mt-6 flex flex-wrap gap-3 text-[9px] font-bold uppercase tracking-widest text-stone-500"><span>#Node.js</span><span>#Multiplayer</span><span>#Game</span></div>
+                <div class="mt-auto flex flex-wrap gap-4 pt-6 text-xs font-black uppercase tracking-widest">
+                    <a href="https://github.com/crouswebco-max/game-of-consequence" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Code →</a>
+                </div>
+            </article>
+            <article class="group flex flex-col border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
+                <div class="aspect-[4/3] overflow-hidden bg-stone-200"><img src="images/projects/snake.jpg" alt="The Snake game: a green snake and a red square on a dark board" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105"></div>
+                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">Snake</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">PLAY</span></div>
+                <p class="mt-4 text-sm leading-6 text-stone-600">The classic Snake game on an HTML canvas. Steer with the arrow keys or WASD, or swipe on a phone. Your best score is saved in the browser.</p>
+                <div class="mt-6 flex flex-wrap gap-3 text-[9px] font-bold uppercase tracking-widest text-stone-500"><span>#JavaScript</span><span>#Canvas</span><span>#Game</span></div>
+                <div class="mt-auto flex flex-wrap gap-4 pt-6 text-xs font-black uppercase tracking-widest">
+                    <a href="https://crouswebco-max.github.io/snake-game/" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Play it →</a>
+                    <a href="https://github.com/crouswebco-max/snake-game" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Code →</a>
+                </div>
+            </article>
+        </section>
+
+        <!-- Practice websites -->
+        <h2 class="mt-14 mb-6 text-xs font-black uppercase tracking-[0.3em] text-stone-500">Practice websites</h2>
+        <section class="grid border-l-2 border-t-2 border-deep-charcoal md:grid-cols-2" aria-label="Practice websites">
+            <article class="group flex flex-col border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
+                <div class="aspect-[4/3] overflow-hidden bg-stone-200"><img src="images/projects/marketdesk.jpg" alt="The MarketDesk trading dashboard, with a portfolio chart and a market watchlist" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105"></div>
+                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">MarketDesk Dashboard</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">01</span></div>
+                <p class="mt-4 text-sm leading-6 text-stone-600">A trading dashboard layout with a sidebar, a portfolio chart, a watchlist and a to-do list. Coding challenge 13: a web application UI.</p>
+                <div class="mt-6 flex flex-wrap gap-3 text-[9px] font-bold uppercase tracking-widest text-stone-500"><span>#HTML</span><span>#CSS</span><span>#Dashboard UI</span></div>
+                <div class="mt-auto flex flex-wrap gap-4 pt-6 text-xs font-black uppercase tracking-widest">
+                    <a href="https://crouswebco-max.github.io/itonlinelearning-coursework/WEBSITE%20HTML/Coding-Challenges/Challenge-13-Web-Application-UI/" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Live site →</a>
+                    <a href="https://github.com/crouswebco-max/itonlinelearning-coursework/tree/main/WEBSITE%20HTML/Coding-Challenges/Challenge-13-Web-Application-UI" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Code →</a>
+                </div>
+            </article>
+            <article class="group flex flex-col border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
+                <div class="aspect-[4/3] overflow-hidden bg-stone-200"><img src="images/projects/orbit.jpg" alt="The Orbit Planetarium home page: a glowing planet on a starry night sky" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105"></div>
+                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">Orbit Planetarium</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">02</span></div>
+                <p class="mt-4 text-sm leading-6 text-stone-600">A planetarium site with a spinning planet, twinkling stars and animated show cards. Coding challenge 3: CSS animation.</p>
+                <div class="mt-6 flex flex-wrap gap-3 text-[9px] font-bold uppercase tracking-widest text-stone-500"><span>#CSS Animation</span><span>#Keyframes</span></div>
+                <div class="mt-auto flex flex-wrap gap-4 pt-6 text-xs font-black uppercase tracking-widest">
+                    <a href="https://crouswebco-max.github.io/itonlinelearning-coursework/WEBSITE%20HTML/Coding-Challenges/Challenge-03-CSS-Animation/" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Live site →</a>
+                    <a href="https://github.com/crouswebco-max/itonlinelearning-coursework/tree/main/WEBSITE%20HTML/Coding-Challenges/Challenge-03-CSS-Animation" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Code →</a>
+                </div>
+            </article>
+            <article class="group flex flex-col border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
                 <div class="aspect-[4/3] overflow-hidden bg-stone-200"><img src="images/projects/nova.jpg" alt="Home page of the Nova designer portfolio website" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105"></div>
-                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">Nova Design Portfolio</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">01</span></div>
+                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">Nova Design Portfolio</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">03</span></div>
                 <p class="mt-4 text-sm leading-6 text-stone-600">A five-page portfolio for a designer, built to match a written brief and a set of mock-ups. Dark, minimal, and laid out with CSS Grid.</p>
                 <div class="mt-6 flex flex-wrap gap-3 text-[9px] font-bold uppercase tracking-widest text-stone-500"><span>#HTML</span><span>#CSS Grid</span><span>#Responsive</span></div>
+                <div class="mt-auto flex flex-wrap gap-4 pt-6 text-xs font-black uppercase tracking-widest">
+                    <a href="https://crouswebco-max.github.io/itonlinelearning-coursework/WEBSITE%20HTML/Website-Design-1/" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Live site →</a>
+                    <a href="https://github.com/crouswebco-max/itonlinelearning-coursework/tree/main/WEBSITE%20HTML/Website-Design-1" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Code →</a>
+                </div>
             </article>
-
-            <article class="group border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
+            <article class="group flex flex-col border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
                 <div class="aspect-[4/3] overflow-hidden bg-stone-200"><img src="images/projects/yachting.jpg" alt="Home page of the Elegant Yachting Tours website" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105"></div>
-                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">Elegant Yachting Tours</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">02</span></div>
+                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">Elegant Yachting Tours</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">04</span></div>
                 <p class="mt-4 text-sm leading-6 text-stone-600">A five-page site for a sailing tour company, with a fixed menu bar, a photo gallery and a contact form.</p>
                 <div class="mt-6 flex flex-wrap gap-3 text-[9px] font-bold uppercase tracking-widest text-stone-500"><span>#HTML</span><span>#CSS</span><span>#Multi-page</span></div>
+                <div class="mt-auto flex flex-wrap gap-4 pt-6 text-xs font-black uppercase tracking-widest">
+                    <a href="https://crouswebco-max.github.io/itonlinelearning-coursework/WEBSITE%20HTML/Module-4-Knowledge-Check/" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Live site →</a>
+                    <a href="https://github.com/crouswebco-max/itonlinelearning-coursework/tree/main/WEBSITE%20HTML/Module-4-Knowledge-Check" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Code →</a>
+                </div>
             </article>
-
-            <article class="group border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
+            <article class="group flex flex-col border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
+                <div class="aspect-[4/3] overflow-hidden bg-stone-200"><img src="images/projects/brushstroke.jpg" alt="The Brushstroke Paints home page, with a canal photo behind the shop name" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105"></div>
+                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">Brushstroke Paints</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">05</span></div>
+                <p class="mt-4 text-sm leading-6 text-stone-600">A website for a family-run paint shop, built up over the five modules of the CSS course: layout, colour, fonts, icons and opening hours.</p>
+                <div class="mt-6 flex flex-wrap gap-3 text-[9px] font-bold uppercase tracking-widest text-stone-500"><span>#CSS</span><span>#Floats</span><span>#Font Awesome</span></div>
+                <div class="mt-auto flex flex-wrap gap-4 pt-6 text-xs font-black uppercase tracking-widest">
+                    <a href="https://crouswebco-max.github.io/itonlinelearning-coursework/Website%20CSS/Module%205/" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Live site →</a>
+                    <a href="https://github.com/crouswebco-max/itonlinelearning-coursework/tree/main/Website%20CSS/Module%205" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Code →</a>
+                </div>
+            </article>
+            <article class="group flex flex-col border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
+                <div class="aspect-[4/3] overflow-hidden bg-stone-200"><img src="images/projects/field-notes.jpg" alt="The Field Notes photo gallery: a grid of nature and city photos in different sizes" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105"></div>
+                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">Field Notes Gallery</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">06</span></div>
+                <p class="mt-4 text-sm leading-6 text-stone-600">A photo gallery with a mixed-size grid. Click any photo to open it full size, in a lightbox made with CSS alone. Coding challenge 7: an image gallery.</p>
+                <div class="mt-6 flex flex-wrap gap-3 text-[9px] font-bold uppercase tracking-widest text-stone-500"><span>#CSS Grid</span><span>#Lightbox</span><span>#No JavaScript</span></div>
+                <div class="mt-auto flex flex-wrap gap-4 pt-6 text-xs font-black uppercase tracking-widest">
+                    <a href="https://crouswebco-max.github.io/itonlinelearning-coursework/WEBSITE%20HTML/Coding-Challenges/Challenge-07-Image-Gallery/" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Live site →</a>
+                    <a href="https://github.com/crouswebco-max/itonlinelearning-coursework/tree/main/WEBSITE%20HTML/Coding-Challenges/Challenge-07-Image-Gallery" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Code →</a>
+                </div>
+            </article>
+            <article class="group flex flex-col border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
                 <div class="aspect-[4/3] overflow-hidden bg-stone-200"><img src="images/projects/enhanced.jpg" alt="A web page with a dark menu bar and white content cards" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105"></div>
-                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">Structured Web Page</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">03</span></div>
+                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">Structured Web Page</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">07</span></div>
                 <p class="mt-4 text-sm leading-6 text-stone-600">A single page laid out with divs and classes, a sticky menu bar and styled text formatting.</p>
                 <div class="mt-6 flex flex-wrap gap-3 text-[9px] font-bold uppercase tracking-widest text-stone-500"><span>#HTML</span><span>#Flexbox</span></div>
+                <div class="mt-auto flex flex-wrap gap-4 pt-6 text-xs font-black uppercase tracking-widest">
+                    <a href="https://crouswebco-max.github.io/itonlinelearning-coursework/WEBSITE%20HTML/Module-3-Practical-Activity/" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Live site →</a>
+                    <a href="https://github.com/crouswebco-max/itonlinelearning-coursework/tree/main/WEBSITE%20HTML/Module-3-Practical-Activity" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Code →</a>
+                </div>
             </article>
-
-            <article class="group border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
+            <article class="group flex flex-col border-b-2 border-r-2 border-deep-charcoal bg-white p-5 transition-colors hover:bg-stone-200">
                 <div class="aspect-[4/3] overflow-hidden bg-stone-200"><img src="images/projects/semantic.jpg" alt="A web page with a dark header, two content boxes and a footer" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105"></div>
-                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">Semantic Layout</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">04</span></div>
+                <div class="mt-6 flex items-start justify-between gap-3"><h3 class="text-xl font-black uppercase leading-none">Semantic Layout</h3><span class="border border-stone-400 px-2 py-1 text-[9px] font-bold">08</span></div>
                 <p class="mt-4 text-sm leading-6 text-stone-600">A page built from header, main, aside and footer elements, laid out with Flexbox and Grid.</p>
                 <div class="mt-6 flex flex-wrap gap-3 text-[9px] font-bold uppercase tracking-widest text-stone-500"><span>#Semantic HTML</span><span>#CSS Grid</span></div>
+                <div class="mt-auto flex flex-wrap gap-4 pt-6 text-xs font-black uppercase tracking-widest">
+                    <a href="https://crouswebco-max.github.io/itonlinelearning-coursework/WEBSITE%20HTML/Module-4-Practical-Activity/" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Live site →</a>
+                    <a href="https://github.com/crouswebco-max/itonlinelearning-coursework/tree/main/WEBSITE%20HTML/Module-4-Practical-Activity" class="border-b-2 border-deep-charcoal pb-1 transition-colors hover:border-brand-red hover:text-brand-red">Code →</a>
+                </div>
             </article>
         </section>
 
         <div class="mt-10 flex flex-col items-start justify-between gap-6 border-t-2 border-deep-charcoal pt-10 sm:flex-row sm:items-center">
-            <p class="max-w-xl text-sm leading-6 text-stone-600">The code for every course project is on GitHub. The JavaScript and React checkpoints have their own repositories, and everything else lives in my coursework repository, along with this site.</p>
+            <p class="max-w-xl text-sm leading-6 text-stone-600">All my code is on GitHub. The checkpoints and my own projects have their own repositories, and the practice websites live in my coursework repository, along with this site.</p>
             <a href="https://github.com/crouswebco-max/itonlinelearning-coursework" class="border-2 border-deep-charcoal px-6 py-4 text-xs font-black uppercase tracking-widest transition-colors hover:bg-deep-charcoal hover:text-white">View my GitHub →</a>
         </div>
     </main>
