@@ -4,8 +4,8 @@ Take these screenshots while doing the lab, and save them in this folder with th
 
 | File name | What it shows | Done |
 |---|---|---|
-| `1-ec2-estimate.png` | The EC2 estimate settings (Region, instance type, pricing model) | ☐ |
-| `2-estimate-summary.png` | The estimate summary with the monthly and 12-month totals | ☐ |
+| `1-ec2-estimate.png` | The EC2 estimate settings (Region, instance type, pricing model) | ☑ |
+| `2-estimate-summary.png` | The estimate summary with the monthly and 12-month totals | ☑ |
 
 ## Before you save a screenshot
 
