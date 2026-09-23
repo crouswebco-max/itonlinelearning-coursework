@@ -1,6 +1,6 @@
 # itonlinelearning-coursework
 
-My coursework for the IT Online Learning web development courses: HTML, CSS and Tailwind CSS. Every project is plain HTML and CSS (plus a little JavaScript in a few places), so you can open any `index.html` straight in a browser.
+My coursework for the IT Online Learning web development courses: HTML, CSS, Tailwind CSS and JavaScript. Every project is plain HTML, CSS and JavaScript, so you can open almost any `index.html` straight in a browser. The exception is the Banking System (`JavaScript Essentials/Module 3`), which uses ES6 modules and needs a web server.
 
 **Live site:** https://crouswebco-max.github.io/itonlinelearning-coursework/ — every project can be opened from there, and my portfolio is at [Portfolio Checkpoint](https://crouswebco-max.github.io/itonlinelearning-coursework/Portfolio%20Checkpoint/).
 
@@ -13,6 +13,10 @@ My coursework for the IT Online Learning web development courses: HTML, CSS and 
 | `WEBSITE HTML/` | The HTML course: module knowledge checks and practical activities (Modules 2–6), extra practice (`Practice/`), the "Nova" portfolio (`Website-Design-1/`) and the coding challenges (`Coding-Challenges/`) |
 | `Website CSS/` | The CSS course, Modules 1–5. Each module is a finished "Brushstroke Paints" page with a README |
 | `Tailwind CSS/` | The Tailwind CSS course, Modules 1–4. `Module 4/NPM Tailwind` uses Tailwind installed with npm |
+| `JavaScript Essentials/` | The JavaScript Essentials course, Modules 1–10 |
+| `JavaScript Portfolio/` | My ITOL Vault, the JavaScript assignment: a three-page digital diary saved with `localStorage` |
+| `React Essentials/` | The React Essentials course, Modules 1–10 |
+| `AWS Cloud Practitioner/` | The AWS Cloud Practitioner course |
 | `Portfolio Checkpoint/` | My own portfolio site, built with Tailwind CSS (the Tailwind checkpoint project) |
 
 ## Coding challenges
