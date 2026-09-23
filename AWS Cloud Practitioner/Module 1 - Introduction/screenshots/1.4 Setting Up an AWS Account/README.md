@@ -4,9 +4,9 @@ Take these screenshots while doing the lab, and save them in this folder with th
 
 | File name | What it shows | Done |
 |---|---|---|
-| `1-root-mfa.png` | Security credentials page showing an MFA device assigned to the root user | ☐ |
-| `2-zero-spend-budget.png` | Budgets page showing the zero spend budget | ☐ |
-| `3-admin-user.png` | IAM Identity Center showing your admin user and the Admins group | ☐ |
+| `1-root-mfa.png` | Security credentials page showing an MFA device assigned to the root user | ☑ |
+| `2-zero-spend-budget.png` | Budgets page showing the zero spend budget | ☑ |
+| `3-admin-user.png` | The IAM user `juan-admin` with AdministratorAccess attached through the admin group | ☑ |
 
 ## Before you save a screenshot
 
