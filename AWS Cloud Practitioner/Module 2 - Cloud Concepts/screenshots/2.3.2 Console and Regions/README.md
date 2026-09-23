@@ -4,8 +4,8 @@ Take these screenshots while doing the lab, and save them in this folder with th
 
 | File name | What it shows | Done |
 |---|---|---|
-| `1-console-home.png` | The Console home page, with your chosen Region showing top right | ☐ |
-| `2-region-list.png` | The Region drop-down open | ☐ |
+| `1-console-home.png` | The Console home page, with your chosen Region showing top right | ☑ |
+| `2-region-list.png` | The Region drop-down open | ☑ |
 
 ## Before you save a screenshot
 
