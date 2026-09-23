@@ -13,8 +13,8 @@ My portfolio site, built with Tailwind CSS through the Play CDN. It's a four-pag
 |---|---|
 | `home.html` | Full-screen hero with my photo, what I work with, and two featured projects (Money Builder and Odin) |
 | `projects.html` | Client work (So Bella, Alpha Projects), my JavaScript and React projects (Money Builder, Banking System, My ITOL Vault), my own projects (Odin, A Game of Consequence, Snake) and eight practice websites, each with live and code links |
-| `gallery.html` | Nine-image responsive grid: one column on a phone, two on a tablet, three on a computer |
-| `contact.html` | Contact form, email and GitHub links, and what happens after you get in touch |
+| `gallery.html` | Nine-image responsive grid (one column on a phone, two on a tablet, three on a computer). Click a photo to open it full size in a lightbox, with Previous/Next, the arrow keys and Esc |
+| `contact.html` | A working contact form (sent through FormSubmit to my email), email and GitHub links, and what happens after you get in touch |
 | `blog.html` | The blog post about building this site with Tailwind |
 | `index.html` | Sends visitors to `home.html`, so the site opens on the home page when it's published |
 | `images/` | Gallery photos, my photo, and screenshots of the course projects |

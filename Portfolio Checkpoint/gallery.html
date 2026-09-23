@@ -34,20 +34,36 @@
                 <p class="mb-4 text-xs font-bold uppercase tracking-[0.35em] text-brand-red">Gallery // nine photographs</p>
                 <h1 class="text-4xl font-black uppercase leading-none tracking-[-0.05em] sm:text-6xl lg:text-7xl">Image gallery</h1>
             </div>
-            <p class="max-w-xs text-sm leading-6 text-stone-600">Nine photographs in a responsive grid: one column on a phone, two on a tablet and three on a computer. Hover a photo to bring its colour back.</p>
+            <p class="max-w-xs text-sm leading-6 text-stone-600">Nine photographs in a responsive grid: one column on a phone, two on a tablet and three on a computer. Hover a photo to bring its colour back, or click one to see it full size.</p>
         </section>
 
         <section class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3" aria-label="Image gallery">
-            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image1.jpg" alt="Cyclists racing past, blurred by the speed, in black and white"><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Race day</figcaption></figure>
-            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image2.jpg" alt="A kitchen worktop from above, with a pestle and mortar, a frying pan, knives and small bowls of spices"><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Kitchen table</figcaption></figure>
-            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image3.jpg" alt="A hillside covered in pine trees, seen from a distance"><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Hillside forest</figcaption></figure>
-            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image4.jpg" alt="Waves breaking over dark rocks at dusk"><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Evening sea</figcaption></figure>
-            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image5.jpg" alt="A red umbrella at night, with blurred city lights behind it"><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Red umbrella</figcaption></figure>
-            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image6.jpg" alt="People walking on a wide beach at sunset, with mountains in the distance"><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Beach at sunset</figcaption></figure>
-            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image7.jpg" alt="Sunlight coming through the trees in a wood"><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Light in the trees</figcaption></figure>
-            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image8.jpg" alt="An empty road curving along a hillside at sunset"><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">The long road</figcaption></figure>
-            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image9.jpg" alt="A bulldog looking up at the camera on a paved street"><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Good boy</figcaption></figure>
+            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><button type="button" class="gallery-open block w-full cursor-zoom-in overflow-hidden focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-red" aria-label="Open Race day full size"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image1.jpg" alt="Cyclists racing past, blurred by the speed, in black and white"></button><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Race day</figcaption></figure>
+            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><button type="button" class="gallery-open block w-full cursor-zoom-in overflow-hidden focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-red" aria-label="Open Kitchen table full size"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image2.jpg" alt="A kitchen worktop from above, with a pestle and mortar, a frying pan, knives and small bowls of spices"></button><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Kitchen table</figcaption></figure>
+            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><button type="button" class="gallery-open block w-full cursor-zoom-in overflow-hidden focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-red" aria-label="Open Hillside forest full size"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image3.jpg" alt="A hillside covered in pine trees, seen from a distance"></button><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Hillside forest</figcaption></figure>
+            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><button type="button" class="gallery-open block w-full cursor-zoom-in overflow-hidden focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-red" aria-label="Open Evening sea full size"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image4.jpg" alt="Waves breaking over dark rocks at dusk"></button><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Evening sea</figcaption></figure>
+            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><button type="button" class="gallery-open block w-full cursor-zoom-in overflow-hidden focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-red" aria-label="Open Red umbrella full size"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image5.jpg" alt="A red umbrella at night, with blurred city lights behind it"></button><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Red umbrella</figcaption></figure>
+            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><button type="button" class="gallery-open block w-full cursor-zoom-in overflow-hidden focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-red" aria-label="Open Beach at sunset full size"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image6.jpg" alt="People walking on a wide beach at sunset, with mountains in the distance"></button><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Beach at sunset</figcaption></figure>
+            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><button type="button" class="gallery-open block w-full cursor-zoom-in overflow-hidden focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-red" aria-label="Open Light in the trees full size"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image7.jpg" alt="Sunlight coming through the trees in a wood"></button><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Light in the trees</figcaption></figure>
+            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><button type="button" class="gallery-open block w-full cursor-zoom-in overflow-hidden focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-red" aria-label="Open The long road full size"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image8.jpg" alt="An empty road curving along a hillside at sunset"></button><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">The long road</figcaption></figure>
+            <figure class="group border-2 border-deep-charcoal bg-white p-3 transition-colors hover:bg-brand-red"><button type="button" class="gallery-open block w-full cursor-zoom-in overflow-hidden focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-red" aria-label="Open Good boy full size"><img class="aspect-square w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0" src="images/image9.jpg" alt="A bulldog looking up at the camera on a paved street"></button><figcaption class="pt-3 text-xs font-black uppercase tracking-widest">Good boy</figcaption></figure>
         </section>
+
+        <!-- Lightbox: opens a photo full size. Arrow keys or the buttons move between photos, Esc closes it -->
+        <dialog id="lightbox" class="m-auto w-full max-w-5xl bg-transparent p-4 backdrop:bg-deep-charcoal/90" aria-label="Photo viewer">
+            <figure class="border-2 border-white bg-deep-charcoal p-3">
+                <img id="lightbox-img" src="" alt="" class="max-h-[75vh] w-full object-contain">
+                <figcaption class="flex items-center justify-between gap-4 pt-3 text-xs font-black uppercase tracking-widest text-white">
+                    <span id="lightbox-caption"></span>
+                    <span id="lightbox-count" class="text-stone-400"></span>
+                </figcaption>
+            </figure>
+            <div class="mt-4 flex justify-between gap-3 text-xs font-black uppercase tracking-widest">
+                <button type="button" id="lightbox-prev" class="border-2 border-white px-4 py-3 text-white transition-colors hover:bg-brand-red">← Previous</button>
+                <button type="button" id="lightbox-close" class="border-2 border-white bg-white px-4 py-3 text-deep-charcoal transition-colors hover:border-brand-red hover:bg-brand-red hover:text-white">Close ✕</button>
+                <button type="button" id="lightbox-next" class="border-2 border-white px-4 py-3 text-white transition-colors hover:bg-brand-red">Next →</button>
+            </div>
+        </dialog>
     </main>
 
     <footer class="border-t-2 border-deep-charcoal bg-stone-200">
@@ -60,5 +76,46 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Gallery lightbox: click a photo to open it full size in a <dialog>
+        const buttons = [...document.querySelectorAll('.gallery-open')];
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const caption = document.getElementById('lightbox-caption');
+        const count = document.getElementById('lightbox-count');
+        let current = 0;
+
+        function show(index) {
+            current = (index + buttons.length) % buttons.length; // wraps round from the last photo to the first
+            const img = buttons[current].querySelector('img');
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            caption.textContent = buttons[current].nextElementSibling.textContent;
+            count.textContent = `${current + 1} / ${buttons.length}`;
+        }
+
+        buttons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                show(index);
+                lightbox.showModal();
+            });
+        });
+
+        document.getElementById('lightbox-prev').addEventListener('click', () => show(current - 1));
+        document.getElementById('lightbox-next').addEventListener('click', () => show(current + 1));
+        document.getElementById('lightbox-close').addEventListener('click', () => lightbox.close());
+
+        // Arrow keys move between photos (Esc closes a dialog on its own)
+        lightbox.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft') show(current - 1);
+            if (event.key === 'ArrowRight') show(current + 1);
+        });
+
+        // Clicking the dark background outside the photo closes it
+        lightbox.addEventListener('click', (event) => {
+            if (event.target === lightbox) lightbox.close();
+        });
+    </script>
 </body>
 </html>
