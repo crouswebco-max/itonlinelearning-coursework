@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My ITOL Vault: a digital diary. Your five most recent reflections.">
+    <title>Daily Reflections | My ITOL Vault</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/storage.js" defer></script>
+    <script src="js/home.js" defer></script>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">My ITOL Vault</a>
+
+            <nav class="main-nav" aria-label="Main">
+                <ul>
+                    <li><a href="index.html" aria-current="page">Journal</a></li>
+                    <li><a href="vault.html">Vault</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="new-entry.html" class="button button-dark">New Entry</a>
+                <a href="vault.html" class="profile-link" aria-label="My profile: all my entries">
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="12" cy="10" r="3.5" fill="currentColor"/>
+                        <path d="M5.5 18.5c1.4-2.6 3.8-4 6.5-4s5.1 1.4 6.5 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main id="main" class="page">
+        <section class="intro">
+            <h1>Daily Reflections</h1>
+            <p>A sanctuary for your thoughts. Captured in the quiet moments between the noise of the world.</p>
+        </section>
+
+        <!-- The 5 most recent entries. These hard-coded cards are placeholders:
+             js/home.js clears them and builds the real cards from localStorage -->
+        <section id="entryGrid" class="entry-grid" aria-label="Recent entries">
+            <article class="entry-card">
+                <p class="entry-date">March 24, 2026</p>
+                <h2 class="entry-title">The silence of the early morning is where the best ideas are born.</h2>
+                <p class="entry-body">I woke up at 5:00 AM today. There is a specific kind of stillness that exists before the city wakes up.</p>
+            </article>
+            <article class="entry-card">
+                <p class="entry-date">December 25, 2025</p>
+                <h2 class="entry-title">Rethinking the project architecture.</h2>
+                <p class="entry-body">Spent the afternoon sketching out new user flows. Simplification is harder than complexity.</p>
+            </article>
+            <article class="entry-card">
+                <p class="entry-date">August 23, 2025</p>
+                <h2 class="entry-title">Notes on intentionality and the digital space.</h2>
+                <p class="entry-body">Why do we feel the need to document everything?</p>
+            </article>
+            <article class="entry-card">
+                <p class="entry-date">August 21, 2025</p>
+                <h2 class="entry-title">The rain in the city.</h2>
+                <p class="entry-body">The way the neon lights reflect on the wet pavement tonight is mesmerizing.</p>
+            </article>
+            <article class="entry-card">
+                <p class="entry-date">October 24, 2023</p>
+                <h2 class="entry-title">The Weight of Silence</h2>
+                <p class="entry-body">Today the city felt quieter than usual.</p>
+            </article>
+        </section>
+
+        <!-- Shown by JavaScript when there are no saved entries -->
+        <div id="emptyState" class="empty-state" hidden>
+            <p><strong>No entries yet.</strong> Your reflections will appear here once you save one.</p>
+            <button type="button" id="sampleButton" class="button button-light">Add sample entries</button>
+        </div>
+
+        <a href="new-entry.html" class="inspired">
+            <span class="inspired-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18"><path d="M4 7h11M4 12h8M4 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 18l6-6 2 2-6 6h-2v-2z" fill="currentColor"/></svg>
+            </span>
+            <span class="inspired-title">Feeling inspired?</span>
+            <span class="inspired-text">Your vault is waiting for its next entry.</span>
+            <span class="inspired-link">Start writing now</span>
+        </a>
+
+        <p id="viewAll" class="view-all" hidden><a href="vault.html">View all <span id="totalCount"></span> entries in the Vault &rarr;</a></p>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <p>&copy; 2026 My ITOL Vault. Designed for reflection.</p>
+            <ul class="footer-links">
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="vault.html">Archive</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
