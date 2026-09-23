@@ -1,0 +1,33 @@
+.footer {
+  margin-top: 64px;
+  background-color: var(--colour-surface);
+  border-top: 1px solid var(--colour-border);
+}
+
+.inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 32px 20px;
+  text-align: center;
+}
+
+.brand {
+  margin: 0 0 6px;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.brand span {
+  color: var(--colour-accent);
+}
+
+.text {
+  margin: 0 0 12px;
+  color: var(--colour-muted);
+}
+
+.small {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--colour-muted);
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Adding Components</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "plan", number: 1, title: "Planning the Components" },
+            { id: "compose", number: 2, title: "Connecting Them" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // Sample movies for the demos (made-up data; real data comes from an API in Module 10)
+        const MOVIES = [
+            { id: 1, title: "The Last Lighthouse", year: 2023, genre: "Drama", rating: 8.4, colours: ["#1e3a8a", "#0ea5e9"] },
+            { id: 2, title: "Neon Harbour", year: 2024, genre: "Sci-Fi", rating: 7.9, colours: ["#581c87", "#ec4899"] },
+            { id: 3, title: "Paper Kingdoms", year: 2022, genre: "Animation", rating: 8.8, colours: ["#9a3412", "#fbbf24"] },
+            { id: 4, title: "Silent Orbit", year: 2021, genre: "Sci-Fi", rating: 6.7, colours: ["#0f172a", "#64748b"] },
+            { id: 5, title: "Wild Tide", year: 2024, genre: "Adventure", rating: 7.2, colours: ["#065f46", "#34d399"] },
+            { id: 6, title: "Midnight Recipe", year: 2023, genre: "Comedy", rating: 7.6, colours: ["#7f1d1d", "#f97316"] }
+        ];
+
+        // ============================================
+        // MODULE 9 LESSON 7: ADDING COMPONENTS
+        // ============================================
+        function SearchBar({ value, onChange }) {
+            return <input type="search" value={value} onChange={(e) => onChange(e.target.value)} placeholder="Search movies…" aria-label="Search movies" style={{ width: "100%", boxSizing: "border-box" }} />;
+        }
+
+        function GenreFilter({ genres, selected, onSelect }) {
+            return (
+                <div className="demo-buttons" style={{ justifyContent: "flex-start", flexWrap: "wrap", marginTop: 8 }}>
+                    {["All", ...genres].map((genre) => (
+                        <button key={genre} className={selected === genre ? "" : "secondary"} aria-pressed={selected === genre} onClick={() => onSelect(genre)}>{genre}</button>
+                    ))}
+                </div>
+            );
+        }
+
+        function SimpleList({ movies }) {
+            if (movies.length === 0) return <p className="demo-note">No movies match.</p>;
+            return <ul className="task-list">{movies.map((m) => <li key={m.id}>{m.title} <span className="demo-note">{m.genre} · {m.year}</span></li>)}</ul>;
+        }
+
+        function PlanLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>Before writing code, <strong>plan the components</strong>. Break the page into boxes, and give each box one job:</p>
+                    <div className="tree">{`App                 holds the movies and the search text
+├── Header          logo and navigation
+├── SearchBar       the search box
+├── GenreFilter     genre buttons
+├── MovieList       lays the cards out in a grid
+│   └── MovieCard   one movie: poster, title, year, rating
+└── Footer`}</div>
+                    <Terminal>{`src/components/
+├── Header.jsx
+├── SearchBar.jsx
+├── GenreFilter.jsx
+├── MovieList.jsx
+├── MovieCard.jsx
+└── Footer.jsx`}</Terminal>
+                </Lesson>
+            );
+        }
+
+        function ComposeLesson() {
+            const [search, setSearch] = useState("");
+            const [genre, setGenre] = useState("All");
+            const genres = [...new Set(MOVIES.map((m) => m.genre))];
+            const visible = MOVIES.filter((m) => (genre === "All" || m.genre === genre) && m.title.toLowerCase().includes(search.trim().toLowerCase()));
+
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>
+                        <code>App</code> owns the <strong>state</strong> (search text and genre), and passes it down. <code>SearchBar</code> and
+                        <code> GenreFilter</code> only report changes, and <code>MovieList</code> only shows what it's given:
+                    </p>
+                    <Terminal>{`const [search, setSearch] = useState("");
+const [genre, setGenre] = useState("All");
+const visible = movies.filter((m) => (genre === "All" || m.genre === genre) && m.title.includes(search));
+
+<SearchBar value={search} onChange={setSearch} />
+<GenreFilter genres={genres} selected={genre} onSelect={setGenre} />
+<MovieList movies={visible} />`}</Terminal>
+                    <div className="demo" style={{ textAlign: "left" }}>
+                        <p className="demo-label">Live demo</p>
+                        <SearchBar value={search} onChange={setSearch} />
+                        <GenreFilter genres={genres} selected={genre} onSelect={setGenre} />
+                        <SimpleList movies={visible} />
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 9</p>
+                        <h1>Adding Components</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <PlanLesson />
+                        <ComposeLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

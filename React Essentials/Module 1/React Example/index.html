@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Module 1</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- React and ReactDOM from a CDN, so this page works without installing anything -->
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel turns the JSX below into normal JavaScript inside the browser -->
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <!-- React draws the whole page inside this one div -->
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // ============================================
+        // DATA: the lessons, kept in an array so the menu and sections
+        // can be built with .map() instead of writing each one by hand
+        // ============================================
+        const lessons = [
+            { id: "introduction", number: 1, title: "Introduction" },
+            { id: "what-is-react", number: 2, title: "What is React?" },
+            { id: "installation", number: 3, title: "Software and IDE Installation" },
+            { id: "create-react-app", number: 4, title: "Create React App" }
+        ];
+
+        // ============================================
+        // SMALL REUSABLE COMPONENTS
+        // ============================================
+
+        // A dark box for terminal commands. "children" is whatever goes between the tags
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        // A section with a numbered heading. Every lesson uses this
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // A live demo: a counter that remembers its number with useState
+        function Counter() {
+            const [count, setCount] = useState(0);
+
+            return (
+                <div className="demo">
+                    <p className="demo-label">Live React demo</p>
+                    <p className="count">{count}</p>
+                    <div className="demo-buttons">
+                        <button onClick={() => setCount(count - 1)}>− 1</button>
+                        <button onClick={() => setCount(0)} className="secondary">Reset</button>
+                        <button onClick={() => setCount(count + 1)}>+ 1</button>
+                    </div>
+                    <p className="demo-note">
+                        {count === 0
+                            ? "Click a button. React updates only the number, not the whole page."
+                            : `React has re-rendered this component because the state changed to ${count}.`}
+                    </p>
+                </div>
+            );
+        }
+
+        // ============================================
+        // THE FOUR LESSONS
+        // ============================================
+        function Introduction() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        Welcome to React Essentials. In this module you'll learn what React is, install the
+                        software you need, and create your first React app.
+                    </p>
+                    <p>By the end of Module 1 you should be able to:</p>
+                    <ul>
+                        <li>Explain what React is and why developers use it</li>
+                        <li>Install Node.js, npm and Visual Studio Code</li>
+                        <li>Create a new React project and run it in the browser</li>
+                        <li>Find your way around the files in a React project</li>
+                    </ul>
+                    <p className="tip">This page is itself a React app. Every section you're reading is a React component.</p>
+                </Lesson>
+            );
+        }
+
+        function WhatIsReact() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>
+                        <strong>React</strong> is a free JavaScript library for building user interfaces. It was
+                        made by Facebook (now Meta) and is used by sites like Instagram, Netflix and Airbnb.
+                    </p>
+                    <h3>Key ideas</h3>
+                    <ul>
+                        <li><strong>Components:</strong> the page is built from small, reusable pieces, like a <code>Counter</code> or a <code>Lesson</code>. Each one is a JavaScript function.</li>
+                        <li><strong>JSX:</strong> lets you write HTML-like code inside JavaScript, e.g. <code>{"<h2>{title}</h2>"}</code>.</li>
+                        <li><strong>Props:</strong> information passed into a component, like <code>title</code> and <code>number</code> in each lesson on this page.</li>
+                        <li><strong>State:</strong> data a component remembers, which changes over time, like the number in the counter below.</li>
+                        <li><strong>Virtual DOM:</strong> when state changes, React works out exactly what changed and updates only that part of the page.</li>
+                    </ul>
+                    <Counter />
+                </Lesson>
+            );
+        }
+
+        function Installation() {
+            const software = [
+                { name: "Node.js (LTS version)", why: "Runs JavaScript on your computer and includes npm, the package manager React uses.", link: "https://nodejs.org/" },
+                { name: "Visual Studio Code", why: "A free code editor (IDE) with great support for JavaScript and React.", link: "https://code.visualstudio.com/" },
+                { name: "A modern browser", why: "Chrome, Edge or Firefox, to view and debug your app.", link: "https://www.google.com/chrome/" },
+                { name: "React Developer Tools", why: "A browser extension that shows your components, props and state.", link: "https://react.dev/learn/react-developer-tools" }
+            ];
+
+            return (
+                <Lesson {...lessons[2]}>
+                    <p>You need a few free tools before you can build React apps:</p>
+                    <div className="cards">
+                        {software.map((item) => (
+                            <a key={item.name} href={item.link} className="card" target="_blank" rel="noopener noreferrer">
+                                <strong>{item.name}</strong>
+                                <span>{item.why}</span>
+                            </a>
+                        ))}
+                    </div>
+                    <h3>Check Node.js and npm are installed</h3>
+                    <p>After installing Node.js, open a terminal (in VS Code: <strong>Terminal &gt; New Terminal</strong>) and run:</p>
+                    <Terminal>{"node -v\nnpm -v"}</Terminal>
+                    <p>Each command should print a version number. If you see "command not found", restart your computer and try again.</p>
+                    <h3>Useful VS Code extensions</h3>
+                    <ul>
+                        <li><strong>ES7+ React/Redux/React-Native snippets:</strong> shortcuts like <code>rfce</code> to create a component</li>
+                        <li><strong>Prettier:</strong> formats your code neatly when you save</li>
+                        <li><strong>ESLint:</strong> points out mistakes as you type</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function CreateReactAppLesson() {
+            return (
+                <Lesson {...lessons[3]}>
+                    <p>
+                        <strong>Create React App</strong> sets up a new React project with one command, including
+                        everything needed to run, test and build it.
+                    </p>
+                    <h3>1. Create the project</h3>
+                    <Terminal>npx create-react-app my-first-app</Terminal>
+                    <h3>2. Go into the project folder</h3>
+                    <Terminal>cd my-first-app</Terminal>
+                    <h3>3. Start the development server</h3>
+                    <Terminal>npm start</Terminal>
+                    <p>Your app opens at <code>http://localhost:3000</code>. When you save a file, the page updates automatically. Press <kbd>Ctrl</kbd> + <kbd>C</kbd> in the terminal to stop it.</p>
+
+                    <h3>The important files</h3>
+                    <Terminal>{`my-first-app/
+├── node_modules/     all the installed packages (don't edit)
+├── public/
+│   └── index.html    the one HTML page, with <div id="root">
+├── src/
+│   ├── App.js        your main component: start editing here
+│   ├── App.css       styles for App
+│   └── index.js      puts <App /> into the root div
+└── package.json      the project's name, scripts and packages`}</Terminal>
+
+                    <p className="tip">
+                        <strong>Note:</strong> the React team deprecated Create React App in 2025. It still works for
+                        learning, but new projects usually use <strong>Vite</strong> instead, which is faster:
+                    </p>
+                    <Terminal>{"npm create vite@latest my-first-app -- --template react\ncd my-first-app\nnpm install\nnpm run dev"}</Terminal>
+                    <p>A Vite app runs at <code>http://localhost:5173</code>.</p>
+                </Lesson>
+            );
+        }
+
+        // ============================================
+        // THE WHOLE PAGE
+        // ============================================
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 1</p>
+                        <h1>Getting Started with React</h1>
+                        {/* The menu is built from the lessons array with .map() */}
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+
+                    <main>
+                        <Introduction />
+                        <WhatIsReact />
+                        <Installation />
+                        <CreateReactAppLesson />
+                    </main>
+
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        // Tell React to draw the App component inside <div id="root">
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

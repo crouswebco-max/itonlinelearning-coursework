@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Deleting Jobs</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "delete", number: 1, title: "Deleting a Job" },
+            { id: "reset", number: 2, title: "Resetting the Form" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 6 LESSON 7: DELETING JOBS
+        // ============================================
+        function DeleteDemo() {
+            const [jobs, setJobs] = useState([
+                { id: 1, activity: "Check inbox" },
+                { id: 2, activity: "Scrape prices" },
+                { id: 3, activity: "Send report" }
+            ]);
+            const [activity, setActivity] = useState("");
+            const [askFirst, setAskFirst] = useState(true);
+
+            const deleteJob = (jobId) => {
+                const job = jobs.find((j) => j.id === jobId);
+                if (askFirst && !window.confirm(`Delete "${job.activity}"?`)) return;
+                setJobs(jobs.filter((j) => j.id !== jobId));
+            };
+
+            const resetForm = () => setActivity("");
+
+            const addJob = (event) => {
+                event.preventDefault();
+                if (!activity.trim()) return;
+                setJobs([...jobs, { id: Date.now(), activity: activity.trim() }]);
+                resetForm();
+            };
+
+            return (
+                <div className="demo" style={{ textAlign: "left" }}>
+                    <p className="demo-label">Live demo</p>
+                    <form onSubmit={addJob} className="demo-buttons" style={{ justifyContent: "flex-start" }}>
+                        <input value={activity} onChange={(e) => setActivity(e.target.value)} placeholder="New job" aria-label="New job" style={{ flex: 1 }} />
+                        <button type="submit">Add</button>
+                    </form>
+                    <label className="demo-note" style={{ display: "block" }}>
+                        <input type="checkbox" checked={askFirst} onChange={(e) => setAskFirst(e.target.checked)} /> Ask before deleting
+                    </label>
+                    <ul className="task-list">
+                        {jobs.map((job) => (
+                            <li key={job.id}>
+                                {job.activity}
+                                <button className="secondary" onClick={() => deleteJob(job.id)} aria-label={`Delete ${job.activity}`}>Delete</button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        }
+
+        function DeleteLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>Deleting is a <code>filter</code> that keeps every job except the one with the matching <strong>id</strong>:</p>
+                    <Terminal>{`const deleteJob = (jobId) => {
+  setJobs(jobs.filter((job) => job.id !== jobId));
+};`}</Terminal>
+                    <ul>
+                        <li>Every job needs a <strong>unique id</strong> (<code>Date.now()</code> works for small apps), so the right one is removed.</li>
+                        <li>The state lives in <code>JobManager</code>, so the function is <strong>passed down</strong>: JobManager to JobColumn to JobCard.</li>
+                        <li><code>window.confirm()</code> asks the user first and returns <code>true</code> or <code>false</code>.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function ResetLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>After adding a job, put every form field back to its start value, so the form is ready for the next one. The inputs must be <strong>controlled</strong> (<code>value={"{...}"}</code>) or they won't clear:</p>
+                    <Terminal>{`const resetForm = () => {
+  setActivity("");
+  setCategories([]);
+  setStatus("Need to Complete");
+};
+
+const addJob = (e) => {
+  e.preventDefault();
+  setJobs([...jobs, { id: Date.now(), activity, categories, status }]);
+  resetForm();
+};`}</Terminal>
+                    <DeleteDemo />
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 6</p>
+                        <h1>Deleting Jobs</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <DeleteLesson />
+                        <ResetLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

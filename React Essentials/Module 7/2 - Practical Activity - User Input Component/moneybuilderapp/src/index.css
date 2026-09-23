@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Quicksand', sans-serif;
+  color: #e1eeeb;
+  background: linear-gradient(180deg, #0b2421 0%, #102e2a 100%);
+}
+
+/* Task 6: the header styles from the brief */
+#header {
+  text-align: center;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+
+#header img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+  background-color: transparent;
+}
+
+#header h1 {
+  font-size: 1.5rem;
+  font-family: 'Roboto Condensed', sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9ee6c5;
+  margin: 0.75rem 0 0.25rem;
+}
+
+#header p {
+  margin: 0;
+  color: #a7c4bd;
+}
+
+/* Bonus 3: bigger on wider screens */
+@media (min-width: 768px) {
+  #header {
+    margin: 4rem auto 3rem;
+  }
+
+  #header img {
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+
+  #header h1 {
+    font-size: 2.25rem;
+  }
+
+  #header p {
+    font-size: 1.1rem;
+  }
+}
+
+/* Task 7: the form styles from the brief */
+#user-input {
+  padding: 1rem;
+  max-width: 30rem;
+  margin: 2rem auto;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  color: #1f2d2a;
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.input-group label {
+  font-weight: bold;
+}
+
+.input-group input {
+  width: 10rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Extras for the bonus challenges */
+#user-input {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+@media (min-width: 34rem) {
+  #user-input {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.input-group {
+  align-items: flex-start;
+}
+
+.input-group label {
+  padding-top: 0.5rem;
+}
+
+.input-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.input-group input:focus {
+  outline: 2px solid #1f8a70;
+  outline-offset: 1px;
+}
+
+.input-group input[aria-invalid='true'] {
+  border-color: #c0392b;
+  background-color: #fdecea;
+}
+
+.input-error {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #c0392b;
+}
+
+.currency-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: bold;
+}
+
+.currency-row select {
+  padding: 0.35rem;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.status {
+  margin: 0;
+  font-weight: 600;
+  color: #1f6e57;
+}
+
+.status--error {
+  color: #c0392b;
+}
+
+.reset-button {
+  padding: 0.5rem 1.25rem;
+  font: inherit;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #1f6e57;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reset-button:hover {
+  background-color: #185a47;
+}
+
+.live-state {
+  margin: 1rem 0 0;
+  font-size: 0.8rem;
+  color: #555;
+  word-break: break-all;
+}
+
+@media (max-width: 30rem) {
+  .input-group {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .input-wrap,
+  .input-group input {
+    width: 100%;
+    align-items: stretch;
+  }
+}

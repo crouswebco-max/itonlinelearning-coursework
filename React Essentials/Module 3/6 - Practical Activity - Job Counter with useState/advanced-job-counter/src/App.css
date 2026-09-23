@@ -1,0 +1,123 @@
+.App {
+  min-height: 100vh;
+  padding: 48px 16px;
+  color: #1e293b;
+  background-color: #f1f5f9;
+}
+
+.job-counter {
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 32px 28px;
+  text-align: center;
+  background-color: #ffffff;
+  border-top: 8px solid #94a3b8;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+  transition: border-color 0.3s;
+}
+
+.job-counter--few {
+  border-top-color: #087ea4;
+}
+
+.job-counter--many {
+  border-top-color: #16a34a;
+}
+
+.job-counter h1 {
+  margin: 8px 0 0;
+  font-size: clamp(26px, 6vw, 34px);
+}
+
+.count {
+  margin: 14px 0 4px;
+  font-size: 22px;
+}
+
+.count strong {
+  font-size: 40px;
+}
+
+.message {
+  margin: 0 0 22px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.job-counter--few .message {
+  color: #087ea4;
+}
+
+.job-counter--many .message {
+  color: #15803d;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+button {
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #087ea4;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background-color: #066888;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  color: #1e293b;
+  background-color: #e2e8f0;
+}
+
+button.secondary:hover:not(:disabled) {
+  background-color: #cbd5e1;
+}
+
+.toggle {
+  margin-top: 20px;
+  color: #087ea4;
+  background: none;
+  border: 2px solid #087ea4;
+}
+
+.toggle:hover {
+  color: #ffffff;
+}
+
+.environment {
+  display: inline-block;
+  margin: 0;
+  padding: 4px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 999px;
+}
+
+.environment--production {
+  color: #991b1b;
+  background-color: #fee2e2;
+}
+
+.environment--uat {
+  color: #854d0e;
+  background-color: #fef9c3;
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Adding Reusable Components</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "group", number: 1, title: "A Reusable FilterGroup" },
+            { id: "lists", number: 2, title: "One MovieList, Three Lists" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        const { useEffect } = React;
+
+        // Sample movies shaped like TMDB's results (made-up data, so the demos work without an API key)
+        const SAMPLE = [
+            { id: 1, title: "Harbour Lights", release_date: "2019-05-10", vote_average: 7.4 },
+            { id: 2, title: "The Glass Orchard", release_date: "2023-02-11", vote_average: 8.6 },
+            { id: 3, title: "Northbound", release_date: "2016-09-02", vote_average: 6.1 },
+            { id: 4, title: "Paper Moons", release_date: "2024-11-20", vote_average: 8.1 },
+            { id: 5, title: "Iron Tide", release_date: "2021-07-15", vote_average: 5.8 },
+            { id: 6, title: "Quiet Hours", release_date: "2020-01-30", vote_average: 7.9 },
+            { id: 7, title: "Salt & Smoke", release_date: "2018-03-08", vote_average: 6.7 }
+        ];
+
+        // ============================================
+        // MODULE 10 LESSON 13: ADDING REUSABLE COMPONENTS
+        // ============================================
+        function FilterGroup({ minRating, onRatingClick, ratings }) {
+            return (
+                <div className="demo-buttons" style={{ justifyContent: "flex-start", flexWrap: "wrap" }}>
+                    {ratings.map((rate) => (
+                        <button key={rate} className={minRating === rate ? "" : "secondary"} aria-pressed={minRating === rate} onClick={() => onRatingClick(rate)}>{rate}+ Star</button>
+                    ))}
+                </div>
+            );
+        }
+
+        function MiniList({ title, emoji, movies, ratings }) {
+            const [minRating, setMinRating] = useState(0);
+            const shown = minRating ? movies.filter((m) => m.vote_average >= minRating) : movies;
+            return (
+                <div className="product">
+                    <h4>{title} {emoji}</h4>
+                    <FilterGroup minRating={minRating} onRatingClick={(rate) => setMinRating(rate === minRating ? 0 : rate)} ratings={ratings} />
+                    <ul className="task-list">{shown.map((m) => <li key={m.id}>{m.title} <span className="demo-note">⭐ {m.vote_average}</span></li>)}</ul>
+                </div>
+            );
+        }
+
+        function GroupLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>The rating buttons are pulled out into their own component. It knows nothing about movies, so it can be used anywhere:</p>
+                    <Terminal>{`const FilterGroup = ({ minRating, onRatingClick, ratings }) => (
+  <ul className="align_center movie_filter">
+    {ratings.map((rate) => (
+      <li key={rate}
+          className={minRating === rate ? "movie_filter_item active" : "movie_filter_item"}
+          onClick={() => onRatingClick(rate)}>
+        {rate}+ Star
+      </li>
+    ))}
+  </ul>
+);
+
+<FilterGroup minRating={minRating} onRatingClick={handleFilter} ratings={[8, 7, 6]} />`}</Terminal>
+                    <p className="tip">Use <code>{"<button>"}</code> elements for the options (the course uses <code>{"<li>"}</code>) so they work with the keyboard and screen readers.</p>
+                </Lesson>
+            );
+        }
+
+        function ListsLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>The same idea makes <code>MovieList</code> reusable. Its props say which list to fetch and what to call it:</p>
+                    <Terminal>{`<MovieList type="popular" title="Popular" emoji="🔥" />
+<MovieList type="top_rated" title="Top Rated" emoji="⭐" />
+<MovieList type="upcoming" title="Upcoming" emoji="🎬" />
+
+// inside MovieList
+fetch(\`https://api.themoviedb.org/3/movie/\${type}?api_key=\${API_KEY}\`)`}</Terminal>
+                    <p>Each list keeps its own filter state. Try the buttons in each:</p>
+                    <div className="product-grid">
+                        <MiniList title="Popular" emoji="🔥" movies={SAMPLE.slice(0, 4)} ratings={[8, 7, 6]} />
+                        <MiniList title="Top Rated" emoji="⭐" movies={SAMPLE.filter((m) => m.vote_average >= 7)} ratings={[8, 7]} />
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 10</p>
+                        <h1>Adding Reusable Components</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <GroupLesson />
+                        <ListsLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

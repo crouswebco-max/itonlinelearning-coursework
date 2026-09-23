@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Creating Button Components and Props Value</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "button", number: 1, title: "A Reusable Button" },
+            { id: "columns", number: 2, title: "Reusable Job Columns" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 5 LESSON 5: BUTTON COMPONENTS AND PROPS VALUE
+        // ============================================
+        function Button({ variant = "primary", children, ...rest }) {
+            const styles = {
+                primary: { background: "#087ea4", color: "#fff" },
+                danger: { background: "#fee2e2", color: "#b42318" },
+                ghost: { background: "transparent", color: "#23272f", border: "2px solid #cbd5e1" }
+            };
+            return (
+                <button style={{ minWidth: 0, padding: "8px 16px", fontWeight: 600, border: "none", borderRadius: 8, cursor: "pointer", ...styles[variant] }} {...rest}>
+                    {children}
+                </button>
+            );
+        }
+
+        function ButtonLesson() {
+            const [clicks, setClicks] = useState(0);
+
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>When the same button appears everywhere, make it a component. Props decide what it says and how it looks:</p>
+                    <Terminal>{`function Button({ variant = "primary", children, ...rest }) {
+  return <button className={\`btn btn--\${variant}\`} {...rest}>{children}</button>;
+}
+
+<Button onClick={save}>Save</Button>
+<Button variant="danger" onClick={remove}>Delete</Button>
+<Button variant="ghost" type="button">Cancel</Button>`}</Terminal>
+                    <ul>
+                        <li><code>children</code> is the text between the tags.</li>
+                        <li><code>variant</code> picks the look, with a default.</li>
+                        <li><code>...rest</code> collects every other prop (like <code>onClick</code> or <code>type</code>) and passes them straight to the real <code>{"<button>"}</code>.</li>
+                    </ul>
+                    <div className="demo">
+                        <p className="demo-label">Live demo</p>
+                        <div className="demo-buttons" style={{ flexWrap: "wrap" }}>
+                            <Button onClick={() => setClicks(clicks + 1)}>Save</Button>
+                            <Button variant="danger" onClick={() => setClicks(0)}>Reset</Button>
+                            <Button variant="ghost" disabled>Disabled</Button>
+                        </div>
+                        <p className="demo-note">Saved {clicks} times. One component, three looks.</p>
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function ColumnLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>The same idea makes the job board's three columns from one component. Only the props change:</p>
+                    <Terminal>{`function JobColumn({ title, image, jobs }) {
+  return (
+    <section className="job-column">
+      <h2><img src={image} alt="" /> {title}</h2>
+      {jobs.map((job) => <p key={job.id}>{job.title}</p>)}
+    </section>
+  );
+}
+
+<JobColumn title="Need to Start" image={startIcon} jobs={jobs.filter((j) => j.status === "need-to-start")} />
+<JobColumn title="In Progress"   image={clockIcon} jobs={jobs.filter((j) => j.status === "in-progress")} />
+<JobColumn title="Completed"     image={tickIcon}  jobs={jobs.filter((j) => j.status === "completed")} />`}</Terminal>
+                    <p className="tip">Import images at the top of the file (<code>import startIcon from './assets/start.svg'</code>) and pass them as props like any other value.</p>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 5</p>
+                        <h1>Creating Button Components and Props Value</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <ButtonLesson />
+                        <ColumnLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

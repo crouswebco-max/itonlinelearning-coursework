@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Functional Aspects for Forms</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "handling", number: 1, title: "One Object, One Handler" },
+            { id: "validation", number: 2, title: "Validation and Feedback" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 5 LESSON 9: FUNCTIONAL ASPECTS FOR FORMS
+        // ============================================
+        const EMPTY = { title: "", category: "", status: "" };
+
+        function FormDemo() {
+            const [jobDetails, setJobDetails] = useState(EMPTY);
+            const [touched, setTouched] = useState({});
+            const [saved, setSaved] = useState("");
+
+            const errors = {
+                title: jobDetails.title.trim().length < 3 ? "At least 3 characters." : "",
+                category: jobDetails.category ? "" : "Choose a category.",
+                status: jobDetails.status ? "" : "Choose a status."
+            };
+            const isValid = !errors.title && !errors.category && !errors.status;
+
+            const handleInputChange = (event) => {
+                const { name, value } = event.target;
+                setJobDetails({ ...jobDetails, [name]: value });
+                setTouched({ ...touched, [name]: true });
+                setSaved("");
+            };
+
+            const handleSubmit = (event) => {
+                event.preventDefault();
+                if (!isValid) return;
+                console.log("Job details:", jobDetails);
+                setSaved(`"${jobDetails.title}" was added.`);
+                setJobDetails(EMPTY);
+                setTouched({});
+            };
+
+            return (
+                <form className="demo" onSubmit={handleSubmit} noValidate style={{ textAlign: "left" }}>
+                    <p className="demo-label">Live demo</p>
+                    <div className="form-grid">
+                        <label>Title<input name="title" value={jobDetails.title} onChange={handleInputChange} /></label>
+                        <label>Category
+                            <select name="category" value={jobDetails.category} onChange={handleInputChange}>
+                                <option value="">Choose…</option><option>Read Emails</option><option>Web Parsing</option><option>Send Emails</option>
+                            </select>
+                        </label>
+                        <label>Status
+                            <select name="status" value={jobDetails.status} onChange={handleInputChange}>
+                                <option value="">Choose…</option><option>Need to Start</option><option>In Progress</option><option>Completed</option>
+                            </select>
+                        </label>
+                    </div>
+                    {Object.keys(errors).map((field) => touched[field] && errors[field] && <p key={field} className="form-error">{field}: {errors[field]}</p>)}
+                    <div className="demo-buttons" style={{ justifyContent: "flex-start", marginTop: 12 }}>
+                        <button type="submit" disabled={!isValid}>Add Job</button>
+                        <button type="button" className="secondary" onClick={() => { setJobDetails(EMPTY); setTouched({}); }}>Reset</button>
+                    </div>
+                    {saved && <p className="demo-note">✅ {saved} (see the console)</p>}
+                    <p className="demo-note">jobDetails: <code>{JSON.stringify(jobDetails)}</code></p>
+                </form>
+            );
+        }
+
+        function HandlingLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>For a bigger form, keep all the fields in <strong>one object</strong> and use <strong>one handler</strong>:</p>
+                    <Terminal>{`const [jobDetails, setJobDetails] = useState({ title: "", category: "", status: "" });
+
+const handleInputChange = (event) => {
+  const { name, value } = event.target;          // which input, and what's in it
+  setJobDetails({ ...jobDetails, [name]: value });
+};
+
+<input name="title" value={jobDetails.title} onChange={handleInputChange} />
+<select name="status" value={jobDetails.status} onChange={handleInputChange}>…</select>`}</Terminal>
+                    <p>Adding a field means adding it to the object and giving the input a matching <code>name</code>. The handler doesn't change.</p>
+                </Lesson>
+            );
+        }
+
+        function ValidationLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <Terminal>{`const errors = {
+  title: jobDetails.title.trim().length < 3 ? "At least 3 characters." : "",
+  status: jobDetails.status ? "" : "Choose a status."
+};
+const isValid = Object.values(errors).every((message) => message === "");
+
+<button type="submit" disabled={!isValid}>Add Job</button>`}</Terminal>
+                    <ul>
+                        <li>Work errors out from the current values on every render, so they're always up to date.</li>
+                        <li>Only show a field's error once the user has <strong>touched</strong> it, so an empty form isn't covered in red.</li>
+                        <li>After a successful submit: log or save the data, show a success message, then reset.</li>
+                    </ul>
+                    <FormDemo />
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 5</p>
+                        <h1>Functional Aspects for Forms</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <HandlingLesson />
+                        <ValidationLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

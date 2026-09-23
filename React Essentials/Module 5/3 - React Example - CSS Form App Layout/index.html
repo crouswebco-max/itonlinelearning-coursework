@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: CSS Form App Layout</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "files", number: 1, title: "A CSS File per Component" },
+            { id: "layout", number: 2, title: "Layout, States and Responsive Design" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 5 LESSON 3: CSS FORM APP LAYOUT
+        // ============================================
+        function FilesLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>Give each component its <strong>own CSS file</strong>, next to it, and import it into the component:</p>
+                    <Terminal>{`src/components/
+├── AppForm.js
+└── AppForm.css
+
+// AppForm.js
+import './AppForm.css';`}</Terminal>
+                    <p>
+                        Use consistent class names that say what each part is: <code>.form-header</code>, <code>.bot-input</code>,
+                        <code>.tag</code>, <code>.submit-data</code>. Then store colours and sizes in <strong>CSS variables</strong>, so they're set once:
+                    </p>
+                    <Terminal>{`.form-header {
+  --accent: #6d28d9;
+  --radius: 10px;
+}
+
+.submit-data {
+  background-color: var(--accent);
+  border-radius: var(--radius);
+}`}</Terminal>
+                </Lesson>
+            );
+        }
+
+        function LayoutLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p><strong>Flexbox</strong> lines things up in a row or column. <strong>Grid</strong> places them in rows and columns at once:</p>
+                    <Terminal>{`.bottom-line {            /* the category tags in a row that wraps */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.form-details {           /* tags on the left, status and button on the right */
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}`}</Terminal>
+                    <h3>States</h3>
+                    <Terminal>{`.bot-input:focus  { border-color: var(--accent); }     /* clicked into */
+.tag:hover        { transform: translateY(-1px); }      /* mouse over */
+.tag:active       { transform: translateY(1px); }       /* being pressed */
+.submit-data      { transition: background-color 0.2s; } /* smooth changes */`}</Terminal>
+                    <h3>Responsive</h3>
+                    <Terminal>{`@media (max-width: 600px) {
+  .form-details { grid-template-columns: 1fr; }   /* stack on a phone */
+}`}</Terminal>
+                    <div className="demo">
+                        <p className="demo-label">Try it</p>
+                        <div className="styled-form">
+                            <input className="styled-input" placeholder="Enter the job" aria-label="Styled input example" />
+                            <div className="styled-row">
+                                <div className="styled-tags">
+                                    <button type="button" className="styled-tag">Read Emails</button>
+                                    <button type="button" className="styled-tag">Web Parsing</button>
+                                </div>
+                                <button type="button" className="styled-submit">Add Job</button>
+                            </div>
+                        </div>
+                        <p className="demo-note">Click the input, hover the tags and make the window narrow to see the styles.</p>
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 5</p>
+                        <h1>CSS Form App Layout</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <FilesLesson />
+                        <LayoutLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

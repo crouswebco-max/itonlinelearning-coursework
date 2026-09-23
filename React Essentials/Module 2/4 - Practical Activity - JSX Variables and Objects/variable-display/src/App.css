@@ -1,0 +1,93 @@
+.App {
+  min-height: 100vh;
+  padding: 40px 16px 64px;
+  color: #1e293b;
+  background-color: #f1f5f9;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: clamp(30px, 6vw, 42px);
+  color: #087ea4;
+}
+
+.random {
+  margin: 0 0 24px;
+  color: #64748b;
+}
+
+.card {
+  margin-bottom: 16px;
+  padding: 20px 24px;
+  background-color: #ffffff;
+  border-left: 5px solid #087ea4;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+}
+
+.card h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.card h3 {
+  margin: 16px 0 6px;
+  font-size: 16px;
+}
+
+.card p {
+  margin: 4px 0;
+}
+
+.note {
+  margin-top: 10px !important;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #475569;
+  background-color: #f8fafc;
+  border-radius: 6px;
+}
+
+code {
+  padding: 1px 5px;
+  font-size: 0.9em;
+  background-color: #e6f7fd;
+  border-radius: 4px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #087ea4;
+  border-radius: 999px;
+}
+
+.skill-list {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.run-again {
+  display: block;
+  margin: 24px auto 0;
+  padding: 12px 22px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #087ea4;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.run-again:hover {
+  background-color: #066888;
+}

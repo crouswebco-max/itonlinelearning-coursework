@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: useState</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "syntax", number: 1, title: "The useState Syntax" },
+            { id: "rules", number: 2, title: "Updating State Correctly" },
+            { id: "types", number: 3, title: "State with Different Types" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // LESSON 5: USESTATE
+        // ============================================
+        function SyntaxLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p><code>useState</code> is a React <strong>hook</strong> that gives a component a value it remembers between renders.</p>
+                    <Terminal>{`import { useState } from 'react';
+
+const [count, setCount] = useState(0);
+//     ▲        ▲                  ▲
+//  the value  the setter      the starting value`}</Terminal>
+                    <ul>
+                        <li><code>useState</code> returns an array of two things, taken out with <strong>array destructuring</strong>.</li>
+                        <li>Name them <code>thing</code> and <code>setThing</code>: <code>[jobs, setJobs]</code>, <code>[isOpen, setIsOpen]</code>.</li>
+                        <li>Call hooks at the <strong>top level</strong> of the component, never inside an <code>if</code> or a loop.</li>
+                        <li>Each component (and each copy of it) has its own state.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function RulesLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <h3>Never change state directly</h3>
+                    <Terminal>{`count = count + 1;           // ✗ React doesn't know, nothing updates
+jobs.push(newJob);           // ✗ changes the old array
+
+setCount(count + 1);         // ✓
+setJobs([...jobs, newJob]);  // ✓ a new array`}</Terminal>
+                    <h3>Use the previous value when adding to it</h3>
+                    <p>
+                        State updates are applied on the next render. If you update several times in a row, pass a
+                        <strong> function</strong> so each one gets the latest value:
+                    </p>
+                    <Terminal>{`setCount(count + 1);
+setCount(count + 1);         // still uses the old count: adds 1, not 2
+
+setCount((prev) => prev + 1);
+setCount((prev) => prev + 1); // adds 2`}</Terminal>
+                    <PlusThreeDemo />
+                </Lesson>
+            );
+        }
+
+        function PlusThreeDemo() {
+            const [count, setCount] = useState(0);
+
+            function addThreeWrong() {
+                setCount(count + 1);
+                setCount(count + 1);
+                setCount(count + 1);
+            }
+
+            function addThreeRight() {
+                setCount((prev) => prev + 1);
+                setCount((prev) => prev + 1);
+                setCount((prev) => prev + 1);
+            }
+
+            return (
+                <div className="demo">
+                    <p className="demo-label">Live demo</p>
+                    <p className="count">{count}</p>
+                    <div className="demo-buttons" style={{ flexWrap: "wrap" }}>
+                        <button onClick={addThreeWrong}>+3 with count + 1</button>
+                        <button onClick={addThreeRight}>+3 with prev =&gt; prev + 1</button>
+                        <button className="secondary" onClick={() => setCount(0)}>Reset</button>
+                    </div>
+                    <p className="demo-note">The first button only adds 1. The second really adds 3.</p>
+                </div>
+            );
+        }
+
+        function TypesLesson() {
+            const [isOn, setIsOn] = useState(false);
+            const [skills, setSkills] = useState(["HTML", "CSS"]);
+            const [user, setUser] = useState({ name: "Juan", level: 1 });
+
+            return (
+                <Lesson {...lessons[2]}>
+                    <p>State can hold any type. For arrays and objects, always make a new copy with <code>...</code>:</p>
+                    <Terminal>{`setIsOn(!isOn);                                // boolean: flip it
+setSkills([...skills, "React"]);               // array: add to a copy
+setUser({ ...user, level: user.level + 1 });   // object: copy, then change one property`}</Terminal>
+                    <div className="demo">
+                        <p className="demo-label">Live demo</p>
+                        <p className="demo-note">
+                            isOn: <strong>{String(isOn)}</strong> · skills: <strong>{skills.join(", ")}</strong> · {user.name} is level <strong>{user.level}</strong>
+                        </p>
+                        <div className="demo-buttons" style={{ flexWrap: "wrap", marginTop: 10 }}>
+                            <button onClick={() => setIsOn(!isOn)}>Toggle</button>
+                            <button onClick={() => setSkills([...skills, `Skill ${skills.length + 1}`])}>Add skill</button>
+                            <button onClick={() => setUser({ ...user, level: user.level + 1 })}>Level up</button>
+                        </div>
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 3</p>
+                        <h1>useState</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <SyntaxLesson />
+                        <RulesLesson />
+                        <TypesLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

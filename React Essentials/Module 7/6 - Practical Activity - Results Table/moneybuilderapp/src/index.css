@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Quicksand', sans-serif;
+  color: #e1eeeb;
+  background: linear-gradient(180deg, #0b2421 0%, #102e2a 100%);
+}
+
+/* Task 6: the header styles from the brief */
+#header {
+  text-align: center;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+
+#header img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+  background-color: transparent;
+}
+
+#header h1 {
+  font-size: 1.5rem;
+  font-family: 'Roboto Condensed', sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9ee6c5;
+  margin: 0.75rem 0 0.25rem;
+}
+
+#header p {
+  margin: 0;
+  color: #a7c4bd;
+}
+
+/* Bonus 3: bigger on wider screens */
+@media (min-width: 768px) {
+  #header {
+    margin: 4rem auto 3rem;
+  }
+
+  #header img {
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+
+  #header h1 {
+    font-size: 2.25rem;
+  }
+
+  #header p {
+    font-size: 1.1rem;
+  }
+}
+
+/* The input form (from the last activity) */
+#user-input {
+  padding: 1rem;
+  max-width: 30rem;
+  margin: 2rem 1rem;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  color: #1f2d2a;
+}
+
+@media (min-width: 34rem) {
+  #user-input {
+    margin: 2rem auto;
+  }
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.input-group label {
+  font-weight: bold;
+}
+
+.input-group input {
+  width: 10rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.input-group input:focus {
+  outline: 2px solid #1f8a70;
+}
+
+/* The results area */
+.output {
+  max-width: 50rem;
+  margin: 0 auto 3rem;
+  padding: 0 1rem;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  max-height: 32rem;
+  overflow-y: auto;
+  border-radius: 6px;
+}
+
+/* Task 3: the table styles from the brief */
+#result {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  border-collapse: collapse;
+}
+
+.table-scroll #result {
+  margin: 0;
+  background-color: #ffffff;
+}
+
+#result thead {
+  background-color: #34495e;
+  color: white;
+}
+
+#result th,
+#result td {
+  padding: 0.5rem;
+  text-align: right;
+}
+
+#result tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#result td {
+  color: #1f2d2a;
+}
+
+#result th:first-child,
+#result td:first-child {
+  text-align: center;
+}
+
+#result thead th {
+  position: sticky;
+  top: 0;
+  background-color: #34495e;
+}
+
+/* Bonus 1: the summary row */
+#result tfoot th,
+#result tfoot td {
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #1f6e57;
+}
+
+.summary {
+  margin: 1rem 0 0;
+  text-align: center;
+  color: #cfe3de;
+}
+
+.summary strong {
+  color: #9ee6c5;
+}
+
+.center-message {
+  max-width: 30rem;
+  margin: 0 auto 3rem;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 700;
+  color: #7f1d1d;
+  background-color: #fde8e8;
+  border-radius: 4px;
+}
+
+/* Bonus 2: the Yearly / Monthly toggle */
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+}
+
+.view-toggle button {
+  padding: 0.45rem 1.25rem;
+  font: inherit;
+  font-weight: 700;
+  color: #9ee6c5;
+  background: none;
+  border: 2px solid #1f8a70;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.view-toggle button[aria-pressed='true'] {
+  color: #0b2421;
+  background-color: #5dd39e;
+  border-color: #5dd39e;
+}
+
+/* Bonus 3: the chart */
+.chart {
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.chart__grid {
+  stroke: rgba(225, 238, 235, 0.15);
+}
+
+.chart__label {
+  font-size: 12px;
+  fill: #a7c4bd;
+}
+
+.chart__line {
+  fill: none;
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.chart__line--value {
+  stroke: #5dd39e;
+}
+
+.chart__line--capital {
+  stroke: #f5d547;
+  stroke-dasharray: 6 5;
+}
+
+.chart__legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.chart__key::before {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 3px;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+}
+
+.chart__key--value::before {
+  background-color: #5dd39e;
+}
+
+.chart__key--capital::before {
+  background: repeating-linear-gradient(90deg, #f5d547 0 6px, transparent 6px 11px);
+}

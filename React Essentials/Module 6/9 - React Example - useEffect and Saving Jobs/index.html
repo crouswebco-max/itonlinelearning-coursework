@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: useEffect and Saving Jobs</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "effect", number: 1, title: "The useEffect Hook" },
+            { id: "storage", number: 2, title: "Saving to localStorage" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 6 LESSON 9: USEEFFECT AND SAVING JOBS
+        // ============================================
+        const { useEffect } = React;
+
+        function EffectLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        <code>useEffect</code> runs code <strong>after</strong> React has updated the page. It's for <strong>side effects</strong>:
+                        things outside rendering, like saving to storage, fetching data, timers or changing the tab title.
+                    </p>
+                    <Terminal>{`useEffect(() => {
+  // the effect
+  return () => { /* optional clean-up */ };
+}, [dependencies]);`}</Terminal>
+                    <div className="table-wrap">
+                        <table className="var-table">
+                            <thead><tr><th>Dependency array</th><th>When the effect runs</th></tr></thead>
+                            <tbody>
+                                <tr><td>none</td><td>After every render</td></tr>
+                                <tr><td><code>[]</code></td><td>Once, when the component first appears</td></tr>
+                                <tr><td><code>[jobs]</code></td><td>First time, then whenever <code>jobs</code> changes</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <TitleDemo />
+                </Lesson>
+            );
+        }
+
+        function TitleDemo() {
+            const [count, setCount] = useState(0);
+
+            // Runs whenever count changes: updates the browser tab's title
+            useEffect(() => {
+                document.title = count === 0 ? "React Example: useEffect" : `Clicked ${count} times`;
+            }, [count]);
+
+            return (
+                <div className="demo">
+                    <p className="demo-label">Live demo</p>
+                    <button onClick={() => setCount(count + 1)}>Clicked {count} times</button>
+                    <p className="demo-note">Look at the browser tab: the effect changes its title every time <code>count</code> changes.</p>
+                </div>
+            );
+        }
+
+        function NotesDemo() {
+            // Load saved notes once, when the component first renders
+            const [notes, setNotes] = useState(() => {
+                try {
+                    const saved = localStorage.getItem("lessonNotes");
+                    return saved ? JSON.parse(saved) : [];
+                } catch {
+                    return [];
+                }
+            });
+            const [text, setText] = useState("");
+
+            // Save the notes whenever they change
+            useEffect(() => {
+                try {
+                    localStorage.setItem("lessonNotes", JSON.stringify(notes));
+                } catch {
+                    // storage blocked: the demo still works, it just won't remember
+                }
+            }, [notes]);
+
+            return (
+                <div className="demo" style={{ textAlign: "left" }}>
+                    <p className="demo-label">Live demo</p>
+                    <form className="demo-buttons" style={{ justifyContent: "flex-start" }} onSubmit={(e) => { e.preventDefault(); if (text.trim()) { setNotes((prev) => [...prev, { id: Date.now(), text: text.trim() }]); setText(""); } }}>
+                        <input value={text} onChange={(e) => setText(e.target.value)} placeholder="Write a note" aria-label="Write a note" style={{ flex: 1 }} />
+                        <button type="submit">Save</button>
+                        <button type="button" className="secondary" onClick={() => { setNotes([]); try { localStorage.removeItem("lessonNotes"); } catch {} }}>Clear all</button>
+                    </form>
+                    <ul className="task-list">{notes.map((note) => <li key={note.id}>{note.text}</li>)}</ul>
+                    <p className="demo-note">Add a note, then refresh the page. It's still here.</p>
+                </div>
+            );
+        }
+
+        function StorageLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p><code>localStorage</code> keeps data in the browser after a refresh. It only stores <strong>strings</strong>, so use <code>JSON</code>:</p>
+                    <Terminal>{`// 1. Load once: a function passed to useState only runs on the first render
+const [jobs, setJobs] = useState(() => {
+  const savedJobs = localStorage.getItem("jobs");
+  return savedJobs ? JSON.parse(savedJobs) : [];
+});
+
+// 2. Save whenever jobs changes
+useEffect(() => {
+  localStorage.setItem("jobs", JSON.stringify(jobs));
+}, [jobs]);
+
+// 3. Clear everything
+const clearAllJobs = () => {
+  setJobs([]);
+  localStorage.removeItem("jobs");
+};`}</Terminal>
+                    <p className="tip">Use <code>{"prevJobs => [...prevJobs, newJob]"}</code> in updates, so each one uses the latest list.</p>
+                    <NotesDemo />
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 6</p>
+                        <h1>useEffect and Saving Jobs</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <EffectLesson />
+                        <StorageLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

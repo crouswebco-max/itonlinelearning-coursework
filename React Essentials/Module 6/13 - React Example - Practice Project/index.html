@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Practice Project: Investment Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "plan", number: 1, title: "The Project Plan" },
+            { id: "preview", number: 2, title: "How the Calculation Works" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 6 LESSON 13: PRACTICE PROJECT (INVESTMENT CALCULATOR)
+        // ============================================
+        const formatter = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+
+        function calculate({ initialInvestment, annualInvestment, expectedReturn, duration }) {
+            const rows = [];
+            let value = initialInvestment;
+            for (let year = 1; year <= duration; year++) {
+                const interest = value * (expectedReturn / 100);
+                value += interest + annualInvestment;
+                rows.push({ year, interest, value });
+            }
+            return rows;
+        }
+
+        function PlanLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        The practice project is an <strong>Investment Calculator</strong>. You enter how much you start with, how much you add
+                        each year, the expected return and how many years, and it shows how the money grows.
+                    </p>
+                    <div className="tree">{`src/
+├── index.jsx            renders <App />
+├── App.jsx              holds the user's input in state
+├── components/
+│   ├── Header.jsx       logo and title        (this module)
+│   ├── UserInput.jsx    the four inputs       (Module 7)
+│   └── OutputData.jsx   the results table     (Module 7)
+├── util/
+│   └── investment.js    calculateInvestmentResults() and formatter
+└── assets/
+    └── investment-calculator-logo.png`}</div>
+                    <p>This module starts with the <code>Header</code>: a component that imports an image and renders it with <code>{"<img src={logo} />"}</code>.</p>
+                </Lesson>
+            );
+        }
+
+        function PreviewLesson() {
+            const [input, setInput] = useState({ initialInvestment: 10000, annualInvestment: 1200, expectedReturn: 6, duration: 5 });
+            const rows = calculate(input);
+            const change = (key) => (event) => setInput({ ...input, [key]: Math.max(0, +event.target.value) });
+
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>Each year, the money earns interest, then the yearly investment is added:</p>
+                    <Terminal>{`interest = valueAtStartOfYear × (expectedReturn / 100)
+valueEndOfYear = valueAtStartOfYear + interest + annualInvestment`}</Terminal>
+                    <div className="demo" style={{ textAlign: "left" }}>
+                        <p className="demo-label">A sneak preview of the finished app</p>
+                        <div className="form-grid">
+                            <label>Initial ($)<input type="number" value={input.initialInvestment} onChange={change("initialInvestment")} /></label>
+                            <label>Yearly ($)<input type="number" value={input.annualInvestment} onChange={change("annualInvestment")} /></label>
+                            <label>Return (%)<input type="number" value={input.expectedReturn} onChange={change("expectedReturn")} /></label>
+                            <label>Years<input type="number" value={input.duration} min="1" max="30" onChange={change("duration")} /></label>
+                        </div>
+                        <div className="table-wrap">
+                            <table className="var-table">
+                                <thead><tr><th>Year</th><th>Interest</th><th>Value</th></tr></thead>
+                                <tbody>
+                                    {rows.slice(0, 30).map((row) => (
+                                        <tr key={row.year}><td>{row.year}</td><td>{formatter.format(row.interest)}</td><td>{formatter.format(row.value)}</td></tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 6</p>
+                        <h1>Practice Project: Investment Calculator</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <PlanLesson />
+                        <PreviewLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

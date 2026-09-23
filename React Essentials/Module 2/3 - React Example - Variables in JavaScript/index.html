@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Variables</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "declaring", number: 1, title: "Declaring Variables" },
+            { id: "types", number: 2, title: "Data Types" },
+            { id: "in-jsx", number: 3, title: "Variables in JSX" },
+            { id: "rendering", number: 4, title: "What JSX Can Render" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // THE LESSONS
+        // ============================================
+        function DeclaringLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>A <strong>variable</strong> is a named box that stores a value. JavaScript has three ways to make one:</p>
+                    <div className="table-wrap">
+                        <table className="var-table">
+                            <thead>
+                                <tr><th>Keyword</th><th>Can change?</th><th>When to use it</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>const</code></td><td>No</td><td>Most of the time, including in React components</td></tr>
+                                <tr><td><code>let</code></td><td>Yes</td><td>When the value needs to change, like a counter in a loop</td></tr>
+                                <tr><td><code>var</code></td><td>Yes</td><td>Old code only. Avoid it in new code</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <Terminal>{`const siteName = "My React App";   // can't be reassigned
+let score = 0;                     // can change
+score = score + 10;                // now 10`}</Terminal>
+                    <h3>Naming rules</h3>
+                    <ul>
+                        <li>Use <strong>camelCase</strong>: <code>userName</code>, <code>jobCount</code>, <code>isLoggedIn</code>.</li>
+                        <li>Names can't start with a number or contain spaces or hyphens.</li>
+                        <li>Choose names that say what's inside: <code>price</code>, not <code>x</code>.</li>
+                        <li>Start true/false variables with <code>is</code> or <code>has</code>: <code>isOpen</code>, <code>hasJobs</code>.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function TypesLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>Every value has a <strong>type</strong>. These are the ones you'll use most:</p>
+                    <Terminal>{`const name = "Juan";                         // string: text in quotes
+const age = 30;                              // number: whole or decimal
+const isStudent = true;                      // boolean: true or false
+const skills = ["HTML", "CSS", "React"];     // array: a list, starting at index 0
+const user = { name: "Juan", role: "Developer" };  // object: named properties
+let nothingYet;                              // undefined: no value given
+const empty = null;                          // null: deliberately empty`}</Terminal>
+                    <ul>
+                        <li>Get an array item by its position: <code>skills[0]</code> is <code>"HTML"</code>.</li>
+                        <li>Get an object property with a dot: <code>user.role</code> is <code>"Developer"</code>.</li>
+                        <li><code>typeof</code> tells you the type: <code>typeof age</code> is <code>"number"</code>.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        // A live demo: the variables change as you type, and JSX shows them
+        function VariablesDemo() {
+            const [name, setName] = useState("Juan");
+            const letters = name.trim().length;
+            const isLongName = letters > 6;
+
+            return (
+                <div className="demo">
+                    <p className="demo-label">Live demo</p>
+                    <label htmlFor="nameInput">Your name: </label>
+                    <input id="nameInput" value={name} onChange={(event) => setName(event.target.value)} />
+                    <p className="demo-note">
+                        Hello, <strong>{name || "stranger"}</strong>! Your name has <strong>{letters}</strong> letters,
+                        so <code>isLongName</code> is <strong>{String(isLongName)}</strong>.
+                    </p>
+                </div>
+            );
+        }
+
+        function InJsxLesson() {
+            return (
+                <Lesson {...lessons[2]}>
+                    <p>
+                        Inside a component, create variables <strong>before</strong> the <code>return</code>,
+                        then show them in the JSX with <strong>curly braces</strong> <code>{"{ }"}</code>:
+                    </p>
+                    <Terminal>{`function Greeting() {
+  const name = "Juan";
+  const letters = name.length;
+
+  return <p>Hello, {name}! Your name has {letters} letters.</p>;
+}`}</Terminal>
+                    <p>Here's the same idea, but the name comes from the box, so every variable updates as you type:</p>
+                    <VariablesDemo />
+                </Lesson>
+            );
+        }
+
+        function RenderingLesson() {
+            const skills = ["HTML", "CSS", "React"];
+            const user = { name: "Juan", role: "Developer" };
+
+            return (
+                <Lesson {...lessons[3]}>
+                    <p>JSX can show some types directly, but not all of them:</p>
+                    <div className="table-wrap">
+                        <table className="var-table">
+                            <thead>
+                                <tr><th>Type</th><th>In JSX</th><th>Result</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>String</td><td><code>{"{user.name}"}</code></td><td>{user.name}</td></tr>
+                                <tr><td>Number</td><td><code>{"{42}"}</code></td><td>{42}</td></tr>
+                                <tr><td>Boolean</td><td><code>{"{true}"}</code></td><td>{true}<em>(nothing shows)</em></td></tr>
+                                <tr><td>Boolean as text</td><td><code>{"{String(true)}"}</code></td><td>{String(true)}</td></tr>
+                                <tr><td>Array</td><td><code>{"{skills}"}</code></td><td>{skills} <em>(joined, no spaces)</em></td></tr>
+                                <tr><td>Array joined</td><td><code>{'{skills.join(", ")}'}</code></td><td>{skills.join(", ")}</td></tr>
+                                <tr><td>Object property</td><td><code>{"{user.role}"}</code></td><td>{user.role}</td></tr>
+                                <tr><td>Whole object</td><td><code>{"{user}"}</code></td><td><em>Error: "Objects are not valid as a React child"</em></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p className="tip">
+                        <code>true</code>, <code>false</code>, <code>null</code> and <code>undefined</code> show nothing.
+                        That's useful later for showing things only when a condition is true.
+                    </p>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 2</p>
+                        <h1>Creating Variables in JavaScript</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <DeclaringLesson />
+                        <TypesLesson />
+                        <InJsxLesson />
+                        <RenderingLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

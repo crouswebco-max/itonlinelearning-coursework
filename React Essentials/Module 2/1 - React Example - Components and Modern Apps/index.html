@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Components</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "components", number: 1, title: "React Components" },
+            { id: "props", number: 2, title: "Passing Data with Props" },
+            { id: "composition", number: 3, title: "Putting Components Together" },
+            { id: "modern-apps", number: 4, title: "Building Modern Apps" }
+        ];
+
+        // ---------- Shared pieces (the same as Module 1) ----------
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // DEMO COMPONENTS
+        // ============================================
+
+        // The smallest possible component: a function that returns JSX
+        function Welcome() {
+            return <p className="tip">Hello! I'm the <strong>Welcome</strong> component.</p>;
+        }
+
+        // A reusable component: the same code, different props each time
+        function ProductCard({ name, price }) {
+            // Each card has its own state, so liking one doesn't like the others
+            const [liked, setLiked] = useState(false);
+
+            return (
+                <div className="product">
+                    <h4>{name}</h4>
+                    <p className="price">£{price.toFixed(2)}</p>
+                    <button aria-pressed={liked} onClick={() => setLiked(!liked)}>
+                        {liked ? "♥ Liked" : "♡ Like"}
+                    </button>
+                </div>
+            );
+        }
+
+        // A parent component made from smaller ones
+        function ProductList() {
+            const products = [
+                { id: 1, name: "Wireless Mouse", price: 19.99 },
+                { id: 2, name: "Keyboard", price: 34.5 },
+                { id: 3, name: "USB-C Hub", price: 24 }
+            ];
+
+            return (
+                <div className="product-grid">
+                    {products.map((product) => (
+                        <ProductCard key={product.id} name={product.name} price={product.price} />
+                    ))}
+                </div>
+            );
+        }
+
+        // ============================================
+        // THE LESSONS
+        // ============================================
+        function ComponentsLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        A <strong>component</strong> is a reusable piece of the user interface, like a button,
+                        a card or a whole page. In React, a component is a <strong>JavaScript function that returns JSX</strong>.
+                    </p>
+                    <Terminal>{`function Welcome() {
+  return <p>Hello! I'm the Welcome component.</p>;
+}`}</Terminal>
+                    <p>You use it like an HTML tag: <code>{"<Welcome />"}</code>. Here it is, rendered live:</p>
+                    <Welcome />
+                    <h3>Rules for components</h3>
+                    <ul>
+                        <li><strong>Names start with a capital letter</strong> (<code>Welcome</code>, not <code>welcome</code>), so React can tell them apart from HTML tags.</li>
+                        <li><strong>Return one parent element.</strong> Wrap several elements in a <code>{"<div>"}</code> or a fragment <code>{"<>...</>"}</code>.</li>
+                        <li><strong>Close every tag</strong>, including <code>{"<img />"}</code> and <code>{"<br />"}</code>.</li>
+                        <li><strong>Use <code>className</code></strong> instead of <code>class</code>.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function PropsLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>
+                        <strong>Props</strong> (short for properties) pass data <em>into</em> a component, like
+                        arguments into a function. They make one component reusable with different content.
+                    </p>
+                    <Terminal>{`function ProductCard({ name, price }) {
+  return (
+    <div className="product">
+      <h4>{name}</h4>
+      <p>£{price.toFixed(2)}</p>
+    </div>
+  );
+}
+
+<ProductCard name="Wireless Mouse" price={19.99} />
+<ProductCard name="Keyboard" price={34.5} />`}</Terminal>
+                    <ul>
+                        <li>Text props use quotes: <code>name="Keyboard"</code>. Anything else uses braces: <code>{"price={34.5}"}</code>.</li>
+                        <li><code>{"{ name, price }"}</code> is <strong>destructuring</strong>: it takes those values out of the props object.</li>
+                        <li>Props are <strong>read-only</strong>. A component never changes its own props.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function CompositionLesson() {
+            return (
+                <Lesson {...lessons[2]}>
+                    <p>
+                        Big components are built from small ones. <code>ProductList</code> holds an array
+                        of products and uses <code>.map()</code> to render one <code>ProductCard</code> for each.
+                        Every card is the same component with different props, and its own state. Try liking one:
+                    </p>
+                    <ProductList />
+                    <Terminal>{`function ProductList() {
+  const products = [ /* 3 product objects */ ];
+
+  return (
+    <div className="product-grid">
+      {products.map((product) => (
+        <ProductCard key={product.id} name={product.name} price={product.price} />
+      ))}
+    </div>
+  );
+}`}</Terminal>
+                    <p className="tip">
+                        Every item from <code>.map()</code> needs a unique <code>key</code> prop, so React can tell the items apart when the list changes.
+                    </p>
+                </Lesson>
+            );
+        }
+
+        function ModernAppsLesson() {
+            return (
+                <Lesson {...lessons[3]}>
+                    <p>
+                        Modern React apps are <strong>single-page applications</strong>: one HTML page, and
+                        React swaps components in and out as you use it, with no full page reloads.
+                    </p>
+                    <h3>Think in a component tree</h3>
+                    <p>Break a design into boxes, and each box becomes a component. An online shop might be:</p>
+                    <div className="tree">{`App
+├── Header
+│   ├── Logo
+│   └── NavMenu
+├── ProductList
+│   ├── ProductCard
+│   ├── ProductCard
+│   └── ProductCard
+└── Footer`}</div>
+                    <h3>One component per file</h3>
+                    <p>In a real project, each component lives in its own file and is shared with <code>export</code> and <code>import</code>:</p>
+                    <Terminal>{`src/
+├── App.js
+├── components/
+│   ├── Header.js
+│   ├── ProductList.js
+│   └── ProductCard.js
+└── index.js`}</Terminal>
+                    <Terminal>{`// ProductCard.js
+export default function ProductCard({ name, price }) { ... }
+
+// ProductList.js
+import ProductCard from './ProductCard';`}</Terminal>
+                    <h3>Good habits</h3>
+                    <ul>
+                        <li><strong>Keep components small</strong>, with one job each.</li>
+                        <li><strong>Make them reusable</strong>: pass content in with props instead of hard-coding it.</li>
+                        <li><strong>Data flows down</strong> from parents to children through props.</li>
+                        <li><strong>Use a build tool</strong> like Create React App or Vite, which bundles your files and reloads the page as you save.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 2</p>
+                        <h1>React Components and Modern Apps</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <ComponentsLesson />
+                        <PropsLesson />
+                        <CompositionLesson />
+                        <ModernAppsLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

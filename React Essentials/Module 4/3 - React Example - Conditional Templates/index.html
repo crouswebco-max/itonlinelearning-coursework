@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Conditional Templates</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "ways", number: 1, title: "Four Ways to Choose" },
+            { id: "compose", number: 2, title: "Conditions in a Real App" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 4 LESSON 3: CONDITIONAL TEMPLATES
+        // ============================================
+        function Status({ status }) {
+            // Early return: a different template for each case
+            if (status === "loading") return <p className="tip">⏳ Loading jobs…</p>;
+            if (status === "error") return <p className="tip" style={{ borderLeftColor: "#b42318" }}>❌ Something went wrong.</p>;
+            return <p className="tip" style={{ borderLeftColor: "#067647" }}>✅ 3 jobs loaded.</p>;
+        }
+
+        function ConditionalDemo() {
+            const [status, setStatus] = useState("loading");
+            const [isLoggedIn, setIsLoggedIn] = useState(false);
+            const [showDetails, setShowDetails] = useState(false);
+
+            return (
+                <div className="demo" style={{ textAlign: "left" }}>
+                    <p className="demo-label">Live demo</p>
+                    <div className="demo-buttons" style={{ flexWrap: "wrap", justifyContent: "flex-start" }}>
+                        {["loading", "error", "done"].map((option) => (
+                            <button key={option} className={status === option ? "" : "secondary"} onClick={() => setStatus(option)}>{option}</button>
+                        ))}
+                    </div>
+                    <Status status={status} />
+                    <p>{isLoggedIn ? "👋 Welcome back, Juan!" : "Please log in."}</p>
+                    <div className="demo-buttons" style={{ justifyContent: "flex-start" }}>
+                        <button onClick={() => setIsLoggedIn(!isLoggedIn)}>{isLoggedIn ? "Log out" : "Log in"}</button>
+                        <button className="secondary" onClick={() => setShowDetails(!showDetails)}>{showDetails ? "Hide" : "Show"} details</button>
+                    </div>
+                    {showDetails && <p className="demo-note">These details only exist while showDetails is true.</p>}
+                </div>
+            );
+        }
+
+        function WaysLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>A <strong>conditional template</strong> shows different JSX depending on the data. There are four common ways:</p>
+                    <Terminal>{`// 1. if with an early return: whole different templates
+if (status === "loading") return <p>Loading…</p>;
+
+// 2. Ternary: one thing or another
+{isLoggedIn ? <p>Welcome back!</p> : <p>Please log in.</p>}
+
+// 3. &&: something or nothing
+{showDetails && <p>The details…</p>}
+
+// 4. A conditional class: same template, different look
+<li className={job.status === "completed" ? "job done" : "job"}>`}</Terminal>
+                    <ConditionalDemo />
+                </Lesson>
+            );
+        }
+
+        function ComposeLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>Real apps combine conditions with small components. A job board might be built like this:</p>
+                    <div className="tree">{`App                 holds the jobs state and showJobs
+├── Header
+├── {showJobs && <JobList />}
+│   └── JobItem      picks its class from job.status
+└── Footer`}</div>
+                    <p>
+                        When state changes, React only updates the parts of the page that changed. Hiding the list removes
+                        just the list. The header and footer aren't touched. That's the big difference from changing the DOM by hand.
+                    </p>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 4</p>
+                        <h1>Conditional Templates</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <WaysLesson />
+                        <ComposeLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

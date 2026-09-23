@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Props</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "passing", number: 1, title: "Passing Props" },
+            { id: "functions", number: 2, title: "Passing Functions as Props" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 4 LESSON 5: PROPS
+        // ============================================
+        function JobRow({ name, status = "Pending", onDelete }) {
+            return (
+                <li>
+                    <span><strong>{name}</strong> · {status}</span>
+                    <button className="secondary" onClick={onDelete} aria-label={`Delete ${name}`}>Delete</button>
+                </li>
+            );
+        }
+
+        function PropsDemo() {
+            const [jobs, setJobs] = useState([
+                { id: 1, name: "Read Emails", status: "Completed" },
+                { id: 2, name: "Web Parsing" }
+            ]);
+
+            return (
+                <div className="demo" style={{ textAlign: "left" }}>
+                    <p className="demo-label">Live demo</p>
+                    <ul className="task-list">
+                        {jobs.map((job) => (
+                            <JobRow key={job.id} name={job.name} status={job.status} onDelete={() => setJobs(jobs.filter((j) => j.id !== job.id))} />
+                        ))}
+                    </ul>
+                    <p className="demo-note">"Web Parsing" has no status prop, so it shows the default: Pending.</p>
+                </div>
+            );
+        }
+
+        function PassingLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p><strong>Props</strong> pass values from a parent component to a child. They can be any type: text, numbers, arrays, objects, even functions.</p>
+                    <Terminal>{`// Parent
+<JobRow name="Read Emails" status="Completed" />
+
+// Child: take the props out with destructuring, with a default for status
+function JobRow({ name, status = "Pending" }) {
+  return <li>{name} · {status}</li>;
+}`}</Terminal>
+                    <ul>
+                        <li>Props are <strong>read-only</strong>: a child never changes its props.</li>
+                        <li><strong>Default values</strong> (<code>status = "Pending"</code>) stop a missing prop from breaking the component.</li>
+                        <li>The <code>key</code> prop is special: React uses it, and the child can't read it.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function FunctionsLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>
+                        Data flows <strong>down</strong> through props. To send an action back <strong>up</strong>, the parent passes a
+                        <strong> function</strong> as a prop, and the child calls it:
+                    </p>
+                    <Terminal>{`// Parent: owns the state and the delete function
+const handleDeleteJob = (id) => setJobs(jobs.filter((job) => job.id !== id));
+<JobList jobs={jobs} onDeleteJob={handleDeleteJob} />
+
+// JobList: passes it on to each JobItem
+{jobs.map((job) => <JobItem key={job.id} job={job} onDelete={onDeleteJob} />)}
+
+// JobItem: calls it
+<button onClick={() => onDelete(job.id)}>Delete</button>`}</Terminal>
+                    <PropsDemo />
+                    <p className="tip">This is <strong>one-way data flow</strong>: only the component that owns the state changes it. Children just ask.</p>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 4</p>
+                        <h1>Props</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <PassingLesson />
+                        <FunctionsLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

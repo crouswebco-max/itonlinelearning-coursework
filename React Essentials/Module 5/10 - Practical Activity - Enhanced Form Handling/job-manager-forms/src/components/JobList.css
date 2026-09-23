@@ -1,0 +1,94 @@
+.job-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.job-list__empty {
+  box-sizing: border-box;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px;
+  text-align: center;
+  color: #64748b;
+  border: 2px dashed #ddd6fe;
+  border-radius: 12px;
+}
+
+.job-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  background-color: #ffffff;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+}
+
+.job-row--editing {
+  border-color: #6d28d9;
+}
+
+.job-row__title {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.job-row__category,
+.job-row__status {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 2px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+.job-row__category {
+  color: #5b21b6;
+  background-color: #ede9fe;
+}
+
+.job-row__status--need-to-start {
+  color: #475569;
+  background-color: #e2e8f0;
+}
+
+.job-row__status--in-progress {
+  color: #92400e;
+  background-color: #fef3c7;
+}
+
+.job-row__status--completed {
+  color: #166534;
+  background-color: #dcfce7;
+}
+
+.job-row__actions {
+  display: flex;
+  gap: 6px;
+}
+
+.job-row__actions button {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  background-color: #e2e8f0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.job-row__actions .job-row__delete {
+  color: #b91c1c;
+  background-color: #fee2e2;
+}

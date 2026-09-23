@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Building Job Lists and Status Components</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "lists", number: 1, title: "One List, Three Columns" },
+            { id: "flow", number: 2, title: "How the Data Flows" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 5 LESSON 7: JOB LISTS AND STATUS COMPONENTS
+        // ============================================
+        const STATUS_LABELS = { todo: "Need to Start", doing: "In Progress", done: "Completed" };
+
+        function JobStatus({ job, onDelete, onChangeStatus }) {
+            return (
+                <li>
+                    <span>{job.title}</span>
+                    <span style={{ display: "flex", gap: 6 }}>
+                        <select className="demo-select" value={job.status} onChange={(e) => onChangeStatus(job.id, e.target.value)} aria-label={`Status of ${job.title}`}>
+                            {Object.entries(STATUS_LABELS).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+                        </select>
+                        <button className="secondary" onClick={() => onDelete(job.id)} aria-label={`Delete ${job.title}`}>✕</button>
+                    </span>
+                </li>
+            );
+        }
+
+        function BoardDemo() {
+            const [jobs, setJobs] = useState([
+                { id: 1, title: "Read inbox", status: "todo" },
+                { id: 2, title: "Parse prices", status: "doing" },
+                { id: 3, title: "Send report", status: "done" }
+            ]);
+
+            const deleteJob = (id) => setJobs(jobs.filter((job) => job.id !== id));
+            const updateJobStatus = (id, status) => setJobs(jobs.map((job) => (job.id === id ? { ...job, status } : job)));
+
+            return (
+                <div className="product-grid">
+                    {Object.entries(STATUS_LABELS).map(([status, label]) => (
+                        <div className="product" key={status}>
+                            <h4>{label}</h4>
+                            <ul className="task-list">
+                                {jobs.filter((job) => job.status === status).map((job) => (
+                                    <JobStatus key={job.id} job={job} onDelete={deleteJob} onChangeStatus={updateJobStatus} />
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        function ListsLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        <code>App</code> keeps <strong>one</strong> array of jobs. Each column <strong>filters</strong> it for its own status, so a job
+                        moves column just by changing its <code>status</code>:
+                    </p>
+                    <Terminal>{`const deleteJob = (id) =>
+  setJobs(jobs.filter((job) => job.id !== id));
+
+const updateJobStatus = (id, status) =>
+  setJobs(jobs.map((job) => (job.id === id ? { ...job, status } : job)));`}</Terminal>
+                    <p>Change a status or delete a job:</p>
+                    <BoardDemo />
+                </Lesson>
+            );
+        }
+
+        function FlowLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>The functions travel down through props. The card that shows a job doesn't own any state, it just calls what it was given:</p>
+                    <div className="tree">{`App                 jobs state, deleteJob, updateJobStatus
+└── JobColumn × 3   gets its filtered jobs + the functions
+    └── JobStatus   calls onDelete(job.id) / onChangeStatus(job.id, value)`}</div>
+                    <p className="tip">Keeping state in one place, and updating it immutably (<code>filter</code>, <code>map</code>, <code>...</code>), means every column always shows the same, correct data.</p>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 5</p>
+                        <h1>Building Job Lists and Status Components</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <ListsLesson />
+                        <FlowLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

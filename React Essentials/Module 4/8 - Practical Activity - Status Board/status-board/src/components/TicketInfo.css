@@ -1,0 +1,122 @@
+.ticket-info {
+  flex: 1 1 220px;
+  overflow: hidden;
+  border: 2px solid;
+  border-radius: 14px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ticket-info:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.1);
+}
+
+/* Conditional styling from the result prop */
+.ticket-info--completed {
+  background-color: #f0fdf4;
+  border-color: #86efac;
+}
+
+.ticket-info--in-progress {
+  background-color: #fffbeb;
+  border-color: #fcd34d;
+}
+
+.ticket-info--failed {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+}
+
+.ticket-info--open {
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+}
+
+.ticket-info__summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 24px 16px;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.ticket-info__image {
+  width: 56px;
+  height: 56px;
+}
+
+.ticket-info__text {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.ticket-info__count {
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1;
+  animation: pop 0.4s ease;
+}
+
+.ticket-info--completed .ticket-info__count {
+  color: #15803d;
+}
+
+.ticket-info--in-progress .ticket-info__count {
+  color: #b45309;
+}
+
+.ticket-info--failed .ticket-info__count {
+  color: #b91c1c;
+}
+
+.ticket-info__details {
+  margin: 0;
+  padding: 8px 16px 16px;
+  list-style: none;
+  border-top: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+.ticket-info__details li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 14px;
+}
+
+.ticket-info__details select {
+  padding: 4px 6px;
+  font-size: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.ticket-info__none {
+  color: #64748b;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticket-info,
+  .ticket-info__count {
+    transition: none;
+    animation: none;
+  }
+}

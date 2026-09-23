@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Style Attributes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "inline", number: 1, title: "Inline Styles" },
+            { id: "attributes", number: 2, title: "JSX Attributes" },
+            { id: "dynamic", number: 3, title: "Dynamic and Combined Styles" },
+            { id: "limits", number: 4, title: "Limits of Inline Styles" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // LESSON 1: STYLE ATTRIBUTES
+        // ============================================
+        function InlineLesson() {
+            // A style object: camelCase property names, values as strings or numbers
+            const headingStyle = {
+                color: "#087ea4",
+                backgroundColor: "#e6f7fd",
+                padding: 12,
+                borderRadius: 8,
+                textAlign: "center"
+            };
+
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        In HTML, <code>style</code> is a string. In React, <code>style</code> takes a
+                        <strong> JavaScript object</strong>, so it uses double braces: the outer pair means
+                        "JavaScript here" and the inner pair is the object.
+                    </p>
+                    <Terminal>{`<!-- HTML -->
+<h3 style="color: #087ea4; background-color: #e6f7fd;">Hello</h3>
+
+// React (JSX)
+<h3 style={{ color: "#087ea4", backgroundColor: "#e6f7fd" }}>Hello</h3>`}</Terminal>
+                    <h3>The rules</h3>
+                    <ul>
+                        <li><strong>camelCase names:</strong> <code>background-color</code> becomes <code>backgroundColor</code>, and <code>font-size</code> becomes <code>fontSize</code>.</li>
+                        <li><strong>Values are strings</strong> in quotes: <code>color: "red"</code>.</li>
+                        <li><strong>Numbers mean pixels</strong> for sizes: <code>padding: 12</code> is <code>12px</code>. Use a string for other units: <code>width: "50%"</code>.</li>
+                        <li><strong>Commas, not semicolons</strong>, between properties, because it's an object.</li>
+                    </ul>
+                    <h3>Style objects in variables</h3>
+                    <p>Long styles are easier to read in a variable before the <code>return</code>:</p>
+                    <Terminal>{`const headingStyle = {
+  color: "#087ea4",
+  backgroundColor: "#e6f7fd",
+  padding: 12,
+  borderRadius: 8,
+  textAlign: "center"
+};
+
+<h3 style={headingStyle}>Styled with a style object</h3>`}</Terminal>
+                    <h3 style={headingStyle}>Styled with a style object</h3>
+                </Lesson>
+            );
+        }
+
+        function AttributesLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>Some attributes are named differently in JSX, and any attribute can take a JavaScript value:</p>
+                    <div className="table-wrap">
+                        <table className="var-table">
+                            <thead>
+                                <tr><th>HTML</th><th>JSX</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>class="btn"</code></td><td><code>className="btn"</code></td></tr>
+                                <tr><td><code>for="email"</code></td><td><code>htmlFor="email"</code></td></tr>
+                                <tr><td><code>onclick="..."</code></td><td><code>{"onClick={handleClick}"}</code></td></tr>
+                                <tr><td><code>tabindex="0"</code></td><td><code>tabIndex={"{0}"}</code></td></tr>
+                                <tr><td><code>disabled</code></td><td><code>{"disabled={isDisabled}"}</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        <strong>Dynamic attributes</strong> use a variable, so they change with your data:
+                        <code>{"disabled={isDisabled}"}</code>, <code>{"src={photoUrl}"}</code>, <code>{"className={isActive ? \"tab active\" : \"tab\"}"}</code>.
+                    </p>
+                </Lesson>
+            );
+        }
+
+        // Live demo: the style object is built from state
+        function DynamicStyleDemo() {
+            const [isDark, setIsDark] = useState(false);
+            const [size, setSize] = useState(18);
+            const [isDisabled, setIsDisabled] = useState(false);
+
+            const baseBox = { padding: 20, borderRadius: 10, transition: "all 0.2s" };
+            const lightTheme = { backgroundColor: "#ffffff", color: "#23272f", border: "2px solid #e2e8f0" };
+            const darkTheme = { backgroundColor: "#23272f", color: "#ffffff", border: "2px solid #58c4dc" };
+
+            // Combining style objects with the spread operator: later ones win
+            const boxStyle = { ...baseBox, ...(isDark ? darkTheme : lightTheme), fontSize: size };
+
+            return (
+                <div className="demo">
+                    <p className="demo-label">Live demo</p>
+                    <div style={boxStyle}>This box's style object is built from state.</div>
+                    <div className="demo-buttons" style={{ marginTop: 12, flexWrap: "wrap" }}>
+                        <button onClick={() => setIsDark(!isDark)}>{isDark ? "Light" : "Dark"} theme</button>
+                        <button onClick={() => setSize(size + 2)} disabled={isDisabled}>Bigger text</button>
+                        <button className="secondary" onClick={() => setIsDisabled(!isDisabled)}>
+                            {isDisabled ? "Enable" : "Disable"} "Bigger text"
+                        </button>
+                    </div>
+                    <p className="demo-note">fontSize: {size}, disabled: {String(isDisabled)}</p>
+                </div>
+            );
+        }
+
+        function DynamicLesson() {
+            return (
+                <Lesson {...lessons[2]}>
+                    <p>Because styles are objects, you can pick them with a condition and <strong>combine</strong> them with the spread operator <code>...</code>:</p>
+                    <Terminal>{`const baseBox = { padding: 20, borderRadius: 10 };
+const darkTheme = { backgroundColor: "#23272f", color: "#ffffff" };
+
+<div style={{ ...baseBox, ...(isDark ? darkTheme : lightTheme), fontSize: size }}>`}</Terminal>
+                    <DynamicStyleDemo />
+                </Lesson>
+            );
+        }
+
+        function LimitsLesson() {
+            return (
+                <Lesson {...lessons[3]}>
+                    <p>Inline styles are handy for values that change, but they <strong>can't</strong> do:</p>
+                    <ul>
+                        <li>pseudo-classes like <code>:hover</code> and <code>:focus</code></li>
+                        <li>media queries for different screen sizes</li>
+                        <li>animations with <code>@keyframes</code></li>
+                    </ul>
+                    <p>For hover you can use events and state instead:</p>
+                    <Terminal>{`const [isHovered, setIsHovered] = useState(false);
+
+<button
+  onMouseEnter={() => setIsHovered(true)}
+  onMouseLeave={() => setIsHovered(false)}
+  style={{ backgroundColor: isHovered ? "#066888" : "#087ea4" }}
+>`}</Terminal>
+                    <p className="tip">
+                        Most of the time, use a <strong>CSS file with <code>className</code></strong> for the look of a
+                        component, and inline styles only for values that come from data, like a progress bar's width.
+                    </p>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 3</p>
+                        <h1>Style Attributes</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <InlineLesson />
+                        <AttributesLesson />
+                        <DynamicLesson />
+                        <LimitsLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

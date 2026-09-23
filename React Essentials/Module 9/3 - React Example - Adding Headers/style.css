@@ -1,0 +1,472 @@
+:root {
+    --react: #087ea4;
+    --react-light: #e6f7fd;
+    --text: #23272f;
+    --muted: #5e687e;
+    --line: #e2e8f0;
+    --terminal: #16181d;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.65;
+    color: var(--text);
+    background-color: #f6f7f9;
+}
+
+a {
+    color: var(--react);
+}
+
+code {
+    padding: 1px 5px;
+    font-size: 0.9em;
+    background-color: var(--react-light);
+    border-radius: 4px;
+}
+
+kbd {
+    padding: 1px 6px;
+    font-size: 0.85em;
+    background-color: #ffffff;
+    border: 1px solid var(--line);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+}
+
+/* Header and lesson menu */
+.site-header {
+    padding: 40px 16px 24px;
+    text-align: center;
+    color: #ffffff;
+    background-color: var(--terminal);
+}
+
+.course {
+    margin: 0;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #58c4dc;
+}
+
+h1 {
+    margin: 8px 0 20px;
+    font-size: clamp(28px, 6vw, 40px);
+}
+
+nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav a {
+    display: block;
+    padding: 6px 14px;
+    font-size: 14px;
+    color: #ffffff;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+}
+
+nav a:hover {
+    background-color: var(--react);
+}
+
+/* Lessons */
+main {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+}
+
+.lesson {
+    margin-top: 24px;
+    padding: 28px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    scroll-margin-top: 16px;
+}
+
+.lesson-number {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--react);
+}
+
+.lesson h2 {
+    margin: 4px 0 12px;
+    font-size: 26px;
+}
+
+.lesson h3 {
+    margin: 24px 0 8px;
+    font-size: 17px;
+}
+
+.tip {
+    padding: 12px 16px;
+    background-color: var(--react-light);
+    border-left: 4px solid var(--react);
+    border-radius: 6px;
+}
+
+.terminal {
+    margin: 8px 0;
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #e6edf3;
+    background-color: var(--terminal);
+    border-radius: 8px;
+}
+
+.terminal code {
+    padding: 0;
+    background: none;
+    font-family: Consolas, Menlo, monospace;
+}
+
+/* Software cards */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px;
+    color: var(--text);
+    text-decoration: none;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+}
+
+.card:hover {
+    border-color: var(--react);
+    background-color: var(--react-light);
+}
+
+.card span {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* Counter demo */
+.demo {
+    margin-top: 20px;
+    padding: 24px;
+    text-align: center;
+    background-color: var(--react-light);
+    border-radius: 10px;
+}
+
+.demo-label {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--react);
+}
+
+.count {
+    margin: 4px 0 12px;
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.demo-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.demo button {
+    min-width: 70px;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: var(--react);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.demo button:hover {
+    background-color: #066888;
+}
+
+.demo button.secondary {
+    color: var(--text);
+    background-color: #ffffff;
+}
+
+.demo-note {
+    margin: 12px 0 0;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.site-footer {
+    padding: 24px 16px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* Module 2: component demos */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.product {
+    padding: 16px;
+    background-color: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+
+.product h4 {
+    margin: 0 0 4px;
+    font-size: 16px;
+}
+
+.product .price {
+    margin: 0 0 10px;
+    font-weight: 700;
+    color: var(--react);
+}
+
+.product button {
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: var(--react);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.product button[aria-pressed="true"] {
+    color: var(--text);
+    background-color: #d6f1fa;
+}
+
+.tree {
+    margin: 8px 0;
+    padding: 14px 16px;
+    font-family: Consolas, Menlo, monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    background-color: #f6f7f9;
+    border-radius: 8px;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+/* Variables table */
+.var-table {
+    width: 100%;
+    margin: 12px 0;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.var-table th,
+.var-table td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+}
+
+.var-table th {
+    color: var(--react);
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.demo input {
+    padding: 8px 10px;
+    font-size: 16px;
+    border: 2px solid var(--line);
+    border-radius: 6px;
+}
+
+.demo input[type="range"] {
+    width: 100%;
+    max-width: 320px;
+    padding: 0;
+    border: none;
+}
+
+.badge {
+    display: inline-block;
+    padding: 2px 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    border-radius: 999px;
+}
+
+.badge.low { background-color: #b42318; }
+.badge.ok { background-color: #b54708; }
+.badge.high { background-color: #067647; }
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.form-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-grid .check {
+    flex-direction: row;
+    align-items: center;
+    font-weight: 400;
+}
+
+.form-grid select {
+    padding: 8px 10px;
+    font-size: 16px;
+    border: 2px solid var(--line);
+    border-radius: 6px;
+}
+
+.form-error {
+    margin: 10px 0 0;
+    font-weight: 600;
+    color: #b42318;
+}
+
+.demo code {
+    word-break: break-all;
+}
+
+.task-list {
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.task-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    background-color: #ffffff;
+    border-radius: 6px;
+}
+
+.task-list li button {
+    min-width: 0;
+    padding: 4px 10px;
+}
+
+.demo-select {
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 2px solid var(--line);
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+.movie-header {
+    margin: 12px 0;
+    color: #f3f1ea;
+    background-color: #0e0e13;
+    border-radius: 12px;
+}
+
+.movie-header__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+}
+
+.movie-header__logo {
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.movie-header__logo b {
+    color: #f5c518;
+}
+
+.movie-header__menu {
+    display: none;
+    padding: 6px 12px;
+    color: #f3f1ea;
+    background: none;
+    border: 1px solid #2e2e3a;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.movie-header__nav {
+    display: flex;
+    gap: 20px;
+    padding: 0 16px 14px;
+}
+
+.movie-header__nav a {
+    font-weight: 600;
+    color: #a8a6b3;
+    text-decoration: none;
+}
+
+.movie-header__nav a[aria-current="page"] {
+    color: #f5c518;
+}
+
+@media (max-width: 600px) {
+    .movie-header__menu {
+        display: block;
+    }
+
+    .movie-header__nav {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .movie-header__nav--open {
+        display: flex;
+    }
+}

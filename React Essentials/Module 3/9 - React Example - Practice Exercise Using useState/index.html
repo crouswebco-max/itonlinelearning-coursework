@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Practice Exercise Using useState</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "practice", number: 1, title: "Practice: A Task List" },
+            { id: "patterns", number: 2, title: "The Patterns Behind It" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // LESSON 9: PRACTICE EXERCISE USING USESTATE
+        // A small task list that uses everything from this module
+        // ============================================
+        function TaskPractice() {
+            const [tasks, setTasks] = useState([
+                { id: 1, text: "Learn useState", done: true },
+                { id: 2, text: "Build a form", done: false }
+            ]);
+            const [text, setText] = useState("");
+            const [filter, setFilter] = useState("All");
+
+            function addTask(event) {
+                event.preventDefault();
+                if (text.trim() === "") return;
+                setTasks([...tasks, { id: Date.now(), text: text.trim(), done: false }]);   // add: spread
+                setText("");
+            }
+
+            function toggleTask(id) {
+                setTasks(tasks.map((task) => (task.id === id ? { ...task, done: !task.done } : task)));   // update: map
+            }
+
+            function deleteTask(id) {
+                setTasks(tasks.filter((task) => task.id !== id));   // delete: filter
+            }
+
+            const visible = tasks.filter((task) => filter === "All" || (filter === "Done" ? task.done : !task.done));
+            const doneCount = tasks.filter((task) => task.done).length;
+
+            return (
+                <div className="demo" style={{ textAlign: "left" }}>
+                    <p className="demo-label">Practice app</p>
+                    <form onSubmit={addTask} className="demo-buttons" style={{ justifyContent: "flex-start" }}>
+                        <input value={text} onChange={(event) => setText(event.target.value)} placeholder="New task" aria-label="New task" style={{ flex: 1 }} />
+                        <button type="submit">Add</button>
+                    </form>
+                    <div className="demo-buttons" style={{ justifyContent: "flex-start", marginTop: 10 }}>
+                        {["All", "To do", "Done"].map((option) => (
+                            <button key={option} className={filter === option ? "" : "secondary"} aria-pressed={filter === option} onClick={() => setFilter(option)}>
+                                {option}
+                            </button>
+                        ))}
+                    </div>
+                    <ul className="task-list">
+                        {visible.map((task) => (
+                            <li key={task.id}>
+                                <label style={{ textDecoration: task.done ? "line-through" : "none", opacity: task.done ? 0.6 : 1 }}>
+                                    <input type="checkbox" checked={task.done} onChange={() => toggleTask(task.id)} /> {task.text}
+                                </label>
+                                <button className="secondary" onClick={() => deleteTask(task.id)} aria-label={`Delete ${task.text}`}>✕</button>
+                            </li>
+                        ))}
+                    </ul>
+                    <p className="demo-note">{doneCount} of {tasks.length} done</p>
+                </div>
+            );
+        }
+
+        function PracticeLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>This small task list uses everything from Module 3. Try adding, ticking, filtering and deleting:</p>
+                    <TaskPractice />
+                </Lesson>
+            );
+        }
+
+        function PatternsLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>Almost every list in React uses the same three patterns, always making a <strong>new array</strong>:</p>
+                    <Terminal>{`// Add: copy the old items, then the new one
+setTasks([...tasks, newTask]);
+
+// Update one: map, and replace only the matching item with a changed copy
+setTasks(tasks.map((task) => task.id === id ? { ...task, done: !task.done } : task));
+
+// Delete: keep every item except the matching one
+setTasks(tasks.filter((task) => task.id !== id));`}</Terminal>
+                    <h3>Derived values don't need state</h3>
+                    <p>The filtered list and the "done" count are worked out from <code>tasks</code> on every render, so they can never get out of step:</p>
+                    <Terminal>{`const visible = tasks.filter((task) => filter === "All" || ...);
+const doneCount = tasks.filter((task) => task.done).length;`}</Terminal>
+                    <p className="tip">Every item from <code>.map()</code> gets a <code>key</code>. Use a real id, not the array index, when items can be added or removed.</p>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 3</p>
+                        <h1>Practice Exercise Using useState</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <PracticeLesson />
+                        <PatternsLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

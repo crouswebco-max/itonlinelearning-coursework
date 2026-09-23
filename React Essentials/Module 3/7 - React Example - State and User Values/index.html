@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Working with State and Handling User Values</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "controlled", number: 1, title: "Controlled Inputs" },
+            { id: "forms", number: 2, title: "Forms with Several Inputs" },
+            { id: "submit", number: 3, title: "Submitting a Form" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // LESSON 7: WORKING WITH STATE AND HANDLING USER VALUES
+        // ============================================
+        function ControlledLesson() {
+            const [name, setName] = useState("");
+
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        A <strong>controlled input</strong> gets its value from state, and updates the state on every change.
+                        React is then the single source of truth for what's in the box.
+                    </p>
+                    <Terminal>{`const [name, setName] = useState("");
+
+<input value={name} onChange={(event) => setName(event.target.value)} />`}</Terminal>
+                    <div className="demo">
+                        <p className="demo-label">Live demo</p>
+                        <input value={name} onChange={(event) => setName(event.target.value)} placeholder="Your name" aria-label="Your name" />
+                        <p className="demo-note">State: <code>{JSON.stringify(name)}</code> · {name.length} characters</p>
+                        <button className="secondary" onClick={() => setName("")}>Clear (sets state to "")</button>
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function SignUpDemo() {
+            const [form, setForm] = useState({ name: "", email: "", role: "Developer", newsletter: false });
+            const [submitted, setSubmitted] = useState(null);
+            const [error, setError] = useState("");
+
+            // One handler for every input, using each input's name attribute
+            function handleChange(event) {
+                const { name, value, type, checked } = event.target;
+                setForm({ ...form, [name]: type === "checkbox" ? checked : value });
+            }
+
+            function handleSubmit(event) {
+                event.preventDefault();
+                if (form.name.trim() === "" || !form.email.includes("@")) {
+                    setError("Please enter your name and a valid email.");
+                    return;
+                }
+                setError("");
+                setSubmitted(form);
+            }
+
+            return (
+                <form className="demo" onSubmit={handleSubmit} noValidate style={{ textAlign: "left" }}>
+                    <p className="demo-label">Live demo</p>
+                    <div className="form-grid">
+                        <label>Name <input name="name" value={form.name} onChange={handleChange} /></label>
+                        <label>Email <input name="email" type="email" value={form.email} onChange={handleChange} /></label>
+                        <label>Role
+                            <select name="role" value={form.role} onChange={handleChange}>
+                                <option>Developer</option>
+                                <option>Designer</option>
+                                <option>Manager</option>
+                            </select>
+                        </label>
+                        <label className="check">
+                            <input name="newsletter" type="checkbox" checked={form.newsletter} onChange={handleChange} /> Send me the newsletter
+                        </label>
+                    </div>
+                    {error && <p className="form-error" role="alert">{error}</p>}
+                    <div className="demo-buttons" style={{ justifyContent: "flex-start", marginTop: 12 }}>
+                        <button type="submit">Submit</button>
+                    </div>
+                    <p className="demo-note">Form state: <code>{JSON.stringify(form)}</code></p>
+                    {submitted && <p className="demo-note">✅ Submitted: {submitted.name} ({submitted.role})</p>}
+                </form>
+            );
+        }
+
+        function FormsLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>With several inputs, keep them in <strong>one state object</strong> and use one handler. Each input's <code>name</code> says which property to update:</p>
+                    <Terminal>{`const [form, setForm] = useState({ name: "", email: "", role: "Developer", newsletter: false });
+
+function handleChange(event) {
+  const { name, value, type, checked } = event.target;
+  setForm({ ...form, [name]: type === "checkbox" ? checked : value });
+}`}</Terminal>
+                    <ul>
+                        <li><code>[name]</code> is a <strong>computed property name</strong>: it uses the input's name as the key.</li>
+                        <li>Checkboxes use <code>checked</code>, not <code>value</code>.</li>
+                        <li><code>{"<select>"}</code> works like an input, with <code>value</code> and <code>onChange</code>.</li>
+                    </ul>
+                    <SignUpDemo />
+                </Lesson>
+            );
+        }
+
+        function SubmitLesson() {
+            return (
+                <Lesson {...lessons[2]}>
+                    <Terminal>{`function handleSubmit(event) {
+  event.preventDefault();           // 1. stop the page reloading
+  if (form.name.trim() === "") {    // 2. check the values
+    setError("Please enter your name.");
+    return;
+  }
+  saveUser(form);                   // 3. use the data
+  setForm(initialForm);             // 4. reset the form
+}
+
+<form onSubmit={handleSubmit}> ... <button type="submit">Submit</button></form>`}</Terminal>
+                    <p className="tip">Put <code>onSubmit</code> on the <code>{"<form>"}</code>, not <code>onClick</code> on the button, so pressing Enter submits too.</p>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 3</p>
+                        <h1>Working with State and Handling User Values</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <ControlledLesson />
+                        <FormsLesson />
+                        <SubmitLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

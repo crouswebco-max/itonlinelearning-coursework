@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: API Key and Methods to Access the API</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "key", number: 1, title: "Getting Your API Key" },
+            { id: "methods", number: 2, title: "Two Ways to Send It" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 10 LESSON 10: API KEY AND METHODS TO ACCESS THE API
+        // ============================================
+        function KeyLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        Many APIs need an <strong>API key</strong>: a long code that identifies your app. TMDB's is free.
+                        The course update describes how to find it on the current TMDB website:
+                    </p>
+                    <ol>
+                        <li>Register at <a href="https://www.themoviedb.org/signup" target="_blank" rel="noreferrer">themoviedb.org</a>, following the lesson.</li>
+                        <li>Click your <strong>profile icon</strong> in the top right corner.</li>
+                        <li>Choose the <strong>API subscription</strong> link in the drop-down menu.</li>
+                        <li>On the new page, follow the link to your <strong>API key details</strong>.</li>
+                        <li>Your <strong>API Key</strong> is near the bottom of the page.</li>
+                    </ol>
+                    <p className="tip">Treat a key like a password: don't paste it into code that goes to GitHub.</p>
+                </Lesson>
+            );
+        }
+
+        function MethodsLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <h3>Method 1: the key in the URL</h3>
+                    <p>This is how the course does it. The key is a <strong>query parameter</strong>:</p>
+                    <Terminal>{`fetch(\`https://api.themoviedb.org/3/movie/popular?api_key=\${API_KEY}\`)`}</Terminal>
+                    <h3>Method 2: a token in a header</h3>
+                    <p>TMDB also gives you a longer <strong>Read Access Token</strong>, sent in the request's headers instead of the URL:</p>
+                    <Terminal>{`fetch("https://api.themoviedb.org/3/movie/popular", {
+  headers: { Authorization: \`Bearer \${ACCESS_TOKEN}\` }
+})`}</Terminal>
+                    <h3>Keeping the key out of your code</h3>
+                    <p>With Vite, put the key in a <code>.env.local</code> file in the project folder. Git ignores <code>*.local</code> files, so it never reaches GitHub:</p>
+                    <Terminal>{`# .env.local
+VITE_TMDB_API_KEY=paste_your_key_here
+
+// src/api/tmdb.js
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;`}</Terminal>
+                    <ul>
+                        <li>Only variables starting with <code>VITE_</code> are available in your React code.</li>
+                        <li>Restart <code>npm run dev</code> after changing <code>.env.local</code>.</li>
+                        <li>Anything in a front-end app can still be seen in the browser, so only use keys that are meant for public, read-only use, like TMDB's.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 10</p>
+                        <h1>API Key and Methods to Access the API</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <KeyLesson />
+                        <MethodsLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

@@ -1,0 +1,174 @@
+.dynamic-bot-manager {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 16px 64px;
+  color: #1e293b;
+}
+
+.dynamic-bot-manager h1 {
+  margin: 0 0 20px;
+  font-size: clamp(30px, 6vw, 40px);
+}
+
+.add-form {
+  display: grid;
+  grid-template-columns: 90px 1fr 150px auto;
+  align-items: end;
+  gap: 12px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.07);
+}
+
+.add-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input,
+select {
+  min-width: 0;
+  padding: 9px 10px;
+  font-size: 15px;
+  border: 2px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #087ea4;
+}
+
+button {
+  padding: 9px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.add-button,
+.save {
+  color: #ffffff;
+  background-color: #087ea4;
+}
+
+.add-button:hover,
+.save:hover {
+  background-color: #066888;
+}
+
+.error {
+  margin: 10px 0 0;
+  font-weight: 600;
+  color: #b91c1c;
+}
+
+.search {
+  display: block;
+  margin: 24px 0 12px;
+}
+
+.search input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.bot__id {
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.bot__name {
+  flex: 1;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.bot > input {
+  flex: 1;
+}
+
+.status {
+  padding: 3px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+.status--active {
+  color: #166534;
+  background-color: #dcfce7;
+}
+
+.status--inactive {
+  color: #475569;
+  background-color: #e2e8f0;
+}
+
+.bot__actions {
+  display: flex;
+  gap: 6px;
+}
+
+.edit,
+.cancel {
+  color: #1e293b;
+  background-color: #e2e8f0;
+}
+
+.delete {
+  color: #b91c1c;
+  background-color: #fee2e2;
+}
+
+.delete:hover {
+  background-color: #fecaca;
+}
+
+.empty {
+  padding: 20px;
+  text-align: center;
+  color: #64748b;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+@media (max-width: 600px) {
+  .add-form {
+    grid-template-columns: 1fr;
+  }
+}

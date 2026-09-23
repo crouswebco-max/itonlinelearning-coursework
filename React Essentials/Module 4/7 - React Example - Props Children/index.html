@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Props Children</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "children", number: 1, title: "The children Prop" },
+            { id: "why", number: 2, title: "Why Use children?" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 4 LESSON 7: PROPS.CHILDREN
+        // ============================================
+
+        // A reusable box: it doesn't know what goes inside it
+        function Card({ title, tone = "info", children }) {
+            const colours = { info: "#087ea4", success: "#067647", danger: "#b42318" };
+            return (
+                <div className="product" style={{ borderTop: `5px solid ${colours[tone]}` }}>
+                    <h4 style={{ color: colours[tone] }}>{title}</h4>
+                    {children}
+                </div>
+            );
+        }
+
+        function ChildrenLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        Anything you put <strong>between</strong> a component's opening and closing tags arrives as a special prop called
+                        <code> children</code>.
+                    </p>
+                    <Terminal>{`function Card({ title, children }) {
+  return (
+    <div className="card">
+      <h4>{title}</h4>
+      {children}
+    </div>
+  );
+}
+
+<Card title="Completed">
+  <p>12 tickets closed this week.</p>
+</Card>`}</Terminal>
+                    <div className="product-grid">
+                        <Card title="Completed" tone="success"><p>12 tickets closed this week.</p></Card>
+                        <Card title="In Progress"><p>3 tickets being worked on.</p><button>View</button></Card>
+                        <Card title="Failed" tone="danger"><ul style={{ margin: 0, paddingLeft: 18 }}><li>Send report</li><li>Backup</li></ul></Card>
+                    </div>
+                    <p>The same <code>Card</code> holds a paragraph, a paragraph and a button, or a list. It just draws whatever it's given.</p>
+                </Lesson>
+            );
+        }
+
+        function WhyLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <h3>Why use children?</h3>
+                    <ul>
+                        <li><strong>Flexible layouts:</strong> cards, modals, panels and page layouts can wrap any content.</li>
+                        <li><strong>Less prop drilling:</strong> the parent puts the content straight inside, instead of passing lots of props down through the wrapper.</li>
+                        <li><strong>Readable code:</strong> <code>{"<Card>...</Card>"}</code> looks like normal HTML.</li>
+                    </ul>
+                    <h3>Props and children together</h3>
+                    <p>Use normal props for settings (the title and colour) and <code>children</code> for the content:</p>
+                    <Terminal>{`<TicketInfo result="failed" image={failedIcon}>
+  Failed
+</TicketInfo>`}</Terminal>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 4</p>
+                        <h1>Props Children</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <ChildrenLesson />
+                        <WhyLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

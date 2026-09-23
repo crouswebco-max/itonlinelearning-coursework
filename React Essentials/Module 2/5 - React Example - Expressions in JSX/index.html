@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: JSX Expressions</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "expressions", number: 1, title: "What is an Expression?" },
+            { id: "maths-and-functions", number: 2, title: "Maths, Template Literals and Functions" },
+            { id: "conditions", number: 3, title: "Conditions in JSX" },
+            { id: "practice", number: 4, title: "Practice: Putting It Together" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // THE LESSONS
+        // ============================================
+        function ExpressionsLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        An <strong>expression</strong> is any piece of JavaScript that produces a value:
+                        <code>2 + 2</code>, <code>name</code>, <code>name.toUpperCase()</code>, <code>{"age >= 18"}</code>.
+                        Anything inside <code>{"{ }"}</code> in JSX must be an expression.
+                    </p>
+                    <Terminal>{`<p>{2 + 2}</p>                  // 4
+<p>{"react".toUpperCase()}</p>  // REACT
+<img src={photoUrl} alt={name} />  // expressions in attributes too`}</Terminal>
+                    <h3>Statements don't work inside braces</h3>
+                    <p>
+                        <code>if</code>, <code>for</code> and variable declarations are <strong>statements</strong>, not expressions, so they
+                        can't go inside <code>{"{ }"}</code>. Put them before the <code>return</code>, or use the expression versions below.
+                    </p>
+                    <Terminal>{`<p>{if (jobs > 0) { "Hiring" }}</p>   // ✗ error
+<p>{jobs > 0 ? "Hiring" : "Not hiring"}</p>   // ✓ ternary works`}</Terminal>
+                </Lesson>
+            );
+        }
+
+        function MathsLesson() {
+            const price = 40;
+            const quantity = 3;
+            const name = "Juan";
+
+            // A function that returns a value, called from the JSX below
+            function getGreeting() {
+                const hour = new Date().getHours();
+                return hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+            }
+
+            return (
+                <Lesson {...lessons[1]}>
+                    <Terminal>{`const price = 40;
+const quantity = 3;
+
+<p>Total: £{price * quantity}</p>
+<p>With 20% off: £{(price * quantity * 0.8).toFixed(2)}</p>
+<p>{\`\${name} ordered \${quantity} items\`}</p>
+<p>{getGreeting()}, {name}!</p>`}</Terminal>
+                    <p>Result, rendered live:</p>
+                    <div className="tip">
+                        <p style={{ margin: 0 }}>Total: £{price * quantity}</p>
+                        <p style={{ margin: 0 }}>With 20% off: £{(price * quantity * 0.8).toFixed(2)}</p>
+                        <p style={{ margin: 0 }}>{`${name} ordered ${quantity} items`}</p>
+                        <p style={{ margin: 0 }}>{getGreeting()}, {name}!</p>
+                    </div>
+                    <ul>
+                        <li><strong>Maths</strong> works straight away: <code>{"{price * quantity}"}</code>.</li>
+                        <li><strong>Template literals</strong> use backticks and <code>{"${ }"}</code> to build text from variables.</li>
+                        <li><strong>Functions</strong> are called with <code>()</code>, and whatever they return is shown.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function ConditionsLesson() {
+            return (
+                <Lesson {...lessons[2]}>
+                    <h3>Ternary: show one thing or another</h3>
+                    <Terminal>{`{isLoggedIn ? <p>Welcome back!</p> : <p>Please log in.</p>}`}</Terminal>
+                    <h3>&amp;&amp;: show something only when true</h3>
+                    <Terminal>{`{hasMessages && <p>You have new messages.</p>}`}</Terminal>
+                    <p className="tip">
+                        Be careful with numbers and <code>&amp;&amp;</code>: <code>{"{count && <p>...</p>}"}</code> shows a
+                        <strong> 0</strong> on the page when count is 0. Use <code>{"{count > 0 && ...}"}</code> instead.
+                    </p>
+                    <h3>if / else: before the return</h3>
+                    <Terminal>{`function getStatus(jobs) {
+  if (jobs === 0) {
+    return "No openings";
+  } else if (jobs <= 5) {
+    return "A few openings";
+  } else {
+    return "Hiring lots!";
+  }
+}
+
+<p>{getStatus(jobs)}</p>`}</Terminal>
+                </Lesson>
+            );
+        }
+
+        // Live practice: every line below is a JSX expression using the slider's value
+        function PracticeDemo() {
+            const [jobs, setJobs] = useState(3);
+            const companyName = "TechCorp";
+
+            function getLevel() {
+                if (jobs === 0) return { text: "Not hiring", className: "low" };
+                if (jobs <= 5) return { text: "Hiring", className: "ok" };
+                return { text: "Hiring fast", className: "high" };
+            }
+
+            const level = getLevel();
+
+            return (
+                <div className="demo">
+                    <p className="demo-label">Live practice</p>
+                    <label htmlFor="jobSlider">Open jobs: <strong>{jobs}</strong></label>
+                    <br />
+                    <input id="jobSlider" type="range" min="0" max="12" value={jobs} onChange={(event) => setJobs(Number(event.target.value))} />
+                    <h3>{companyName.toUpperCase()} <span className={`badge ${level.className}`}>{level.text}</span></h3>
+                    <p>{jobs === 1 ? "There is 1 open job." : `There are ${jobs} open jobs.`}</p>
+                    <p>Expected next week: {Math.round(jobs * 1.5)}</p>
+                    {jobs > 8 && <p><strong>🔥 Busy week! Apply soon.</strong></p>}
+                </div>
+            );
+        }
+
+        function PracticeLesson() {
+            return (
+                <Lesson {...lessons[3]}>
+                    <p>
+                        Move the slider. The heading uses a method call, the badge comes from a function that returns an object,
+                        the sentence uses a ternary and a template literal, the forecast uses maths, and the last line uses <code>&amp;&amp;</code>.
+                    </p>
+                    <PracticeDemo />
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 2</p>
+                        <h1>Expressions and Practice in JSX</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <ExpressionsLesson />
+                        <MathsLesson />
+                        <ConditionsLesson />
+                        <PracticeLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

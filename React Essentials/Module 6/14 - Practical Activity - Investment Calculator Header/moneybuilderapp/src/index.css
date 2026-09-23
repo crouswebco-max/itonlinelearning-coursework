@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Quicksand', sans-serif;
+  color: #e1eeeb;
+  background: linear-gradient(180deg, #0b2421 0%, #102e2a 100%);
+}
+
+/* Task 6: the header styles from the brief */
+#header {
+  text-align: center;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+
+#header img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+  background-color: transparent;
+}
+
+#header h1 {
+  font-size: 1.5rem;
+  font-family: 'Roboto Condensed', sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9ee6c5;
+  margin: 0.75rem 0 0.25rem;
+}
+
+#header p {
+  margin: 0;
+  color: #a7c4bd;
+}
+
+/* Bonus 3: bigger on wider screens */
+@media (min-width: 768px) {
+  #header {
+    margin: 4rem auto 3rem;
+  }
+
+  #header img {
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+
+  #header h1 {
+    font-size: 2.25rem;
+  }
+
+  #header p {
+    font-size: 1.1rem;
+  }
+}

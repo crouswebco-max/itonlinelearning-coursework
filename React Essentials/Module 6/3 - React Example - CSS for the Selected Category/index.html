@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Add CSS to the Selected Category</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "class", number: 1, title: "A Class for the Selected Item" },
+            { id: "style-object", number: 2, title: "A Style Object per Category" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 6 LESSON 3: ADD CSS TO THE SELECTED CATEGORY
+        // ============================================
+        function ClassLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>The simplest way to style the selected item is to add a <strong>class</strong> when it's selected, and style that class in CSS:</p>
+                    <Terminal>{`<button className={selected === "Read Emails" ? "tag tag--active" : "tag"}>
+  Read Emails
+</button>
+
+/* CSS */
+.tag--active { background-color: #6d28d9; color: white; }`}</Terminal>
+                    <p>A template literal keeps it short when there are several classes: <code>{"className={`tag ${isActive ? \"tag--active\" : \"\"}`}"}</code>.</p>
+                </Lesson>
+            );
+        }
+
+        // Each category's colour, stored in one object
+        const categoryStyles = {
+            readEmails: { backgroundColor: "#fb923c", color: "#1c1917" },
+            sendEmails: { backgroundColor: "#facc15", color: "#1c1917" },
+            webParsing: { backgroundColor: "#2563eb", color: "#ffffff" },
+            default: { backgroundColor: "#ffffff", color: "#23272f" }
+        };
+
+        const CATEGORY_LIST = [
+            { key: "readEmails", label: "Read Emails" },
+            { key: "sendEmails", label: "Send Emails" },
+            { key: "webParsing", label: "Web Parsing" }
+        ];
+
+        function StyleObjectDemo() {
+            const [selected, setSelected] = useState("");
+
+            return (
+                <div className="demo">
+                    <p className="demo-label">Live demo</p>
+                    <div className="demo-buttons" style={{ flexWrap: "wrap" }}>
+                        {CATEGORY_LIST.map(({ key, label }) => (
+                            <button
+                                key={key}
+                                onClick={() => setSelected(key)}
+                                aria-pressed={selected === key}
+                                style={{
+                                    ...(selected === key ? categoryStyles[key] : categoryStyles.default),
+                                    border: "2px solid #cbd5e1",
+                                    transition: "background-color 0.3s, color 0.3s"
+                                }}
+                            >
+                                {label}
+                            </button>
+                        ))}
+                        <button className="secondary" onClick={() => setSelected("")}>Reset</button>
+                    </div>
+                    <p className="demo-note">{selected ? `Selected: ${selected}` : "Nothing selected yet."}</p>
+                </div>
+            );
+        }
+
+        function StyleObjectLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>When each option needs its own colour, keep the styles in <strong>one object</strong> and look them up by key:</p>
+                    <Terminal>{`const categoryStyles = {
+  readEmails: { backgroundColor: "orange" },
+  sendEmails: { backgroundColor: "yellow" },
+  webParsing: { backgroundColor: "blue", color: "white" },
+  default:    { backgroundColor: "white" }
+};
+
+<button style={selected === "readEmails" ? categoryStyles.readEmails : categoryStyles.default}>`}</Terminal>
+                    <p>Adding <code>transition</code> makes the colour fade instead of jumping:</p>
+                    <StyleObjectDemo />
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 6</p>
+                        <h1>Add CSS to the Selected Category</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <ClassLesson />
+                        <StyleObjectLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

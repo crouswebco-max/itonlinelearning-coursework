@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Display Jobs in the App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "display", number: 1, title: "Jobs in Columns" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 6 LESSON 5: DISPLAY JOBS IN THE APP
+        // ============================================
+        const COLUMNS = ["Need to Complete", "In Progress", "Completed"];
+
+        function JobCard({ job }) {
+            return (
+                <li className="job-demo-card">
+                    <strong>{job.activity}</strong>
+                    <span>{job.categories.map((c) => <em key={c}>{c}</em>)}</span>
+                </li>
+            );
+        }
+
+        function JobColumn({ title, jobs }) {
+            return (
+                <div className="product">
+                    <h4>{title} ({jobs.length})</h4>
+                    <ul className="task-list">{jobs.map((job) => <JobCard key={job.id} job={job} />)}</ul>
+                </div>
+            );
+        }
+
+        function JobManagerDemo() {
+            const [jobs, setJobs] = useState([
+                { id: 1, activity: "Check inbox", categories: ["Read Emails"], status: "Need to Complete" },
+                { id: 2, activity: "Scrape prices", categories: ["Web Parsing"], status: "In Progress" }
+            ]);
+            const [activity, setActivity] = useState("");
+            const [categories, setCategories] = useState([]);
+            const [status, setStatus] = useState("Need to Complete");
+
+            const toggle = (c) => setCategories(categories.includes(c) ? categories.filter((x) => x !== c) : [...categories, c]);
+
+            const addJob = (event) => {
+                event.preventDefault();
+                if (!activity.trim() || categories.length === 0) return;
+                setJobs([...jobs, { id: Date.now(), activity: activity.trim(), categories, status }]);
+                setActivity("");
+                setCategories([]);
+            };
+
+            return (
+                <div className="demo" style={{ textAlign: "left" }}>
+                    <p className="demo-label">Live demo</p>
+                    <form onSubmit={addJob}>
+                        <input value={activity} onChange={(e) => setActivity(e.target.value)} placeholder="Job activity" aria-label="Job activity" style={{ width: "100%", boxSizing: "border-box" }} />
+                        <div className="demo-buttons" style={{ justifyContent: "flex-start", flexWrap: "wrap", marginTop: 8 }}>
+                            {["Read Emails", "Send Emails", "Web Parsing"].map((c) => (
+                                <button type="button" key={c} className={categories.includes(c) ? "" : "secondary"} aria-pressed={categories.includes(c)} onClick={() => toggle(c)}>{c}</button>
+                            ))}
+                            <select className="demo-select" value={status} onChange={(e) => setStatus(e.target.value)} aria-label="Status">
+                                {COLUMNS.map((c) => <option key={c}>{c}</option>)}
+                            </select>
+                            <button type="submit">Add</button>
+                        </div>
+                    </form>
+                    <div className="product-grid">
+                        {COLUMNS.map((title) => <JobColumn key={title} title={title} jobs={jobs.filter((j) => j.status === title)} />)}
+                    </div>
+                </div>
+            );
+        }
+
+        function DisplayLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>The job manager keeps every job in <strong>one array</strong>. Each column gets the jobs with its status, and each job becomes a card:</p>
+                    <div className="tree">{`JobManager   jobs state + the form
+├── JobColumn "Need to Complete"   jobs.filter(status === title)
+│   └── JobCard × n                activity + categories.map(...)
+├── JobColumn "In Progress"
+└── JobColumn "Completed"`}</div>
+                    <Terminal>{`{COLUMNS.map((title) => (
+  <JobColumn key={title} title={title} jobs={jobs.filter((job) => job.status === title)} />
+))}`}</Terminal>
+                    <p>Add a job with one or more categories and watch it land in the right column:</p>
+                    <JobManagerDemo />
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 6</p>
+                        <h1>Display Jobs in the App</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <DisplayLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

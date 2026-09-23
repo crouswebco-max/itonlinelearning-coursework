@@ -1,0 +1,76 @@
+/* Task 4: the Montserrat font, stored in src/assets/fonts as WOFF files */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./assets/fonts/Montserrat-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./assets/fonts/Montserrat-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./assets/fonts/Montserrat-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./assets/fonts/Montserrat-ExtraBold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bonus 2: one colour scheme, used by every component through these variables */
+:root {
+  --colour-background: #0e0e13;
+  --colour-surface: #1a1a22;
+  --colour-surface-raised: #24242e;
+  --colour-text: #f3f1ea;
+  --colour-muted: #a8a6b3;
+  --colour-accent: #f5c518;
+  --colour-accent-dark: #d4a900;
+  --colour-border: #2e2e3a;
+  --radius: 12px;
+  --content-width: 1100px;
+}
+
+/* Task 2: only the styles the app needs, with the Vite starter styles removed */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.6;
+  color: var(--colour-text);
+  background-color: var(--colour-background);
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+:focus-visible {
+  outline: 3px solid var(--colour-accent);
+  outline-offset: 3px;
+}

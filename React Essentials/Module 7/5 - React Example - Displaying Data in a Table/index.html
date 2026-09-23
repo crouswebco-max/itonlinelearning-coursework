@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Displaying Data in a Table</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "table", number: 1, title: "The Results Table" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // The same calculation as the Money Builder app's util/investment.js
+        function calculateInvestmentResults({ initialInvestment, annualInvestment, expectedReturn, duration }) {
+            const annualData = [];
+            let investmentValue = initialInvestment;
+            for (let i = 0; i < duration; i++) {
+                const interestEarnedInYear = investmentValue * (expectedReturn / 100);
+                investmentValue += interestEarnedInYear + annualInvestment;
+                annualData.push({ year: i + 1, interest: interestEarnedInYear, valueEndOfYear: investmentValue, annualInvestment });
+            }
+            return annualData;
+        }
+
+        const formatter = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+        const START = { initialInvestment: 10000, annualInvestment: 1200, expectedReturn: 6, duration: 5 };
+        const LABELS = { initialInvestment: "Initial ($)", annualInvestment: "Annual ($)", expectedReturn: "Return (%)", duration: "Years" };
+
+        function Inputs({ values, onChange }) {
+            return (
+                <div className="form-grid">
+                    {Object.keys(LABELS).map((key) => (
+                        <label key={key}>{LABELS[key]}
+                            <input type="number" min="0" value={values[key]} onChange={(e) => onChange(key, e.target.value)} />
+                        </label>
+                    ))}
+                </div>
+            );
+        }
+
+        // ============================================
+        // MODULE 7 LESSON 5: DISPLAYING DATA IN A TABLE
+        // ============================================
+        function ResultsTable({ inputValue }) {
+            if (inputValue.duration <= 0) return <p className="form-error">Please enter a duration greater than zero.</p>;
+            const resultData = calculateInvestmentResults(inputValue);
+            return (
+                <div className="table-wrap">
+                    <table className="var-table money-table">
+                        <thead>
+                            <tr><th>Year</th><th>Investment Value</th><th>Interest (Year)</th><th>Total Interest</th><th>Invested Capital</th></tr>
+                        </thead>
+                        <tbody>
+                            {resultData.map((yearData) => {
+                                const totalInterest = yearData.valueEndOfYear - yearData.annualInvestment * yearData.year - inputValue.initialInvestment;
+                                const totalAmountInvested = yearData.valueEndOfYear - totalInterest;
+                                return (
+                                    <tr key={yearData.year}>
+                                        <td>{yearData.year}</td>
+                                        <td>{formatter.format(yearData.valueEndOfYear)}</td>
+                                        <td>{formatter.format(yearData.interest)}</td>
+                                        <td>{formatter.format(totalInterest)}</td>
+                                        <td>{formatter.format(totalAmountInvested)}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }
+
+        function TableLesson() {
+            const [userInput, setUserInput] = useState(START);
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>Each year becomes one table row, made with <code>.map()</code>. Two columns are <strong>worked out</strong> inside the map:</p>
+                    <Terminal>{`{resultData.map((yearData) => {
+  const totalInterest =
+    yearData.valueEndOfYear - yearData.annualInvestment * yearData.year - inputValue.initialInvestment;
+  const totalAmountInvested = yearData.valueEndOfYear - totalInterest;
+
+  return (
+    <tr key={yearData.year}>
+      <td>{yearData.year}</td>
+      <td>{formatter.format(yearData.valueEndOfYear)}</td>
+      ...
+    </tr>
+  );
+})}`}</Terminal>
+                    <ul>
+                        <li><strong>Total interest</strong> = value now − everything you put in.</li>
+                        <li><strong>Invested capital</strong> = value now − total interest.</li>
+                        <li>The year is unique, so it's a good <code>key</code>.</li>
+                    </ul>
+                    <div className="demo" style={{ textAlign: "left" }}>
+                        <p className="demo-label">Live demo</p>
+                        <Inputs values={userInput} onChange={(key, value) => setUserInput({ ...userInput, [key]: +value })} />
+                        <ResultsTable inputValue={userInput} />
+                    </div>
+                    <p className="tip">Set the years to 0 to see the error message. The component returns early instead of drawing an empty table.</p>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 7</p>
+                        <h1>Displaying Data in a Table</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <TableLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Input and Binding</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "binding", number: 1, title: "Two-Way Binding" },
+            { id: "handle-change", number: 2, title: "One Object, One Handler" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // The same calculation as the Money Builder app's util/investment.js
+        function calculateInvestmentResults({ initialInvestment, annualInvestment, expectedReturn, duration }) {
+            const annualData = [];
+            let investmentValue = initialInvestment;
+            for (let i = 0; i < duration; i++) {
+                const interestEarnedInYear = investmentValue * (expectedReturn / 100);
+                investmentValue += interestEarnedInYear + annualInvestment;
+                annualData.push({ year: i + 1, interest: interestEarnedInYear, valueEndOfYear: investmentValue, annualInvestment });
+            }
+            return annualData;
+        }
+
+        const formatter = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+        const START = { initialInvestment: 10000, annualInvestment: 1200, expectedReturn: 6, duration: 5 };
+        const LABELS = { initialInvestment: "Initial ($)", annualInvestment: "Annual ($)", expectedReturn: "Return (%)", duration: "Years" };
+
+        function Inputs({ values, onChange }) {
+            return (
+                <div className="form-grid">
+                    {Object.keys(LABELS).map((key) => (
+                        <label key={key}>{LABELS[key]}
+                            <input type="number" min="0" value={values[key]} onChange={(e) => onChange(key, e.target.value)} />
+                        </label>
+                    ))}
+                </div>
+            );
+        }
+
+        // ============================================
+        // MODULE 7 LESSON 1: INPUT AND BINDING
+        // ============================================
+        function BindingLesson() {
+            const [value, setValue] = useState(10000);
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        <strong>Two-way binding</strong> means the input shows the state (<code>value</code>), and typing updates the state
+                        (<code>onChange</code>). The two always match.
+                    </p>
+                    <Terminal>{`<input
+  type="number"
+  value={userInput.initialInvestment}                           // state → input
+  onChange={(e) => handleChange("initialInvestment", e.target.value)}  // input → state
+/>`}</Terminal>
+                    <div className="demo">
+                        <p className="demo-label">Live demo</p>
+                        <input type="number" value={value} onChange={(e) => setValue(e.target.value)} aria-label="Initial investment" />
+                        <div className="demo-buttons" style={{ marginTop: 10 }}>
+                            <button onClick={() => setValue(5000)}>Set state to 5000</button>
+                        </div>
+                        <p className="demo-note">State: <code>{JSON.stringify(value)}</code> ({typeof value}). Type in the box, or change the state with the button: the other side follows.</p>
+                    </div>
+                    <p className="tip">Notice the type: after typing, the state is a <strong>string</strong>. Inputs always give text, even <code>type="number"</code>.</p>
+                </Lesson>
+            );
+        }
+
+        function HandleChangeLesson() {
+            const [userInput, setUserInput] = useState(START);
+
+            const handleChange = (inputIdentifier, newValue) => {
+                setUserInput((prevUserInput) => ({
+                    ...prevUserInput,
+                    [inputIdentifier]: +newValue   // + turns the text into a number
+                }));
+            };
+
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>With four inputs, keep them in <strong>one object</strong>, and use <strong>one function</strong> that's told which field changed:</p>
+                    <Terminal>{`const [userInput, setUserInput] = useState({
+  initialInvestment: 10000,
+  annualInvestment: 1200,
+  expectedReturn: 6,
+  duration: 10
+});
+
+const handleChange = (inputIdentifier, newValue) => {
+  setUserInput((prevUserInput) => ({
+    ...prevUserInput,
+    [inputIdentifier]: +newValue
+  }));
+};`}</Terminal>
+                    <ul>
+                        <li><code>...prevUserInput</code> keeps the other three values.</li>
+                        <li><code>[inputIdentifier]</code> picks which property to change.</li>
+                        <li><code>+newValue</code> turns <code>"1200"</code> into <code>1200</code>, so maths works later.</li>
+                    </ul>
+                    <div className="demo" style={{ textAlign: "left" }}>
+                        <p className="demo-label">Live demo</p>
+                        <Inputs values={userInput} onChange={handleChange} />
+                        <p className="demo-note">userInput: <code>{JSON.stringify(userInput)}</code></p>
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 7</p>
+                        <h1>Input and Binding</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <BindingLesson />
+                        <HandleChangeLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

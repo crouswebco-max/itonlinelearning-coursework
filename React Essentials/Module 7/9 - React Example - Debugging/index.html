@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Debugging (Browser and Breakpoints)</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "tools", number: 1, title: "The Browser Debugging Tools" },
+            { id: "bug", number: 2, title: "Finding a Real Bug" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // The same calculation as the Money Builder app's util/investment.js
+        function calculateInvestmentResults({ initialInvestment, annualInvestment, expectedReturn, duration }) {
+            const annualData = [];
+            let investmentValue = initialInvestment;
+            for (let i = 0; i < duration; i++) {
+                const interestEarnedInYear = investmentValue * (expectedReturn / 100);
+                investmentValue += interestEarnedInYear + annualInvestment;
+                annualData.push({ year: i + 1, interest: interestEarnedInYear, valueEndOfYear: investmentValue, annualInvestment });
+            }
+            return annualData;
+        }
+
+        const formatter = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+        const START = { initialInvestment: 10000, annualInvestment: 1200, expectedReturn: 6, duration: 5 };
+        const LABELS = { initialInvestment: "Initial ($)", annualInvestment: "Annual ($)", expectedReturn: "Return (%)", duration: "Years" };
+
+        function Inputs({ values, onChange }) {
+            return (
+                <div className="form-grid">
+                    {Object.keys(LABELS).map((key) => (
+                        <label key={key}>{LABELS[key]}
+                            <input type="number" min="0" value={values[key]} onChange={(e) => onChange(key, e.target.value)} />
+                        </label>
+                    ))}
+                </div>
+            );
+        }
+
+        // ============================================
+        // MODULE 7 LESSON 9: DEBUGGING (BROWSER AND BREAKPOINTS)
+        // ============================================
+        function BuggyVsFixed() {
+            const [buggy, setBuggy] = useState({ initial: 1000, annual: 100 });
+            const [fixed, setFixed] = useState({ initial: 1000, annual: 100 });
+
+            // BUG: the input's value is text, so + joins strings: "1000" + "100" = "1000100"
+            const buggyTotal = buggy.initial + buggy.annual;
+            const fixedTotal = fixed.initial + fixed.annual;
+
+            return (
+                <div className="product-grid">
+                    <div className="product">
+                        <h4>🐞 With the bug</h4>
+                        <label className="demo-note">Initial <input type="number" value={buggy.initial} onChange={(e) => setBuggy({ ...buggy, initial: e.target.value })} /></label>
+                        <label className="demo-note">Annual <input type="number" value={buggy.annual} onChange={(e) => setBuggy({ ...buggy, annual: e.target.value })} /></label>
+                        <p className="price">Total: {String(buggyTotal)}</p>
+                    </div>
+                    <div className="product">
+                        <h4>✅ Fixed with +</h4>
+                        <label className="demo-note">Initial <input type="number" value={fixed.initial} onChange={(e) => setFixed({ ...fixed, initial: +e.target.value })} /></label>
+                        <label className="demo-note">Annual <input type="number" value={fixed.annual} onChange={(e) => setFixed({ ...fixed, annual: +e.target.value })} /></label>
+                        <p className="price">Total: {fixedTotal}</p>
+                    </div>
+                </div>
+            );
+        }
+
+        function ToolsLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>When results are wrong, <strong>don't guess</strong>. Watch the code run:</p>
+                    <ol>
+                        <li>Open DevTools: <kbd>F12</kbd>, or right-click and choose <strong>Inspect</strong>.</li>
+                        <li><strong>Console</strong> tab: errors appear here, and so does anything you <code>console.log</code>.</li>
+                        <li><strong>Sources</strong> tab: open your file (with Vite it's under <code>localhost</code> → <code>src</code>).</li>
+                        <li>Click a <strong>line number</strong> to set a <strong>breakpoint</strong>. The code pauses there next time it runs.</li>
+                        <li>While paused, hover over variables to see their values, then use <strong>Step over</strong> (F10) to go line by line.</li>
+                        <li>The <code>debugger;</code> statement in your code works like a breakpoint when DevTools is open.</li>
+                    </ol>
+                    <p className="tip">The <strong>React Developer Tools</strong> extension adds a <strong>Components</strong> tab showing every component's props and state.</p>
+                </Lesson>
+            );
+        }
+
+        function BugLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>
+                        A classic bug: inputs give <strong>text</strong>. In JavaScript, <code>+</code> between two strings <strong>joins</strong> them,
+                        so the total is nonsense. Change the first box on the left, then the right:
+                    </p>
+                    <BuggyVsFixed />
+                    <p>With a breakpoint in the change handler, you'd see <code>value: "1000"</code> in quotes. That's the clue. The fix is to turn it into a number before saving it:</p>
+                    <Terminal>{`setUserInput({ ...userInput, [name]: +value });           // unary plus
+setUserInput({ ...userInput, [name]: parseFloat(value) }); // or parseFloat`}</Terminal>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 7</p>
+                        <h1>Debugging (Browser and Breakpoints)</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <ToolsLesson />
+                        <BugLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

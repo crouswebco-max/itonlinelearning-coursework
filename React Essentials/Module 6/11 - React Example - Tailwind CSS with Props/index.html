@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Tailwind CSS with Props</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <!-- Tailwind CSS (browser build), so the Tailwind classes in the demo work -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "utility", number: 1, title: "Utility Classes in className" },
+            { id: "props", number: 2, title: "Tailwind and Props Together" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 6 LESSON 11: TAILWIND CSS WITH PROPS
+        // (Tailwind loads from a CDN on this page, so the classes below really work)
+        // ============================================
+        function Card({ title, description, buttonText, imageUrl, variant = "blue" }) {
+            const buttonColours = {
+                blue: "bg-blue-600 hover:bg-blue-800",
+                green: "bg-emerald-600 hover:bg-emerald-800",
+                purple: "bg-violet-600 hover:bg-violet-800"
+            };
+
+            return (
+                <div className="w-64 max-w-full rounded-xl overflow-hidden shadow-lg bg-white transition hover:-translate-y-1 hover:shadow-2xl">
+                    <div className={`h-28 ${imageUrl}`} aria-hidden="true"></div>
+                    <div className="px-5 py-4">
+                        <div className="font-bold text-lg mb-1 text-slate-900">{title}</div>
+                        <p className="text-slate-600 text-sm">{description}</p>
+                    </div>
+                    <div className="px-5 pb-5">
+                        <button className={`${buttonColours[variant]} text-white font-semibold py-2 px-4 rounded-lg`}>{buttonText}</button>
+                    </div>
+                </div>
+            );
+        }
+
+        function UtilityLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        <strong>Tailwind CSS</strong> is utility-first: instead of writing CSS, you combine small classes that each do one thing.
+                        In React they go in <code>className</code>:
+                    </p>
+                    <Terminal>{`<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+  Learn More
+</button>`}</Terminal>
+                    <ul>
+                        <li><code>bg-blue-500</code> background, <code>text-white</code> text colour, <code>font-bold</code> weight</li>
+                        <li><code>py-2 px-4</code> padding, <code>rounded</code> corners, <code>shadow-lg</code> shadow</li>
+                        <li><code>hover:</code> and <code>md:</code> prefixes add hover states and screen-size rules</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function PropsLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>Props decide the content, and can also pick which Tailwind classes to use:</p>
+                    <Terminal>{`const Card = ({ title, description, buttonText, variant = "blue" }) => {
+  const buttonColours = {
+    blue: "bg-blue-600 hover:bg-blue-800",
+    green: "bg-emerald-600 hover:bg-emerald-800",
+  };
+  return (
+    <div className="max-w-xs rounded-xl shadow-lg">
+      <h3 className="font-bold text-lg">{title}</h3>
+      <p className="text-slate-600">{description}</p>
+      <button className={\`\${buttonColours[variant]} text-white py-2 px-4 rounded-lg\`}>{buttonText}</button>
+    </div>
+  );
+};
+
+{cardData.map((card) => <Card key={card.title} {...card} />)}`}</Terminal>
+                    <p className="tip">Write each class name out in full (<code>"bg-blue-600"</code>). Tailwind can't find classes built from pieces like <code>{"`bg-${colour}-600`"}</code>.</p>
+                    <div className="tw-demo flex flex-wrap gap-5 justify-center py-4">
+                        <Card title="React Development" description="Build web apps with components." buttonText="Learn More" imageUrl="bg-gradient-to-br from-sky-400 to-blue-700" />
+                        <Card title="Tailwind Mastery" description="Style fast with utility classes." buttonText="Explore" variant="green" imageUrl="bg-gradient-to-br from-emerald-300 to-teal-700" />
+                        <Card title="Props in Practice" description="One card, many looks." buttonText="Try It" variant="purple" imageUrl="bg-gradient-to-br from-fuchsia-400 to-violet-700" />
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 6</p>
+                        <h1>Tailwind CSS with Props</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <UtilityLesson />
+                        <PropsLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

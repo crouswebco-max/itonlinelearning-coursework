@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Events and States</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "events", number: 1, title: "Handling Events" },
+            { id: "event-object", number: 2, title: "The Event Object" },
+            { id: "why-state", number: 3, title: "Why We Need State" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // LESSON 3: EVENTS AND STATES
+        // ============================================
+        function EventsLesson() {
+            const [lastEvent, setLastEvent] = useState("Nothing yet");
+
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        <strong>Events</strong> are things the user does: clicking, typing, submitting a form, moving the mouse.
+                        React events are written in camelCase and take a <strong>function</strong>:
+                    </p>
+                    <Terminal>{`function handleClick() {
+  console.log("Clicked!");
+}
+
+<button onClick={handleClick}>Click me</button>      // ✓ pass the function
+<button onClick={handleClick()}>Click me</button>    // ✗ runs straight away on render
+<button onClick={() => deleteJob(3)}>Delete</button>  // ✓ arrow function to pass a value`}</Terminal>
+                    <h3>Common events</h3>
+                    <div className="demo">
+                        <p className="demo-label">Try them</p>
+                        <div className="demo-buttons" style={{ flexWrap: "wrap" }}>
+                            <button onClick={() => setLastEvent("onClick: the button was clicked")}>onClick</button>
+                            <button
+                                className="secondary"
+                                onMouseEnter={() => setLastEvent("onMouseEnter: the mouse moved over the button")}
+                            >
+                                Hover me
+                            </button>
+                        </div>
+                        <input
+                            style={{ marginTop: 12 }}
+                            placeholder="Type here"
+                            onChange={(event) => setLastEvent(`onChange: event.target.value is "${event.target.value}"`)}
+                            onFocus={() => setLastEvent("onFocus: the input was selected")}
+                            aria-label="Type to fire onChange"
+                        />
+                        <p className="demo-note">Last event: <strong>{lastEvent}</strong></p>
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function EventObjectLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>React passes an <strong>event object</strong> to your handler, with details about what happened:</p>
+                    <Terminal>{`function handleChange(event) {
+  console.log(event.target.value);   // what's in the input now
+}
+
+function handleSubmit(event) {
+  event.preventDefault();            // stop the form reloading the page
+}`}</Terminal>
+                    <ul>
+                        <li><code>event.target</code> is the element the event happened on.</li>
+                        <li><code>event.target.value</code> is an input's current text.</li>
+                        <li><code>event.preventDefault()</code> stops the browser's default action, like a form reloading the page.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        // The broken counter: a regular variable
+        function VariableCounter() {
+            let count = 0;
+            return (
+                <div className="product">
+                    <h4>Regular variable</h4>
+                    <p className="price">{count}</p>
+                    <button onClick={() => { count = count + 1; console.log("variable count:", count); }}>+ 1</button>
+                </div>
+            );
+        }
+
+        // The working counter: state
+        function StateCounter() {
+            const [count, setCount] = useState(0);
+            return (
+                <div className="product">
+                    <h4>useState</h4>
+                    <p className="price">{count}</p>
+                    <button onClick={() => setCount(count + 1)}>+ 1</button>
+                </div>
+            );
+        }
+
+        function WhyStateLesson() {
+            return (
+                <Lesson {...lessons[2]}>
+                    <p>
+                        Here's the problem events alone can't solve. Both counters add 1 when clicked, but only one updates the page.
+                        Open the console (F12) to see the left one really is counting.
+                    </p>
+                    <div className="product-grid">
+                        <VariableCounter />
+                        <StateCounter />
+                    </div>
+                    <h3>Why?</h3>
+                    <ul>
+                        <li>React only redraws a component when its <strong>state</strong> or <strong>props</strong> change.</li>
+                        <li>Changing a normal variable doesn't tell React anything, so the page isn't redrawn.</li>
+                        <li>Even if it were, every render runs the function again, which sets <code>let count = 0</code> again.</li>
+                        <li><strong>State</strong> is remembered between renders, and its setter function tells React to redraw.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 3</p>
+                        <h1>Events and States</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <EventsLesson />
+                        <EventObjectLesson />
+                        <WhyStateLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

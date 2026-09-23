@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Fields and Checkboxes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "fields", number: 1, title: "Range Inputs and Checkboxes" },
+            { id: "connect", number: 2, title: "Connecting Them to the Generator" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        const { useCallback, useEffect, useRef } = React;
+
+        const SETS = { lowercase: "abcdefghijklmnopqrstuvwxyz", uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ", numbers: "0123456789", symbols: "!@#$%^&*()-_=+[]{};:,.?/~" };
+
+        // Secure random index (crypto), used for every character
+        function randomIndex(max) {
+            const values = new Uint32Array(1);
+            crypto.getRandomValues(values);
+            return values[0] % max;
+        }
+
+        function makePassword(length, pool) {
+            let result = "";
+            for (let i = 0; i < length; i++) result += pool[randomIndex(pool.length)];
+            return result;
+        }
+
+        // ============================================
+        // MODULE 8 LESSON 5: FIELDS AND CHECKBOXES
+        // ============================================
+        function FieldsLesson() {
+            const [length, setLength] = useState(12);
+            const [numbers, setNumbers] = useState(true);
+
+            return (
+                <Lesson {...lessons[0]}>
+                    <h3>A range input</h3>
+                    <Terminal>{`<input type="range" min={6} max={100} value={length}
+       onChange={(e) => setLength(Number(e.target.value))} />
+<label>Length: {length}</label>`}</Terminal>
+                    <p>Range values arrive as text, so turn them into a number with <code>Number()</code> before storing them.</p>
+                    <h3>A checkbox</h3>
+                    <Terminal>{`<input type="checkbox" checked={numberAllowed}
+       onChange={() => setNumberAllowed((prev) => !prev)} />`}</Terminal>
+                    <p>Checkboxes use <code>checked</code>, not <code>value</code>. Flipping with <code>prev =&gt; !prev</code> always uses the latest value.</p>
+                    <div className="demo">
+                        <p className="demo-label">Live demo</p>
+                        <label className="demo-note"><input type="range" min="6" max="100" value={length} onChange={(e) => setLength(Number(e.target.value))} /> Length: <strong>{length}</strong></label>
+                        <br />
+                        <label className="demo-note"><input type="checkbox" checked={numbers} onChange={() => setNumbers((prev) => !prev)} /> Numbers allowed: <strong>{String(numbers)}</strong></label>
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function AutoDemo() {
+            const [length, setLength] = useState(14);
+            const [options, setOptions] = useState({ lowercase: true, uppercase: true, numbers: true, symbols: false });
+            const [password, setPassword] = useState("");
+            const [error, setError] = useState("");
+
+            const passwordGenerator = useCallback(() => {
+                const pool = Object.keys(options).filter((key) => options[key]).map((key) => SETS[key]).join("");
+                if (!pool) {
+                    setError("Choose at least one type of character.");
+                    setPassword("");
+                    return;
+                }
+                setError("");
+                setPassword(makePassword(length, pool));
+            }, [length, options]);
+
+            // A new password whenever anything changes
+            useEffect(() => { passwordGenerator(); }, [passwordGenerator]);
+
+            return (
+                <div className="demo" style={{ textAlign: "left" }}>
+                    <p className="demo-label">Live demo</p>
+                    <input readOnly value={password} aria-label="Password" style={{ width: "100%", boxSizing: "border-box", fontFamily: "monospace" }} />
+                    {error && <p className="form-error">{error}</p>}
+                    <label className="demo-note" style={{ display: "block", marginTop: 8 }}>
+                        <input type="range" min="6" max="40" value={length} onChange={(e) => setLength(Number(e.target.value))} /> Length: {length}
+                    </label>
+                    {Object.keys(options).map((key) => (
+                        <label key={key} className="demo-note" style={{ marginRight: 12 }}>
+                            <input type="checkbox" checked={options[key]} onChange={() => setOptions({ ...options, [key]: !options[key] })} /> {key}
+                        </label>
+                    ))}
+                </div>
+            );
+        }
+
+        function ConnectLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>To make a new password whenever a field changes, call the generator from <code>useEffect</code>:</p>
+                    <Terminal>{`useEffect(() => {
+  passwordGenerator();
+}, [passwordGenerator]);   // runs whenever passwordGenerator changes (when length or an option changes)`}</Terminal>
+                    <p>And stop the user choosing nothing at all:</p>
+                    <Terminal>{`if (!pool) {
+  setError("Choose at least one type of character.");
+  return;
+}`}</Terminal>
+                    <AutoDemo />
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 8</p>
+                        <h1>Fields and Checkboxes</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <FieldsLesson />
+                        <ConnectLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Strict Mode and Managing the Selected Category</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "strict", number: 1, title: "React Strict Mode" },
+            { id: "category", number: 2, title: "Managing the Selected Category" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 6 LESSON 1: STRICT MODE AND MANAGING THE SELECTED CATEGORY
+        // ============================================
+        function StrictLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        New React projects wrap the app in <code>{"<React.StrictMode>"}</code> in <code>index.js</code>.
+                        It's a <strong>development-only</strong> helper that looks for mistakes. It adds nothing to the page and does nothing in the built site.
+                    </p>
+                    <Terminal>{`root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);`}</Terminal>
+                    <ul>
+                        <li>It <strong>renders each component twice</strong> in development, to catch code that changes things it shouldn't while rendering.</li>
+                        <li>That's why a <code>console.log</code> in a component body can appear <strong>twice</strong>. It's expected, not a bug.</li>
+                        <li>It runs effects twice when a component first appears, to check they clean up properly.</li>
+                        <li>It warns about old, deprecated React features.</li>
+                    </ul>
+                    <p className="tip">If code only works because it runs once, Strict Mode will show the problem early. Pure components and immutable state updates are never affected.</p>
+                </Lesson>
+            );
+        }
+
+        const CATEGORIES = ["Read Emails", "Web Parsing", "Send Emails", "Reports"];
+
+        function MultiSelectDemo() {
+            const [single, setSingle] = useState("");
+            const [selected, setSelected] = useState([]);
+
+            const toggle = (category) => {
+                setSelected(selected.includes(category)
+                    ? selected.filter((c) => c !== category)   // remove
+                    : [...selected, category]);                // add
+            };
+
+            return (
+                <div className="demo" style={{ textAlign: "left" }}>
+                    <p className="demo-label">One category (a string)</p>
+                    <div className="demo-buttons" style={{ justifyContent: "flex-start", flexWrap: "wrap" }}>
+                        {CATEGORIES.map((c) => (
+                            <button key={c} className={single === c ? "" : "secondary"} aria-pressed={single === c} onClick={() => setSingle(c)}>{c}</button>
+                        ))}
+                    </div>
+                    <p className="demo-note">selected: <code>{JSON.stringify(single)}</code></p>
+
+                    <p className="demo-label" style={{ marginTop: 16 }}>Many categories (an array)</p>
+                    <div className="demo-buttons" style={{ justifyContent: "flex-start", flexWrap: "wrap" }}>
+                        {CATEGORIES.map((c) => (
+                            <button key={c} className={selected.includes(c) ? "" : "secondary"} aria-pressed={selected.includes(c)} onClick={() => toggle(c)}>{c}</button>
+                        ))}
+                    </div>
+                    <p className="demo-note">selected: <code>{JSON.stringify(selected)}</code></p>
+                </div>
+            );
+        }
+
+        function CategoryLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>For <strong>one</strong> category, a string in state is enough. For <strong>many</strong>, use an array and toggle items in and out, always making a new array:</p>
+                    <Terminal>{`const [selected, setSelected] = useState([]);
+
+const toggle = (category) => {
+  if (selected.includes(category)) {
+    setSelected(selected.filter((c) => c !== category));   // already chosen: remove it
+  } else {
+    setSelected([...selected, category]);                  // not chosen: add it
+  }
+};`}</Terminal>
+                    <MultiSelectDemo />
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 6</p>
+                        <h1>Strict Mode and Managing the Selected Category</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <StrictLesson />
+                        <CategoryLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

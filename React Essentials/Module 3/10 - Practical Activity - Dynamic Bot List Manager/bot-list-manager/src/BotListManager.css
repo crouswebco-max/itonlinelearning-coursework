@@ -1,0 +1,203 @@
+.bot-list-manager {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 40px 16px 64px;
+  color: #1e293b;
+}
+
+.bot-list-manager h1 {
+  margin: 0 0 20px;
+  font-size: clamp(30px, 6vw, 40px);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.filter {
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.filter[aria-pressed='true'] {
+  color: #ffffff;
+  background-color: #0f172a;
+  border-color: #0f172a;
+}
+
+.bot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bot {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'info status'
+    'actions actions';
+  gap: 12px;
+  padding: 18px 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.07);
+}
+
+.bot__info {
+  grid-area: info;
+}
+
+.bot__id {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.bot__name {
+  margin: 2px 0;
+  font-size: 19px;
+}
+
+.bot__task {
+  margin: 0;
+  color: #64748b;
+}
+
+.status {
+  grid-area: status;
+  align-self: start;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+.status--running {
+  color: #166534;
+  background-color: #dcfce7;
+}
+
+.status--completed {
+  color: #1e40af;
+  background-color: #dbeafe;
+}
+
+.status--stopped {
+  color: #991b1b;
+  background-color: #fee2e2;
+}
+
+.bot__actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bot__actions button,
+.add-bot button {
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.trigger {
+  color: #ffffff;
+  background-color: #087ea4;
+}
+
+.trigger:hover:not(:disabled) {
+  background-color: #066888;
+}
+
+.trigger:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.stop {
+  color: #92400e;
+  background-color: #fef3c7;
+}
+
+.delete {
+  margin-left: auto;
+  color: #b91c1c;
+  background-color: #fee2e2;
+}
+
+.delete:hover {
+  background-color: #fecaca;
+}
+
+.empty {
+  padding: 24px;
+  text-align: center;
+  color: #64748b;
+  background-color: #ffffff;
+  border-radius: 12px;
+}
+
+.add-bot {
+  margin-top: 28px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+}
+
+.add-bot h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+.add-bot__fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.add-bot label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.add-bot input {
+  padding: 9px 10px;
+  font-size: 15px;
+  border: 2px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.add-bot input:focus {
+  outline: none;
+  border-color: #087ea4;
+}
+
+.form-error {
+  margin: 0 0 12px;
+  font-weight: 600;
+  color: #b91c1c;
+}

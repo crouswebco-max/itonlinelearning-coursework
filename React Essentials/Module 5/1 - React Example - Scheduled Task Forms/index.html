@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Scheduled Task Forms</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "elements", number: 1, title: "The Form Elements" },
+            { id: "organise", number: 2, title: "Organising the Form" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 5 LESSON 1: SCHEDULED TASK FORMS
+        // ============================================
+        function ElementsLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>The job management app starts with a form to schedule a task. It's made from four kinds of form element:</p>
+                    <Terminal>{`<form>
+  <input type="text" className="bot-input" placeholder="Enter the job" />
+
+  <div className="bottom-line">
+    <button type="button">Read Emails</button>
+    <button type="button">Web Parsing</button>
+    <button type="button">Send Emails</button>
+  </div>
+
+  <select className="job-status">
+    <option value="start">Start Process</option>
+    <option value="running">Running</option>
+    <option value="completed">Completed</option>
+  </select>
+
+  <button type="submit" className="submit-data">Add Job</button>
+</form>`}</Terminal>
+                    <ul>
+                        <li><strong>input:</strong> free text, like the job's name.</li>
+                        <li><strong>buttons:</strong> quick choices, like the category.</li>
+                        <li><strong>select:</strong> one choice from a fixed list, like the status.</li>
+                        <li><strong>submit button:</strong> sends the form.</li>
+                    </ul>
+                    <p className="tip">
+                        Buttons inside a form <strong>submit it by default</strong>. Give the category buttons <code>type="button"</code>
+                        so clicking one doesn't send the form.
+                    </p>
+                </Lesson>
+            );
+        }
+
+        function ScheduleDemo() {
+            const [title, setTitle] = useState("");
+            const [category, setCategory] = useState("");
+            const [status, setStatus] = useState("start");
+            const [jobs, setJobs] = useState([]);
+
+            const handleSubmit = (event) => {
+                event.preventDefault();
+                if (!title.trim() || !category) return;
+                setJobs([...jobs, { id: Date.now(), title: title.trim(), category, status }]);
+                setTitle("");
+                setCategory("");
+            };
+
+            return (
+                <form className="demo" onSubmit={handleSubmit} style={{ textAlign: "left" }}>
+                    <p className="demo-label">Live demo</p>
+                    <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter the job" aria-label="Job" style={{ width: "100%", boxSizing: "border-box" }} />
+                    <div className="demo-buttons" style={{ justifyContent: "flex-start", flexWrap: "wrap", marginTop: 10 }}>
+                        {["Read Emails", "Web Parsing", "Send Emails"].map((name) => (
+                            <button key={name} type="button" className={category === name ? "" : "secondary"} aria-pressed={category === name} onClick={() => setCategory(name)}>{name}</button>
+                        ))}
+                        <select value={status} onChange={(e) => setStatus(e.target.value)} aria-label="Status" className="demo-select">
+                            <option value="start">Start Process</option>
+                            <option value="running">Running</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <button type="submit">Add Job</button>
+                    </div>
+                    <ul className="task-list">
+                        {jobs.map((job) => <li key={job.id}>{job.title} · {job.category} · {job.status}</li>)}
+                    </ul>
+                </form>
+            );
+        }
+
+        function OrganiseLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>
+                        Put the form in its own component, <code>JobForm</code>, and use it in <code>App</code> with
+                        <code> {"<JobForm />"}</code>. Give each part a <code>className</code> now so it's easy to style later.
+                        Here's a working version to try:
+                    </p>
+                    <ScheduleDemo />
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 5</p>
+                        <h1>Scheduled Task Forms</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <ElementsLesson />
+                        <OrganiseLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

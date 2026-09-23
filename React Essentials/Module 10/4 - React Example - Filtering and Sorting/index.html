@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Filtering and Sorting</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <!-- lodash, for _.orderBy -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "filter", number: 1, title: "Filtering by Rating" },
+            { id: "sort", number: 2, title: "Sorting with lodash" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        const { useEffect } = React;
+
+        // Sample movies shaped like TMDB's results (made-up data, so the demos work without an API key)
+        const SAMPLE = [
+            { id: 1, title: "Harbour Lights", release_date: "2019-05-10", vote_average: 7.4 },
+            { id: 2, title: "The Glass Orchard", release_date: "2023-02-11", vote_average: 8.6 },
+            { id: 3, title: "Northbound", release_date: "2016-09-02", vote_average: 6.1 },
+            { id: 4, title: "Paper Moons", release_date: "2024-11-20", vote_average: 8.1 },
+            { id: 5, title: "Iron Tide", release_date: "2021-07-15", vote_average: 5.8 },
+            { id: 6, title: "Quiet Hours", release_date: "2020-01-30", vote_average: 7.9 },
+            { id: 7, title: "Salt & Smoke", release_date: "2018-03-08", vote_average: 6.7 }
+        ];
+
+        // ============================================
+        // MODULE 10 LESSON 12: FILTERING AND SORTING
+        // (lodash loads from a CDN on this page, like the course's npm install lodash)
+        // ============================================
+        function FilterSortDemo() {
+            const [minRating, setMinRating] = useState(0);
+            const [sort, setSort] = useState({ by: "default", order: "asc" });
+            const [filterMovies, setFilterMovies] = useState(SAMPLE);
+
+            const handleFilter = (rate) => setMinRating(rate === minRating ? 0 : rate);
+            const handleSort = (e) => {
+                const { name, value } = e.target;
+                setSort((prev) => ({ ...prev, [name]: value }));
+            };
+
+            useEffect(() => {
+                const filtered = minRating > 0 ? SAMPLE.filter((m) => m.vote_average >= minRating) : SAMPLE;
+                setFilterMovies(sort.by === "default" ? filtered : _.orderBy(filtered, [sort.by], [sort.order]));
+            }, [minRating, sort]);
+
+            return (
+                <div className="demo" style={{ textAlign: "left" }}>
+                    <p className="demo-label">Live demo</p>
+                    <div className="demo-buttons" style={{ justifyContent: "flex-start", flexWrap: "wrap" }}>
+                        {[8, 7, 6].map((rate) => (
+                            <button key={rate} className={minRating === rate ? "" : "secondary"} aria-pressed={minRating === rate} onClick={() => handleFilter(rate)}>{rate}+ Star</button>
+                        ))}
+                        <select className="demo-select" name="by" value={sort.by} onChange={handleSort} aria-label="Sort by">
+                            <option value="default">Sort by</option>
+                            <option value="release_date">Date</option>
+                            <option value="vote_average">Rating</option>
+                        </select>
+                        <select className="demo-select" name="order" value={sort.order} onChange={handleSort} aria-label="Order">
+                            <option value="asc">Ascending</option>
+                            <option value="desc">Descending</option>
+                        </select>
+                    </div>
+                    <ul className="task-list">{filterMovies.map((m) => <li key={m.id}>{m.title} <span className="demo-note">{m.release_date} · ⭐ {m.vote_average}</span></li>)}</ul>
+                </div>
+            );
+        }
+
+        function FilterLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>Keep <strong>all</strong> the movies from the API in one state, and the <strong>shown</strong> ones in another. Filtering never loses data:</p>
+                    <Terminal>{`const [movies, setMovies] = useState([]);           // everything from the API
+const [filterMovies, setFilterMovies] = useState([]); // what's on screen
+const [minRating, setMinRating] = useState(0);
+
+const handleFilter = (rate) => {
+  setMinRating(rate === minRating ? 0 : rate);   // click the same button again to turn it off
+};`}</Terminal>
+                </Lesson>
+            );
+        }
+
+        function SortLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>The course sorts with <strong>lodash</strong> (<code>npm install lodash</code>). <code>_.orderBy</code> sorts by a property in either order, and returns a new array:</p>
+                    <Terminal>{`import _ from "lodash";
+
+const [sort, setSort] = useState({ by: "default", order: "asc" });
+
+const handleSort = (e) => {
+  const { name, value } = e.target;              // name is "by" or "order"
+  setSort((prev) => ({ ...prev, [name]: value }));
+};
+
+useEffect(() => {
+  const filtered = minRating > 0 ? movies.filter((m) => m.vote_average >= minRating) : movies;
+  setFilterMovies(sort.by === "default" ? filtered : _.orderBy(filtered, [sort.by], [sort.order]));
+}, [movies, minRating, sort]);`}</Terminal>
+                    <p className="tip">Filtering and sorting in the same effect means turning a filter on or off keeps your sort, and "Sort by" puts the original order back.</p>
+                    <FilterSortDemo />
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 10</p>
+                        <h1>Filtering and Sorting</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <FilterLesson />
+                        <SortLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

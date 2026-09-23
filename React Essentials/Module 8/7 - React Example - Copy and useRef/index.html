@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Adding Copy and useRef</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "ref", number: 1, title: "useRef" },
+            { id: "copy", number: 2, title: "Copying to the Clipboard" },
+            { id: "hook", number: 3, title: "Custom Hooks" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        const { useCallback, useEffect, useRef } = React;
+
+        const SETS = { lowercase: "abcdefghijklmnopqrstuvwxyz", uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ", numbers: "0123456789", symbols: "!@#$%^&*()-_=+[]{};:,.?/~" };
+
+        // Secure random index (crypto), used for every character
+        function randomIndex(max) {
+            const values = new Uint32Array(1);
+            crypto.getRandomValues(values);
+            return values[0] % max;
+        }
+
+        function makePassword(length, pool) {
+            let result = "";
+            for (let i = 0; i < length; i++) result += pool[randomIndex(pool.length)];
+            return result;
+        }
+
+        // ============================================
+        // MODULE 8 LESSON 7: ADDING COPY AND USEREF
+        // ============================================
+        function RefLesson() {
+            const inputRef = useRef(null);
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>
+                        <code>useRef</code> gives you a box that keeps its value between renders <strong>without causing a re-render</strong>.
+                        Its most common use is holding a <strong>DOM element</strong>, so you can call methods on it like <code>focus()</code> or <code>select()</code>:
+                    </p>
+                    <Terminal>{`const passwordRef = useRef(null);
+
+<input ref={passwordRef} value={password} readOnly />
+
+passwordRef.current.select();   // .current is the real <input> element`}</Terminal>
+                    <div className="demo">
+                        <p className="demo-label">Live demo</p>
+                        <input ref={inputRef} defaultValue="Select me with a ref" aria-label="Ref demo" />
+                        <div className="demo-buttons" style={{ marginTop: 10 }}>
+                            <button onClick={() => inputRef.current.focus()}>focus()</button>
+                            <button onClick={() => inputRef.current.select()}>select()</button>
+                        </div>
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function CopyDemo() {
+            const [password, setPassword] = useState(() => makePassword(16, SETS.lowercase + SETS.uppercase + SETS.numbers));
+            const [copied, setCopied] = useState(false);
+            const passwordRef = useRef(null);
+
+            const copyPasswordToClipboard = useCallback(async () => {
+                passwordRef.current?.select();                 // highlight it, so the user sees what was copied
+                try {
+                    await navigator.clipboard.writeText(password);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 1500);
+                } catch {
+                    alert("Copying is blocked here. The password is selected, so press Ctrl+C.");
+                }
+            }, [password]);
+
+            return (
+                <div className="demo" style={{ textAlign: "left" }}>
+                    <p className="demo-label">Live demo</p>
+                    <div className="demo-buttons" style={{ justifyContent: "flex-start" }}>
+                        <input ref={passwordRef} readOnly value={password} aria-label="Password" style={{ flex: 1, fontFamily: "monospace" }} />
+                        <button onClick={copyPasswordToClipboard} style={copied ? { background: "#067647" } : undefined}>{copied ? "Copied!" : "Copy"}</button>
+                    </div>
+                    <div className="demo-buttons" style={{ justifyContent: "flex-start", marginTop: 8 }}>
+                        <button className="secondary" onClick={() => setPassword(makePassword(16, SETS.lowercase + SETS.uppercase + SETS.numbers))}>New password</button>
+                    </div>
+                </div>
+            );
+        }
+
+        function CopyLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>The <strong>Clipboard API</strong> copies text. Selecting the input first with the ref shows the user what was copied:</p>
+                    <Terminal>{`const copyPasswordToClipboard = useCallback(async () => {
+  passwordRef.current?.select();
+  await navigator.clipboard.writeText(password);
+  setCopied(true);
+}, [password]);`}</Terminal>
+                    <ul>
+                        <li><code>writeText</code> returns a promise, so use <code>await</code> and <code>try</code> / <code>catch</code>. Some browsers block it.</li>
+                        <li>Clipboard access only works on <code>https://</code> pages or <code>localhost</code>.</li>
+                    </ul>
+                    <CopyDemo />
+                </Lesson>
+            );
+        }
+
+        function HookLesson() {
+            return (
+                <Lesson {...lessons[2]}>
+                    <p>
+                        A <strong>custom hook</strong> is a function whose name starts with <code>use</code>, which uses other hooks inside.
+                        It moves the logic out of the component, so the component just shows things:
+                    </p>
+                    <Terminal>{`function usePasswordGenerator() {
+  const [length, setLength] = useState(16);
+  const [password, setPassword] = useState("");
+  const passwordGenerator = useCallback(() => { ... }, [length]);
+  useEffect(() => { passwordGenerator(); }, [passwordGenerator]);
+  return { length, setLength, password, passwordGenerator };
+}
+
+// In the component
+const { length, setLength, password } = usePasswordGenerator();`}</Terminal>
+                    <p className="tip">Benefits: the component is shorter, the logic can be reused in other components, and it can be tested on its own.</p>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 8</p>
+                        <h1>Adding Copy and useRef</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <RefLesson />
+                        <CopyLesson />
+                        <HookLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

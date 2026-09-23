@@ -1,0 +1,101 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(14, 14, 19, 0.92);
+  border-bottom: 1px solid var(--colour-border);
+  backdrop-filter: blur(8px);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 14px 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.logoMark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  font-size: 0.9rem;
+  color: var(--colour-background);
+  background-color: var(--colour-accent);
+  border-radius: 8px;
+}
+
+.logoAccent {
+  color: var(--colour-accent);
+}
+
+.nav ul {
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav a {
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--colour-muted);
+  transition: color 0.2s;
+}
+
+.nav a:hover {
+  color: var(--colour-accent);
+}
+
+.menuButton {
+  display: none;
+  padding: 8px 14px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--colour-text);
+  background: none;
+  border: 1px solid var(--colour-border);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Bonus 1: on narrow screens the links become a drop-down menu */
+@media (max-width: 700px) {
+  .menuButton {
+    display: block;
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 12px 20px 20px;
+    background-color: var(--colour-surface);
+    border-bottom: 1px solid var(--colour-border);
+  }
+
+  .navOpen {
+    display: block;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    gap: 14px;
+  }
+}

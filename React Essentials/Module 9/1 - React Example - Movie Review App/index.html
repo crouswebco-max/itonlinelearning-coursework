@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Movie Review App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "setup", number: 1, title: "Setting Up the Project" },
+            { id: "font", number: 2, title: "Adding a Custom Font" },
+            { id: "modules", number: 3, title: "CSS Modules" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 9 LESSON 5: MOVIE REVIEW APP
+        // ============================================
+        function SetupLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>The next project is a <strong>movie review app</strong>. Start a new Vite project and clean out the starter code:</p>
+                    <Terminal>{`npm create vite@latest movie-review-app -- --template react
+cd movie-review-app
+npm install
+npm run dev`}</Terminal>
+                    <ul>
+                        <li>Delete the demo counter from <code>App.jsx</code> and the logo imports.</li>
+                        <li>Empty <code>App.css</code> and remove the starter styles from <code>index.css</code> you don't need.</li>
+                        <li>Make a <code>components</code> folder in <code>src</code> for everything you build.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function FontLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>A <strong>custom font</strong> can live inside your project instead of loading from Google each time:</p>
+                    <ol>
+                        <li>Download <strong>Montserrat</strong> from Google Fonts.</li>
+                        <li>Convert it to <strong>WOFF</strong> (Web Open Font Format), for example with transfonter.org. WOFF files are compressed for the web.</li>
+                        <li>Put the file in <code>src/assets/fonts</code>.</li>
+                        <li>Declare it with <code>@font-face</code> in <code>index.css</code>, then use it:</li>
+                    </ol>
+                    <Terminal>{`@font-face {
+  font-family: 'Montserrat';
+  src: url('./assets/fonts/Montserrat-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;   /* show text straight away in a fallback font */
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}`}</Terminal>
+                    <p className="tip">Add one <code>@font-face</code> per weight (400, 600, 700…) with the same <code>font-family</code> name. The browser picks the right file for each <code>font-weight</code>.</p>
+                </Lesson>
+            );
+        }
+
+        function ModulesLesson() {
+            return (
+                <Lesson {...lessons[2]}>
+                    <p><strong>CSS Modules</strong> keep each component's styles private. Name the file <code>*.module.css</code> and import it as an object:</p>
+                    <Terminal>{`/* Header.module.css */
+.header { background: #0e0e13; }
+.logo   { font-weight: 800; }
+
+// Header.jsx
+import styles from './Header.module.css';
+
+<header className={styles.header}>
+  <a className={styles.logo}>ReelTalk</a>
+</header>`}</Terminal>
+                    <p>Vite renames the classes (for example to <code>_header_x7k2a</code>), so a <code>.header</code> in another component can never clash with this one.</p>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 9</p>
+                        <h1>Movie Review App</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <SetupLesson />
+                        <FontLesson />
+                        <ModulesLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

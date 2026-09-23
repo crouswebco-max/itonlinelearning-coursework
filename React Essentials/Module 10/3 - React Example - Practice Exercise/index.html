@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Practice Exercise</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "exercise", number: 1, title: "The Practice Exercise" },
+            { id: "states", number: 2, title: "Loading and Error States" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        const { useEffect } = React;
+
+        // Sample movies shaped like TMDB's results (made-up data, so the demos work without an API key)
+        const SAMPLE = [
+            { id: 1, title: "Harbour Lights", release_date: "2019-05-10", vote_average: 7.4 },
+            { id: 2, title: "The Glass Orchard", release_date: "2023-02-11", vote_average: 8.6 },
+            { id: 3, title: "Northbound", release_date: "2016-09-02", vote_average: 6.1 },
+            { id: 4, title: "Paper Moons", release_date: "2024-11-20", vote_average: 8.1 },
+            { id: 5, title: "Iron Tide", release_date: "2021-07-15", vote_average: 5.8 },
+            { id: 6, title: "Quiet Hours", release_date: "2020-01-30", vote_average: 7.9 },
+            { id: 7, title: "Salt & Smoke", release_date: "2018-03-08", vote_average: 6.7 }
+        ];
+
+        // ============================================
+        // MODULE 10 LESSON 11: PRACTICE EXERCISE
+        // ============================================
+        // Pretends to be the TMDB request: waits, then returns the sample movies
+        const fakeFetchMovies = (fail) => new Promise((resolve, reject) => setTimeout(() => (fail ? reject(new Error("The API key was rejected (401).")) : resolve(SAMPLE)), 700));
+
+        function PracticeDemo() {
+            const [movies, setMovies] = useState([]);
+            const [isLoading, setIsLoading] = useState(true);
+            const [error, setError] = useState("");
+            const [fail, setFail] = useState(false);
+            const [reloads, setReloads] = useState(0);
+
+            useEffect(() => {
+                let ignore = false;
+                setIsLoading(true);
+                setError("");
+                fakeFetchMovies(fail)
+                    .then((results) => { if (!ignore) setMovies(results); })
+                    .catch((err) => { if (!ignore) setError(err.message); })
+                    .finally(() => { if (!ignore) setIsLoading(false); });
+                return () => { ignore = true; };
+            }, [fail, reloads]);
+
+            return (
+                <div className="demo" style={{ textAlign: "left" }}>
+                    <p className="demo-label">Live demo (sample data, no key needed)</p>
+                    <div className="demo-buttons" style={{ justifyContent: "flex-start", flexWrap: "wrap" }}>
+                        <button onClick={() => setReloads(reloads + 1)}>Reload</button>
+                        <label className="demo-note"><input type="checkbox" checked={fail} onChange={(e) => setFail(e.target.checked)} /> Pretend the key is wrong</label>
+                    </div>
+                    {isLoading && <p className="demo-note">Loading movies…</p>}
+                    {!isLoading && error && <p className="form-error">{error}</p>}
+                    {!isLoading && !error && (
+                        <ul className="task-list">{movies.map((m) => <li key={m.id}>{m.title} <span className="demo-note">{m.release_date.slice(0, 4)} · ⭐ {m.vote_average}</span></li>)}</ul>
+                    )}
+                </div>
+            );
+        }
+
+        function ExerciseLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>The practice exercise: make a <code>MovieList</code> that fetches the popular movies and shows a <code>MovieCard</code> for each one.</p>
+                    <Terminal>{`const MovieList = () => {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    fetchMovies();
+  }, []);
+
+  const fetchMovies = async () => {
+    const response = await fetch(\`https://api.themoviedb.org/3/movie/popular?api_key=\${API_KEY}\`);
+    const data = await response.json();
+    setMovies(data.results);
+  };
+
+  return (
+    <section className="movie_list">
+      {movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+    </section>
+  );
+};`}</Terminal>
+                    <p>A poster's full address is <code>https://image.tmdb.org/t/p/w500</code> followed by the movie's <code>poster_path</code>.</p>
+                </Lesson>
+            );
+        }
+
+        function StatesLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>Real requests take time and can fail, so a good list shows three states: <strong>loading</strong>, <strong>error</strong> and <strong>the data</strong>:</p>
+                    <Terminal>{`const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState("");
+
+fetchMovies("popular")
+  .then(setMovies)
+  .catch((err) => setError(err.message))
+  .finally(() => setIsLoading(false));`}</Terminal>
+                    <PracticeDemo />
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 10</p>
+                        <h1>Practice Exercise</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <ExerciseLesson />
+                        <StatesLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

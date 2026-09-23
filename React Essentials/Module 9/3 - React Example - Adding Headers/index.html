@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Adding Headers</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "header", number: 1, title: "A Header Component" },
+            { id: "menu", number: 2, title: "A Menu for Small Screens" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 9 LESSON 6: ADDING HEADERS
+        // ============================================
+        const NAV = ["Home", "Movies", "Reviews", "About"];
+
+        function DemoHeader() {
+            const [open, setOpen] = useState(false);
+            const [active, setActive] = useState("Home");
+            return (
+                <div className="movie-header">
+                    <div className="movie-header__bar">
+                        <span className="movie-header__logo">▶ Reel<b>Talk</b></span>
+                        <button className="movie-header__menu" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? "Close" : "Menu"}</button>
+                    </div>
+                    <nav aria-label="Demo" className={open ? "movie-header__nav movie-header__nav--open" : "movie-header__nav"}>
+                        {NAV.map((item) => (
+                            <a key={item} href="#nav" aria-current={active === item ? "page" : undefined} onClick={(e) => { e.preventDefault(); setActive(item); setOpen(false); }}>{item}</a>
+                        ))}
+                    </nav>
+                </div>
+            );
+        }
+
+        function HeaderLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>The header is a component with a logo and navigation links, stored in <code>src/components/Header.jsx</code>:</p>
+                    <Terminal>{`function Header() {
+  return (
+    <header className={styles.header}>
+      <a href="#home" className={styles.logo}>ReelTalk</a>
+      <nav aria-label="Main">
+        <ul>
+          {LINKS.map((link) => (
+            <li key={link.href}><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+  );
+}`}</Terminal>
+                    <ul>
+                        <li>Use <code>{"<header>"}</code> and <code>{"<nav>"}</code>, so screen readers know what they are.</li>
+                        <li>Build the links from an <strong>array</strong> with <code>.map()</code>, so adding a page is one line.</li>
+                        <li><code>position: sticky; top: 0;</code> keeps the header visible while scrolling.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function MenuLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>On a phone there's no room for every link. A <strong>menu button</strong> with state shows and hides them. Make the window narrow to see it fold up:</p>
+                    <DemoHeader />
+                    <Terminal>{`const [menuOpen, setMenuOpen] = useState(false);
+
+<button aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
+  {menuOpen ? "Close" : "Menu"}
+</button>
+<nav className={menuOpen ? "nav nav--open" : "nav"}>…</nav>`}</Terminal>
+                    <p className="tip"><code>aria-expanded</code> tells screen readers whether the menu is open. <code>aria-current="page"</code> marks the page you're on.</p>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 9</p>
+                        <h1>Adding Headers</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <HeaderLesson />
+                        <MenuLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

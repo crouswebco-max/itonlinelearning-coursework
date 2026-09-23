@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Add and Remove Elements</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "adding", number: 1, title: "Adding Elements" },
+            { id: "removing", number: 2, title: "Removing Elements" },
+            { id: "form", number: 3, title: "Adding from a Form" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // ============================================
+        // MODULE 4 LESSON 1: ADD AND REMOVE ELEMENTS
+        // ============================================
+        function ShoppingDemo() {
+            const [items, setItems] = useState([
+                { id: 1, name: "Milk" },
+                { id: 2, name: "Bread" }
+            ]);
+            const [text, setText] = useState("");
+
+            const addItem = (event) => {
+                event.preventDefault();
+                if (text.trim() === "") return;
+                setItems([...items, { id: Date.now(), name: text.trim() }]);
+                setText("");
+            };
+
+            const removeItem = (id) => setItems(items.filter((item) => item.id !== id));
+
+            return (
+                <div className="demo" style={{ textAlign: "left" }}>
+                    <p className="demo-label">Live demo</p>
+                    <form onSubmit={addItem} className="demo-buttons" style={{ justifyContent: "flex-start" }}>
+                        <input value={text} onChange={(event) => setText(event.target.value)} placeholder="Add an item" aria-label="Add an item" style={{ flex: 1 }} />
+                        <button type="submit">Add</button>
+                    </form>
+                    <ul className="task-list">
+                        {items.map((item) => (
+                            <li key={item.id}>
+                                {item.name}
+                                <button className="secondary" onClick={() => removeItem(item.id)} aria-label={`Remove ${item.name}`}>✕</button>
+                            </li>
+                        ))}
+                    </ul>
+                    {items.length === 0 && <p className="demo-note">The list is empty.</p>}
+                </div>
+            );
+        }
+
+        function AddLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>To add an element to the page, add an item to the <strong>state array</strong>. React draws a new element for it.</p>
+                    <Terminal>{`const [items, setItems] = useState([]);
+
+const addItem = () => {
+  setItems([...items, { id: Date.now(), name: text }]);   // copy + the new one
+};`}</Terminal>
+                    <ul>
+                        <li>The <strong>spread operator</strong> <code>...items</code> copies the old items into a new array.</li>
+                        <li>Never use <code>items.push()</code>: it changes the old array, and React won't notice.</li>
+                        <li>Give each new item a unique <code>id</code> to use as its <code>key</code>.</li>
+                    </ul>
+                </Lesson>
+            );
+        }
+
+        function RemoveLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <p>To remove an element, <strong>filter</strong> it out of the array. <code>filter</code> returns a new array with every item that passes the test:</p>
+                    <Terminal>{`const removeItem = (id) => {
+  setItems(items.filter((item) => item.id !== id));   // keep everything except this one
+};
+
+<button onClick={() => removeItem(item.id)}>✕</button>`}</Terminal>
+                    <p className="tip">
+                        The arrow function <code>{"() => removeItem(item.id)"}</code> is needed so the function runs <em>on click</em> with that item's id,
+                        not straight away while the list is drawn.
+                    </p>
+                    <ShoppingDemo />
+                </Lesson>
+            );
+        }
+
+        function FormLesson() {
+            return (
+                <Lesson {...lessons[2]}>
+                    <p>For items with several fields, keep the new item in one state object while the user types:</p>
+                    <Terminal>{`const [newBot, setNewBot] = useState({ id: "", name: "", status: "" });
+
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  setNewBot({ ...newBot, [name]: value });          // copy, then change one field
+};
+
+const addBot = () => {
+  if (!newBot.id || !newBot.name || !newBot.status) return;   // validate
+  setBots([...bots, newBot]);                                  // add
+  setNewBot({ id: "", name: "", status: "" });                 // clear the inputs
+};`}</Terminal>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 4</p>
+                        <h1>Add and Remove Elements</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <AddLesson />
+                        <RemoveLesson />
+                        <FormLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

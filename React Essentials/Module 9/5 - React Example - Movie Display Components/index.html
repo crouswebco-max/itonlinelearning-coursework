@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Creating Movie Display Components</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "card", number: 1, title: "The MovieCard Component" },
+            { id: "list", number: 2, title: "The MovieList Component" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // Sample movies for the demos (made-up data; real data comes from an API in Module 10)
+        const MOVIES = [
+            { id: 1, title: "The Last Lighthouse", year: 2023, genre: "Drama", rating: 8.4, colours: ["#1e3a8a", "#0ea5e9"] },
+            { id: 2, title: "Neon Harbour", year: 2024, genre: "Sci-Fi", rating: 7.9, colours: ["#581c87", "#ec4899"] },
+            { id: 3, title: "Paper Kingdoms", year: 2022, genre: "Animation", rating: 8.8, colours: ["#9a3412", "#fbbf24"] },
+            { id: 4, title: "Silent Orbit", year: 2021, genre: "Sci-Fi", rating: 6.7, colours: ["#0f172a", "#64748b"] },
+            { id: 5, title: "Wild Tide", year: 2024, genre: "Adventure", rating: 7.2, colours: ["#065f46", "#34d399"] },
+            { id: 6, title: "Midnight Recipe", year: 2023, genre: "Comedy", rating: 7.6, colours: ["#7f1d1d", "#f97316"] }
+        ];
+
+        // ============================================
+        // MODULE 9 LESSON 8: CREATING MOVIE DISPLAY COMPONENTS
+        // ============================================
+        function Stars({ rating }) {
+            const outOfFive = Math.round(rating / 2);
+            return (
+                <span className="stars" aria-label={`Rated ${rating} out of 10`}>
+                    {"★".repeat(outOfFive)}<span className="stars__empty">{"★".repeat(5 - outOfFive)}</span>
+                </span>
+            );
+        }
+
+        function MovieCard({ movie, isFavourite, onToggleFavourite }) {
+            return (
+                <article className="movie-card">
+                    <div className="movie-card__poster" style={{ background: `linear-gradient(160deg, ${movie.colours[0]}, ${movie.colours[1]})` }} role="img" aria-label={`${movie.title} poster`}>
+                        <span>{movie.title}</span>
+                    </div>
+                    <div className="movie-card__body">
+                        <h4>{movie.title}</h4>
+                        <p className="movie-card__meta">{movie.year} · {movie.genre}</p>
+                        <p className="movie-card__rating"><Stars rating={movie.rating} /> {movie.rating.toFixed(1)}</p>
+                        <button className={isFavourite ? "" : "secondary"} aria-pressed={isFavourite} onClick={() => onToggleFavourite(movie.id)}>
+                            {isFavourite ? "♥ Saved" : "♡ Save"}
+                        </button>
+                    </div>
+                </article>
+            );
+        }
+
+        function MovieList({ movies, favourites, onToggleFavourite }) {
+            return (
+                <div className="movie-grid">
+                    {movies.map((movie) => (
+                        <MovieCard key={movie.id} movie={movie} isFavourite={favourites.includes(movie.id)} onToggleFavourite={onToggleFavourite} />
+                    ))}
+                </div>
+            );
+        }
+
+        function CardLesson() {
+            return (
+                <Lesson {...lessons[0]}>
+                    <p><code>MovieCard</code> shows <strong>one</strong> movie from its props. It doesn't know or care where the data came from:</p>
+                    <Terminal>{`function MovieCard({ movie }) {
+  return (
+    <article className="movie-card">
+      <img src={movie.poster} alt={\`\${movie.title} poster\`} />
+      <h3>{movie.title}</h3>
+      <p>{movie.year} · {movie.genre}</p>
+      <p>★ {movie.rating.toFixed(1)}</p>
+    </article>
+  );
+}`}</Terminal>
+                    <p className="tip">Keep display components "dumb": props in, JSX out. Then the same card works with sample data now and API data later.</p>
+                </Lesson>
+            );
+        }
+
+        function ListLesson() {
+            const [favourites, setFavourites] = useState([3]);
+            const [sortBy, setSortBy] = useState("rating");
+            const toggle = (id) => setFavourites(favourites.includes(id) ? favourites.filter((f) => f !== id) : [...favourites, id]);
+            const sorted = [...MOVIES].sort((a, b) => (sortBy === "rating" ? b.rating - a.rating : sortBy === "year" ? b.year - a.year : a.title.localeCompare(b.title)));
+
+            return (
+                <Lesson {...lessons[1]}>
+                    <p><code>MovieList</code> maps an array into cards and lays them out with CSS Grid:</p>
+                    <Terminal>{`function MovieList({ movies }) {
+  return (
+    <div className="movie-grid">
+      {movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+    </div>
+  );
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}`}</Terminal>
+                    <div className="demo" style={{ textAlign: "left" }}>
+                        <p className="demo-label">Live demo</p>
+                        <label className="demo-note">Sort by{" "}
+                            <select className="demo-select" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                                <option value="rating">Rating</option>
+                                <option value="year">Newest</option>
+                                <option value="title">Title</option>
+                            </select>
+                        </label>
+                        <MovieList movies={sorted} favourites={favourites} onToggleFavourite={toggle} />
+                        <p className="demo-note">Saved: {favourites.length === 0 ? "none" : MOVIES.filter((m) => favourites.includes(m.id)).map((m) => m.title).join(", ")}</p>
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 9</p>
+                        <h1>Creating Movie Display Components</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <CardLesson />
+                        <ListLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>

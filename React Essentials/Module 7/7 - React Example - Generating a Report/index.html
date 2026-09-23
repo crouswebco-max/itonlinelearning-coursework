@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example: Generating a Report</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+    <!-- jsPDF (browser build), so the Download PDF Report button works -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const lessons = [
+            { id: "pdf", number: 1, title: "A PDF with jsPDF" },
+            { id: "memo", number: 2, title: "Showing the Button, useMemo and useCallback" }
+        ];
+
+        function Terminal({ children }) {
+            return <pre className="terminal"><code>{children}</code></pre>;
+        }
+
+        function Lesson({ id, number, title, children }) {
+            return (
+                <section id={id} className="lesson">
+                    <p className="lesson-number">Lesson {number}</p>
+                    <h2>{title}</h2>
+                    {children}
+                </section>
+            );
+        }
+
+        // The same calculation as the Money Builder app's util/investment.js
+        function calculateInvestmentResults({ initialInvestment, annualInvestment, expectedReturn, duration }) {
+            const annualData = [];
+            let investmentValue = initialInvestment;
+            for (let i = 0; i < duration; i++) {
+                const interestEarnedInYear = investmentValue * (expectedReturn / 100);
+                investmentValue += interestEarnedInYear + annualInvestment;
+                annualData.push({ year: i + 1, interest: interestEarnedInYear, valueEndOfYear: investmentValue, annualInvestment });
+            }
+            return annualData;
+        }
+
+        const formatter = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+        const START = { initialInvestment: 10000, annualInvestment: 1200, expectedReturn: 6, duration: 5 };
+        const LABELS = { initialInvestment: "Initial ($)", annualInvestment: "Annual ($)", expectedReturn: "Return (%)", duration: "Years" };
+
+        function Inputs({ values, onChange }) {
+            return (
+                <div className="form-grid">
+                    {Object.keys(LABELS).map((key) => (
+                        <label key={key}>{LABELS[key]}
+                            <input type="number" min="0" value={values[key]} onChange={(e) => onChange(key, e.target.value)} />
+                        </label>
+                    ))}
+                </div>
+            );
+        }
+        const { useMemo } = React;
+
+        // ============================================
+        // MODULE 7 LESSON 7: GENERATING A REPORT
+        // (jsPDF loads from a CDN on this page, so the button really downloads a PDF)
+        // ============================================
+        function generatePDF(inputValue, resultData) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(18);
+            doc.text("Investment Report", 14, 20);
+            doc.setFontSize(11);
+            doc.text(`Initial: ${formatter.format(inputValue.initialInvestment)}   Annual: ${formatter.format(inputValue.annualInvestment)}`, 14, 30);
+            doc.text(`Return: ${inputValue.expectedReturn}%   Duration: ${inputValue.duration} years`, 14, 37);
+            let y = 50;
+            doc.text("Year      Value            Interest", 14, y);
+            resultData.forEach((row) => {
+                y += 7;
+                doc.text(`${String(row.year).padEnd(8)}  ${formatter.format(row.valueEndOfYear).padEnd(15)}  ${formatter.format(row.interest)}`, 14, y);
+            });
+            doc.save("investment-report.pdf");
+        }
+
+        function ReportLesson() {
+            const [userInput, setUserInput] = useState(START);
+            const [message, setMessage] = useState("");
+
+            // useMemo: only recalculate when userInput changes
+            const resultData = useMemo(() => calculateInvestmentResults(userInput), [userInput]);
+
+            return (
+                <Lesson {...lessons[0]}>
+                    <p>A <strong>library</strong> can do jobs React doesn't, like making a PDF. <code>jspdf</code> is installed with npm, then imported:</p>
+                    <Terminal>{`npm install jspdf
+
+// util/generateReport.js
+import { jsPDF } from "jspdf";
+
+export function generatePDF(inputValue, resultData) {
+  const doc = new jsPDF();
+  doc.text("Investment Report", 14, 20);
+  resultData.forEach((row, i) => doc.text(\`Year \${row.year}: \${formatter.format(row.valueEndOfYear)}\`, 14, 40 + i * 7));
+  doc.save("investment-report.pdf");
+}`}</Terminal>
+                    <div className="demo" style={{ textAlign: "left" }}>
+                        <p className="demo-label">Live demo</p>
+                        <Inputs values={userInput} onChange={(key, value) => setUserInput({ ...userInput, [key]: Math.max(0, +value) })} />
+                        {resultData.length > 0 && (
+                            <div className="demo-buttons" style={{ justifyContent: "flex-start", marginTop: 12 }}>
+                                <button onClick={() => { generatePDF(userInput, resultData); setMessage("Downloaded investment-report.pdf"); }}>Download PDF Report</button>
+                            </div>
+                        )}
+                        {message && <p className="demo-note">✅ {message}</p>}
+                    </div>
+                </Lesson>
+            );
+        }
+
+        function MemoLesson() {
+            return (
+                <Lesson {...lessons[1]}>
+                    <h3>Only show the button when there are results</h3>
+                    <Terminal>{`{resultData.length > 0 && <button onClick={handleDownload}>Download PDF Report</button>}`}</Terminal>
+                    <h3>useMemo and useCallback</h3>
+                    <Terminal>{`// Remember a calculated VALUE until userInput changes
+const resultData = useMemo(() => calculateInvestmentResults(userInput), [userInput]);
+
+// Remember a FUNCTION until its dependencies change
+const handleDownload = useCallback(() => generatePDF(userInput, resultData), [userInput, resultData]);`}</Terminal>
+                    <p className="tip">Both skip repeated work when the component re-renders for another reason. For small calculations like this the gain is tiny, so use them where the work is slow.</p>
+                </Lesson>
+            );
+        }
+
+        function App() {
+            return (
+                <>
+                    <header className="site-header">
+                        <p className="course">React Essentials · Module 7</p>
+                        <h1>Generating a Report</h1>
+                        <nav aria-label="Lessons">
+                            <ul>
+                                {lessons.map((lesson) => (
+                                    <li key={lesson.id}>
+                                        <a href={`#${lesson.id}`}>{lesson.number}. {lesson.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </header>
+                    <main>
+                        <ReportLesson />
+                        <MemoLesson />
+                    </main>
+                    <footer className="site-footer">
+                        <p>Built with React {React.version}</p>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <noscript>This page is built with React, so it needs JavaScript turned on.</noscript>
+</body>
+</html>
